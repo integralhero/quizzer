@@ -1,0 +1,17 @@
+#announcements {
+	background: aliceblue;
+	padding: 20px;
+}
+
+#activities {
+	padding-bottom: 20px;
+	margin-top: 10px;
+}
+
+#messages {
+	padding-bottom: 20px;
+	margin-top: 10px;
+}
+#logoutBtn {
+	float: right;
+}
