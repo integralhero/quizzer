@@ -4,11 +4,6 @@ import java.sql.*;
 import java.util.*;
 
 public class UserDao {
-<<<<<<< HEAD
-	static private Connection connection = Database.connect();
-	
-	static public void addUser(User user) {
-=======
 	private static Connection connection = Database.connect();
 	
 	
@@ -42,7 +37,6 @@ public class UserDao {
 	}
 	
 	public static void addUser(User user) {
->>>>>>> 1e1c72f4957441403c45e455c3ce629db8fcfaa3
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("insert into users(username, password, email) values (?,?,?)");
 			prepStmt.setString(1, user.getUsername());
