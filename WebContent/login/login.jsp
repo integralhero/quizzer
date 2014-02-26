@@ -2,16 +2,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Login Example</title>
+<title>Login</title>
 </head>
+
 <body>
-	<h2>A Basic Login App</h2>
-	<form action="LoginServlet" method="post" > 
+	<h2>Welcome!</h2>
+	<form name="login" action="LoginServlet" method="post" > 
 		Username: <input type="text" name="username"><BR>
-		Password: <input type="password" name="password">
+		Password: <input type="password" name="password"><BR>
 		<input type="submit" value="Login"><BR>
-		<a href="create.html">Create New Account</a>
-		
+		<a href="newuser.jsp">Create New Account</a>
 	</form>
 </body>
 </html>

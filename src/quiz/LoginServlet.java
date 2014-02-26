@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LoginServlet
@@ -29,30 +30,27 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountManager manager = (AccountManager) request.getServletContext().getAttribute("manager");
-		String username = request.getParameter("username");
-		String pass = request.getParameter("password");
-		if(manager.authenticate(username, pass)) { //correct
-			PrintWriter out = response.getWriter();
-			out.println("<!DOCTYPE html>");
-			out.println("<head>");
-			out.println("<meta charset=\"UTF-8\" />");
-			out.println("<title>Welcome!</title>");
-			out.println("</head>");
-			out.println("<body>");
-			out.println("<h2>Welcome " + username + "!</h2>");
-			out.println("</body>");
-			out.println("</html>");
+		
+		User user = new User();
+		user.setUsername(request.getParameter("username"));
+		user.setPassword(request.getParameter("password"));
+		
+		if(UserDao.validateUser(user)) { 
+			HttpSession session = request.getSession(true); 
+			session.setAttribute("currentUser",user); 
+			response.sendRedirect("/Quizzer/index.jsp"); //logged-in page 
+			
 		}
 		else {
-			RequestDispatcher dispatch = request.getRequestDispatcher("badpassword.html");
+
+			RequestDispatcher dispatch = request.getRequestDispatcher("create.html");
 			dispatch.forward(request, response);
 		}
 	}

@@ -4,13 +4,9 @@ import java.sql.*;
 import java.util.*;
 
 public class UserDao {
-	private Connection connection;
+	static private Connection connection = Database.connect();
 	
-	public UserDao() {
-		connection = Database.connect();
-	}
-	
-	public void addUser(User user) {
+	static public void addUser(User user) {
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("insert into users(username, password, email) values (?,?,?)");
 			prepStmt.setString(1, user.getUsername());
@@ -23,7 +19,7 @@ public class UserDao {
 		}
 	}
 	
-	public void deleteUser(int userId) {
+	static public void deleteUser(int userId) {
 		PreparedStatement prepStmt;
 		try {
 			prepStmt = connection.prepareStatement("delete from users where userid=?");
@@ -35,7 +31,7 @@ public class UserDao {
 		}
 	}
 	
-	public void updateUser(User user) {
+	static public void updateUser(User user) {
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("update users set username=?, password=?, email=? "+ "where userid=?" );
 			prepStmt.setString(1, user.getUsername());
@@ -48,8 +44,31 @@ public class UserDao {
 			e.printStackTrace();
 		}
 	}
+
+	static public boolean validateUser(User user) {
+		
+		boolean check = false;
+		
+		try {
+			String username = user.getUsername();
+			String password = user.getPassword();
+			String command = "SELECT 1 FROM users WHERE username =\"" + username + "\" AND password = \"" + password  + "\"";
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			
+			check = rs.next();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return check;
+
+	}
 	
-	public List<User> getAllUser() {
+	static public List<User> getAllUser() {
 		List<User> users = new ArrayList<User>();
 		try {
 			Statement statement = connection.createStatement();
@@ -69,7 +88,7 @@ public class UserDao {
 		return users;
 	}
 	
-	public User getUserById(int userId) {
+	static public User getUserById(int userId) {
 		User user = new User();
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("select * from users where userid=?");
