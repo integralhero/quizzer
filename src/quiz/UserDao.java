@@ -4,19 +4,21 @@ import java.sql.*;
 import java.util.*;
 
 public class UserDao {
-	private Connection connection;
+	private static Connection connection = Database.connect();
 	
-	public UserDao() {
-		connection = Database.connect();
-	}
 	
-	public boolean checkUserNameExists(String username) {
+	public static boolean checkUserNameExists(String username) {
+		System.out.println("Username: "+username);
 		try {
-			
+			System.out.println("in checkusernameexists");
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("select from users where username = " + "\"" + username + "\"");
+			ResultSet rs = stmt.executeQuery("SELECT 1 FROM users WHERE username = " + "\"" + username + "\"");
+			//boolean a = rs.next();
+			//while (rs.next()) System.out.println(rs.getString("username"));
+//			System.out.println(rs == null);
 			boolean more = rs.next();
-			
+
+			System.out.println(more);
 			if (!more) {
 				System.out.println("User does not exist.");
 				return false;
@@ -24,13 +26,17 @@ public class UserDao {
 				System.out.println("User does exist.");
 				return true;
 			}
-		} catch (SQLException e) {
+		
+		}
+
+       catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("HAHAHAH");
 		return false;
 	}
 	
-	public void addUser(User user) {
+	public static void addUser(User user) {
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("insert into users(username, password, email) values (?,?,?)");
 			prepStmt.setString(1, user.getUsername());

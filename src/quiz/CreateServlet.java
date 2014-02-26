@@ -37,17 +37,19 @@ public class CreateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		UserDao dao = new UserDao();
+
 		ServletContext context = request.getServletContext();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
-		boolean userNameExists = dao.checkUserNameExists(username);
-		
+		boolean userNameExists = UserDao.checkUserNameExists(username);
+//		System.out.println("userNameExists");
+//		System.out.println(userNameExists);
+
 		if (userNameExists) { // when the user name is already in the database
-			
+//			System.out.println("userNameExists");
 			context.setAttribute("isUsernameTaken", userNameExists);
+			
 			RequestDispatcher dispatch = request.getRequestDispatcher("create.jsp");
 			dispatch.forward(request, response);
 			
@@ -57,9 +59,9 @@ public class CreateServlet extends HttpServlet {
 			user.setUsername(username);
 			user.setPassword(password);
 			user.setEmail(email);
-			dao.addUser(user);
+			UserDao.addUser(user);
 			
-			RequestDispatcher dispatch = request.getRequestDispatcher("/Quizzer/index.html");
+			RequestDispatcher dispatch = request.getRequestDispatcher("/index.html");
 			dispatch.forward(request,response);
 			
 		}

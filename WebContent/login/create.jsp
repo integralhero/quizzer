@@ -9,18 +9,21 @@
 
 <body>
 	<%
-		if ((Boolean)application.getAttribute("isUsernameTaken")) {
-			out.println("<h2>Username Taken!</h2>");
+		if (application.getAttribute("isUsernameTaken") != null) { 
+			if ((Boolean)application.getAttribute("isUsernameTaken")) {
+				out.println("<h2>Username Taken!</h2>");
+			} else {
+				out.println("<h2>Create New Account!</h2>");
+			}
 		} else {
 			out.println("<h2>Create New Account!</h2>");
 		}
 	%>
-	
 	<form id="create_new_user_form" action="CreateServlet" method="post" > 
-		Email Address: <input type ="text" id="email"><BR>
-		Username: <input type="text" id="username"><BR>
-		Password: <input type="password" id="password"><BR>
-		Re-enter Password: <input type="password" id="passwordcheck"><BR>
+		Email Address: <input type ="text" id="email" name = "email"><BR>
+		Username: <input type="text" id="username" name = "username"><BR>
+		Password: <input type="password" id="password" name = "password"><BR>
+		Re-enter Password: <input type="password" id="passwordcheck" name = "passwordcheck"><BR>
 		<input type="submit" value="Create"><BR>
 	</form>
 </body>
