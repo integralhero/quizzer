@@ -6,6 +6,25 @@ import java.util.*;
 public class UserDao {
 	private static Connection connection = Database.connect();
 	
+	public static ArrayList<User> getAllUsersMatching(String username) {
+		ArrayList<User> al = new ArrayList<User>();
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username = " + "\"" + username + "\"");
+			while(rs.next()) {
+				User tmpUser = new User();
+				tmpUser.setUsername(rs.getString("username"));
+				tmpUser.setPassword(rs.getString("password"));
+				tmpUser.setEmail(rs.getString("email"));
+				tmpUser.setUserid(rs.getInt("id"));
+				al.add(tmpUser);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return al;
+	}
 	
 	public static boolean checkUserNameExists(String username) {
 		System.out.println("Username: "+username);
@@ -121,12 +140,11 @@ public class UserDao {
 	static public User getUserById(int userId) {
 		User user = new User();
 		try {
-			PreparedStatement prepStmt = connection.prepareStatement("select * from users where userid=?");
-			prepStmt.setInt(1, userId);
-			ResultSet rs = prepStmt.executeQuery();
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE id = " + "\"" + userId + "\"");
 			
 			if(rs.next()) {
-				user.setUserid(rs.getInt("userid"));
+				user.setUserid(rs.getInt("id"));
 				user.setUsername(rs.getString("username"));
 				user.setPassword(rs.getString("password"));
 				user.setEmail(rs.getString("email"));
