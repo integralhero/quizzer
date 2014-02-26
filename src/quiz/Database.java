@@ -4,6 +4,7 @@ package quiz;
 import java.sql.*;
 
 public class Database {
+	
 	public static Connection connect() {
 		String host = MyDBInfo.MYSQL_DATABASE_SERVER;
 		String user = MyDBInfo.MYSQL_USERNAME;
