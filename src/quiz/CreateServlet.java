@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,30 +37,33 @@ public class CreateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountManager manager = (AccountManager) request.getServletContext().getAttribute("manager");
-		String username = request.getParameter("username");
-		String pass = request.getParameter("password");
-		//manager.printAccounts();
-		//System.out.println(username+ "---------------");
-		if(manager.accountExists(username)) {
-			RequestDispatcher dispatch = request.getRequestDispatcher("userexists.jsp");
-			dispatch.forward(request, response);
-		}
-		else {
-			manager.makeAccount(username, pass);
-			PrintWriter out = response.getWriter();
-			out.println("<!DOCTYPE html>");
-			out.println("<head>");
-			out.println("<meta charset=\"UTF-8\" />");
-			out.println("<title>Welcome!</title>");
-			out.println("</head>");
-			out.println("<body>");
-			out.println("<h2>Welcome " + username + "!</h2>");
-			out.println("</body>");
-			out.println("</html>");
-		}
 		
-
+		UserDao dao = new UserDao();
+		ServletContext context = request.getServletContext();
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String email = request.getParameter("email");
+		boolean userNameExists = dao.checkUserNameExists(username);
+		
+		if (userNameExists) { // when the user name is already in the database
+			
+			context.setAttribute("isUsernameTaken", userNameExists);
+			RequestDispatcher dispatch = request.getRequestDispatcher("create.jsp");
+			dispatch.forward(request, response);
+			
+		} else { // when the user name is not in the database...need to create user and add to database
+			
+			User user = new User();
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setEmail(email);
+			dao.addUser(user);
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher("/Quizzer/index.html");
+			dispatch.forward(request,response);
+			
+		}
+	
 	}
 
 }
