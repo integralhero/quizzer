@@ -10,6 +10,26 @@ public class UserDao {
 		connection = Database.connect();
 	}
 	
+	public boolean checkUserNameExists(String username) {
+		try {
+			
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("select from users where username = " + "\"" + username + "\"");
+			boolean more = rs.next();
+			
+			if (!more) {
+				System.out.println("User does not exist.");
+				return false;
+			} else {
+				System.out.println("User does exist.");
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public void addUser(User user) {
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("insert into users(username, password, email) values (?,?,?)");
