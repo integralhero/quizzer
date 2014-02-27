@@ -37,7 +37,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">Quizzer</a>
+            <a href="/Quizzer" class="navbar-brand">Quizzer</a>
           </div>
           <nav class="collapse navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">

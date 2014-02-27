@@ -25,7 +25,13 @@ public class UserServlet extends HttpServlet {
     	String id = req.getPathInfo();
     	id = id.substring(1);
     	if(id.charAt(id.length() - 1) == '/')id = id.substring(0, id.length() - 1);
-    	int parseInt = Integer.parseInt(id);
+    	int parseInt = 0;
+    	try {
+    		parseInt = Integer.parseInt(id);
+    	} catch(NumberFormatException e) {
+    		
+    	}
+    	
     	System.out.println("This is the parsed in : " + parseInt);
     	User tmp = UserDao.getUserById(parseInt);
     	req.setAttribute("curUser", tmp);

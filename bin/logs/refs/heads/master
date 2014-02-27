@@ -5,3 +5,4 @@ cfb5152099bca90bb715555cf04768ac0a3e2c18 cd26497bd181dd3c74ebe57ecf53d12f3619059
 cd26497bd181dd3c74ebe57ecf53d12f36190590 c728ee884b69c3ef317257afe70d46b5fa2e4c4b David Jiang <dnjiang@stanford.edu> 1393223156 -0800	commit: Added new index
 c728ee884b69c3ef317257afe70d46b5fa2e4c4b fac157b38783af90994716d45d653aa9255c1ea1 David Jiang <dnjiang@stanford.edu> 1393227620 -0800	commit: user model update
 fac157b38783af90994716d45d653aa9255c1ea1 cbcee86edddc0b472046c547895634c43cc4b0ac David Jiang <dnjiang@stanford.edu> 1393400934 -0800	pull: Fast-forward
+cbcee86edddc0b472046c547895634c43cc4b0ac 9be9097a8986970ada795885f0b30b4847040f23 David Jiang <dnjiang@stanford.edu> 1393451097 -0800	commit: Added user search and user pages
