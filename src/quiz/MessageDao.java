@@ -36,4 +36,15 @@ public class MessageDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public void confirmFriendRequest(int senderid, int recipientid) {
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("INSERT INTO friend_requests (isConfirmed) VALUES (TRUE)");
+			//add both friends to friendshiptable
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
