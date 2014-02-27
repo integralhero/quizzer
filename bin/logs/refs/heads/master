@@ -8,3 +8,4 @@ fac157b38783af90994716d45d653aa9255c1ea1 cbcee86edddc0b472046c547895634c43cc4b0a
 cbcee86edddc0b472046c547895634c43cc4b0ac 9be9097a8986970ada795885f0b30b4847040f23 David Jiang <dnjiang@stanford.edu> 1393451097 -0800	commit: Added user search and user pages
 9be9097a8986970ada795885f0b30b4847040f23 2db78b51aa27949376faa2e05da440f7d8c6417e David Jiang <dnjiang@stanford.edu> 1393466366 -0800	commit: fixed routes
 2db78b51aa27949376faa2e05da440f7d8c6417e 044ab0f635338bd215855389ef250167c18905bc David Jiang <dnjiang@stanford.edu> 1393476154 -0800	commit: Partial message dao done
+044ab0f635338bd215855389ef250167c18905bc 326cc3c124d4cb6ca1b25a21f9f16f01a09dd745 David Jiang <dnjiang@stanford.edu> 1393476483 -0800	commit: added confirm friendreq in dao

@@ -37,10 +37,10 @@ public class MessageDao {
 		}
 	}
 	
-	public void confirmFriendRequest(int senderid, int recipientid) {
+	public void confirmFriendRequest(int messageID) {
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("INSERT INTO friend_requests (isConfirmed) VALUES (TRUE)");
+			ResultSet rs = stmt.executeQuery("UPDATE friend_requests SET isConfirmed = TRUE WHERE ref=\"" + messageID + "\"");
 			//add both friends to friendshiptable
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
