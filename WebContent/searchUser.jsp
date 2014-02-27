@@ -72,6 +72,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12">
+          	<h4>Here are the results of your search...</h4>
             <% 
               ArrayList<User> allUser = (ArrayList<User>)request.getAttribute("foundUsers");
               for(User user: allUser) { %>

@@ -75,6 +75,7 @@
             <% User reqUser = (User) request.getAttribute("curUser"); %>
             <h3>Name: <%= reqUser.getUsername() %></h3>
             <p>Email: <%= reqUser.getEmail() %></p>
+            <button type="button" class="btn btn-success">Send Friend Request</button>
 
 
           </div>
