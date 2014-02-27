@@ -10,3 +10,4 @@ cbcee86edddc0b472046c547895634c43cc4b0ac 9be9097a8986970ada795885f0b30b4847040f2
 2db78b51aa27949376faa2e05da440f7d8c6417e 044ab0f635338bd215855389ef250167c18905bc David Jiang <dnjiang@stanford.edu> 1393476154 -0800	commit: Partial message dao done
 044ab0f635338bd215855389ef250167c18905bc 326cc3c124d4cb6ca1b25a21f9f16f01a09dd745 David Jiang <dnjiang@stanford.edu> 1393476483 -0800	commit: added confirm friendreq in dao
 326cc3c124d4cb6ca1b25a21f9f16f01a09dd745 2026cde5aa889a3881989f85fe2cfc864fcacefe David Jiang <dnjiang@stanford.edu> 1393477854 -0800	commit: Fixed more friend req stuff
+2026cde5aa889a3881989f85fe2cfc864fcacefe 00e857d0aebf4bfebc08313386df642c0d21b7d5 David Jiang <dnjiang@stanford.edu> 1393479914 -0800	commit: Added hidden fields to renderUser

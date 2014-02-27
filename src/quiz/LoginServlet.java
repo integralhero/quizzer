@@ -39,18 +39,22 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		User user = new User();
-		user.setUsername(request.getParameter("username"));
+		String enteredUser = request.getParameter("username");
+		user.setUsername(enteredUser);
 		user.setPassword(request.getParameter("password"));
 		
-		if(UserDao.validateUser(user)) { 
+		int getID = UserDao.validateUser(user);
+		System.out.println(getID);
+		if(getID != -1) { 
+			user.setUserid(getID);
 			HttpSession session = request.getSession(true); 
 			session.setAttribute("currentUser",user); 
-			response.sendRedirect("/Quizzer/index.jsp"); //logged-in page 
+			response.sendRedirect("/Quizzer/"); //logged-in page 
 			
 		}
 		else {
 
-			RequestDispatcher dispatch = request.getRequestDispatcher("create.html");
+			RequestDispatcher dispatch = request.getRequestDispatcher("create.jsp");
 			dispatch.forward(request, response);
 		}
 	}
