@@ -72,10 +72,17 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12">
-            <% User reqUser = (User) request.getAttribute("curUser"); %>
-            <h3>Name: <%= reqUser.getUsername() %></h3>
+            <% User reqUser = (User) request.getAttribute("curUser"); 
+               User us = (User)request.getSession().getAttribute("currentUser");
+            %>
+            <h3>Name: <%= reqUser.getUsername() %></h3> 
             <p>Email: <%= reqUser.getEmail() %></p>
-            <button type="button" class="btn btn-success">Send Friend Request</button>
+            <form action="FriendRequestServlet" method="post">
+            	<input name="friendID" type="hidden" value="<%= reqUser.getUserid() %>">
+            	<input name="myID" type="hidden" value="<%= us.getUserid() %>">
+            	<button type="submit" class="btn btn-success">Send Friend Request</button>
+            </form>
+            
 
 
           </div>
