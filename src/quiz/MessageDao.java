@@ -89,4 +89,17 @@ public class MessageDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void deleteFriendship(int senderid, int recipientid) {
+		try {
+			System.out.println("Deleting " + senderid + " AND " + recipientid);
+			Statement stmt = connection.createStatement();
+			stmt.execute("DELETE FROM friendships WHERE user_id=\"" + senderid + "\" AND friend_id=\"" + recipientid + "\"");
+			Statement stmt2 = connection.createStatement();
+			stmt2.execute("DELETE FROM friendships WHERE user_id=\"" + recipientid + "\" AND friend_id=\"" + senderid + "\"");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:700);
+
 #announcements {
 	background: aliceblue;
 	padding: 20px;
@@ -11,7 +13,4 @@
 #messages {
 	padding-bottom: 20px;
 	margin-top: 10px;
-}
-#logoutBtn {
-	float: right;
 }

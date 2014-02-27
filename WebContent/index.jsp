@@ -9,7 +9,7 @@
         <title>Quizzer- Quiz Site</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-        
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <!--[if lt IE 9]>
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -37,7 +37,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a href="/Quizzer" class="navbar-brand">Quizzer</a>
+            <a href="/Quizzer/" class="navbar-brand">Quizzer</a>
           </div>
           <nav class="collapse navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
