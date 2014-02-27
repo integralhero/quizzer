@@ -18,8 +18,8 @@
 			<div id="loginMenu">
 				<h2>Welcome! <small>Please sign in to continue</small></h2>
 				<form name="login" action="LoginServlet" method="post" > 
-					<input type="text" name="username" id="usernameInput"><BR>
-					<input type="password" name="password" id="passwordInput"><BR>
+					<input type="text" name="username" id="usernameInput" placeholder="username"><BR>
+					<input type="password" name="password" id="passwordInput" placeholder="password"><BR>
 					<div class="pull-left">
 						<small>or <a href="/Quizzer/login/create.jsp">Create an Account</a></small>
 					</div>

@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		else {
 
-			RequestDispatcher dispatch = request.getRequestDispatcher("create.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("badpassword.html");
 			dispatch.forward(request, response);
 		}
 	}

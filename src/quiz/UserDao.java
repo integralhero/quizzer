@@ -57,7 +57,7 @@ public class UserDao {
 	
 	public static void addUser(User user) {
 		try {
-			PreparedStatement prepStmt = connection.prepareStatement("insert into users(username, password, email) values (?,?,?)");
+			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO users(username, password, email) VALUES (?,?,?)");
 			prepStmt.setString(1, user.getUsername());
 			prepStmt.setString(2, user.getPassword());
 			prepStmt.setString(3, user.getEmail());

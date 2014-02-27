@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class CreateServlet
@@ -50,7 +51,7 @@ public class CreateServlet extends HttpServlet {
 //			System.out.println("userNameExists");
 			context.setAttribute("isUsernameTaken", userNameExists);
 			
-			RequestDispatcher dispatch = request.getRequestDispatcher("create.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("userexists.jsp");
 			dispatch.forward(request, response);
 			
 		} else { // when the user name is not in the database...need to create user and add to database
@@ -60,9 +61,12 @@ public class CreateServlet extends HttpServlet {
 			user.setPassword(password);
 			user.setEmail(email);
 			UserDao.addUser(user);
-			
-			RequestDispatcher dispatch = request.getRequestDispatcher("/index.html");
-			dispatch.forward(request,response);
+			int idnum = UserDao.validateUser(user);
+			user.setUserid(idnum);
+			HttpSession session = request.getSession(true); 
+			session.setAttribute("currentUser",user); 
+			//get id and set it
+			response.sendRedirect("/Quizzer/");
 			
 		}
 	
