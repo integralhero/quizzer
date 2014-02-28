@@ -3,16 +3,21 @@ import java.util.*;
 
 public class Quiz {
 
-	private int id;
-	private int score;
+	private int quiz_id;
+	private int totalScore;
 	private String quizName;
-	private int user_id;
+	private int user_id; // user who made the quiz
 	public ArrayList<Question> questions;
 	public boolean randomizeQuestions = false;
 	public boolean multiplePages = false;
 	public boolean immediateCorrect = false;
 	
-	public Quiz(String quizName, int user_id, ArrayList<Question> questions) {
+	public Quiz() { 
+		
+	}
+	
+	public Quiz(String quizName, int quiz_id, int user_id, ArrayList<Question> questions) {
+		this.quiz_id = quiz_id;
 		this.quizName = quizName;
 		this.user_id = user_id;
 		this.questions = questions;
@@ -21,7 +26,7 @@ public class Quiz {
 		for (int i = 0; i < questions.size(); i++) {
 			totalScore += questions.get(i).getScore();
 		}
-		this.score = totalScore;
+		this.totalScore = totalScore;
 	}
 	
 	public void setMultiplePages() {
@@ -35,22 +40,25 @@ public class Quiz {
 	public void setRandomizeQuestions() {
 		randomizeQuestions = true;
 	}
-
+	
+	public void addQuestion(Question question) {
+		questions.add(question);
+	}
 	
 	public int getID(){
-		return this.id;
+		return this.quiz_id;
 	}
 	
 	public void setID(int id){
-		this.id = id;
+		this.quiz_id = id;
 	}
 	
 	public int getScore(){
-		return this.score;
+		return this.totalScore;
 	}
 	
 	public void setScore(int score){
-		this.score = score;
+		this.totalScore = score;
 	}
 	
 	public String getName(){
