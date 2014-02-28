@@ -55,16 +55,21 @@ public class QuizDao {
 				quizIDs.add(temp);
 			}
 			
+			
 			for(int i = 0; i < quizIDs.size(); i++){
 				Quiz temp = new Quiz();
 				
-				command = "SELECT 1 FROM quizzes WHERE id = " + quizIDs.get(i);
-				rs = statement.executeQuery(command);
+				command = "SELECT * FROM quizzes WHERE id = " + quizIDs.get(i);
+				Statement statement2 = connection.createStatement();
+				ResultSet rs2 = statement2.executeQuery(command);
 				
-				temp.setScore(rs.getInt("score"));
-				temp.setName(rs.getString("name"));
-				temp.setUserID(rs.getInt("user_id"));
+				rs2.next();
+				
+				temp.setScore(rs2.getInt("score"));
+				temp.setName(rs2.getString("name"));
+				temp.setUserID(rs2.getInt("user_id"));
 				temp.setID(quizIDs.get(i));
+			
 				
 				quizzes.add(temp);
 			}
@@ -82,15 +87,18 @@ public class QuizDao {
 		Quiz quiz = new Quiz();
 
 		try {
-			String command = "SELECT 1 FROM quizzes WHERE name =" + quizName;
+			String command = "SELECT * FROM quizzes WHERE name = \"" + quizName + "\"";
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
 			
-			quiz.setScore(rs.getInt("score"));
-			quiz.setName(rs.getString("name"));
-			quiz.setUserID(rs.getInt("user_id"));
-			quiz.setID(rs.getInt("id"));
+			if(rs.next()) {
+			
+				quiz.setScore(rs.getInt("score"));
+				quiz.setName(rs.getString("name"));
+				quiz.setUserID(rs.getInt("user_id"));
+				quiz.setID(rs.getInt("id"));
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -104,7 +112,7 @@ public class QuizDao {
 	public static boolean checkName(String quizName){
 		boolean nameFree = true;
 		try {
-			String command = "SELECT 1 FROM quizzes WHERE name =" + quizName;
+			String command = "SELECT * FROM quizzes WHERE name = \"" + quizName + " \"";
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
