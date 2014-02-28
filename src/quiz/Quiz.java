@@ -1,4 +1,5 @@
 package quiz;
+import java.util.*;
 
 public class Quiz {
 
@@ -6,6 +7,11 @@ public class Quiz {
 	private int score;
 	private String name;
 	private int user_id;
+	public ArrayList<Question> questions;
+	public boolean randomizeQuestions;
+	public boolean multiplePages;
+	public boolean immediateCorrect;
+
 	
 	public int getID(){
 		return this.id;
@@ -38,4 +44,5 @@ public class Quiz {
 	public void setUserID(int user_id){
 		this.user_id = user_id;
 	}
+
 }

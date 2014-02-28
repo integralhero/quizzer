@@ -57,7 +57,7 @@ public class UserDao {
 	
 	public static void addUser(User user) {
 		try {
-			PreparedStatement prepStmt = connection.prepareStatement("insert into users(username, password, email) values (?,?,?)");
+			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO users(username, password, email) VALUES (?,?,?)");
 			prepStmt.setString(1, user.getUsername());
 			prepStmt.setString(2, user.getPassword());
 			prepStmt.setString(3, user.getEmail());
@@ -94,26 +94,26 @@ public class UserDao {
 		}
 	}
 
-	static public boolean validateUser(User user) {
+	static public int validateUser(User user) {
 		
-		boolean check = false;
-		
+		int id = -1;
 		try {
 			String username = user.getUsername();
 			String password = user.getPassword();
-			String command = "SELECT 1 FROM users WHERE username =\"" + username + "\" AND password = \"" + password  + "\"";
+			String command = "SELECT * FROM users WHERE username =\"" + username + "\" AND password = \"" + password  + "\"";
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
-			
-			check = rs.next();
+			if(rs.next()) {
+				id = rs.getInt("id");
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return check;
+		return id;
 
 	}
 	

@@ -9,7 +9,7 @@
         <title>Quizzer- Quiz Site</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-        
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <!--[if lt IE 9]>
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -37,7 +37,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a href="/Quizzer" class="navbar-brand">Quizzer</a>
+            <a href="/Quizzer/" class="navbar-brand">Quizzer</a>
           </div>
           <nav class="collapse navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
@@ -108,9 +108,31 @@
           </div>
           <div class="col-md-2 column" id="messages" style="display:none">
             <h3><small>Your Messages:</small></h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum vestibulum augue vel faucibus. Vivamus a est eget velit iaculis feugiat. Nulla non dui auctor, pharetra felis sit amet, congue ante. Ut tempor erat lacus, vel convallis massa imperdiet vestibulum. Donec ullamcorper ipsum non quam blandit faucibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque egestas ullamcorper faucibus. Morbi at lobortis lectus. Nulla sollicitudin purus vitae dui mollis, nec placerat elit pulvinar. In nec libero leo.
-            </p>
+            <h4>Friend Requests:</h4>
+            <% ArrayList<FriendRequest> frqs = (ArrayList<FriendRequest>) request.getAttribute("allRequests"); %>
+            <ul>
+            <% for(FriendRequest f: frqs) {%>
+            <%  User sender = UserDao.getUserById(f.getSenderID());  
+            	int senderid = sender.getUserid();
+            	User us = (User) request.getSession(false).getAttribute("currentUser");
+            	int recipientid = us.getUserid();
+            	int messageID = f.getMessageID();
+            %>
+            <li>Request from: <a href="/Quizzer/user/<%= senderid %>"><%= sender.getUsername() %></a>
+            	<form action="FriendConfirm" method="post">
+            		<select name="choice">
+					  <option value="yes">Confirm</option>
+					  <option value="no">Deny</option>
+					</select>
+					<input type="hidden" name="senderid" value="<%= senderid %>">
+					<input type="hidden" name="recipientid" value="<%= recipientid %>">
+					<input type="hidden" name="messageID" value="<%= messageID %>">
+					
+            		<button type="submit" class="btn btn-success">Confirm Choice</button>
+            	</form>
+            </li>
+            <% } %>
+            </ul>
           </div>
           <div class="col-md-2 column" id="activities" style="display:none">
             <h3><small>Recent Activity</small></h3>

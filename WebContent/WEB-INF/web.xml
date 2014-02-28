@@ -17,4 +17,12 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/user/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>IndexServlet</servlet-name>
+    <servlet-class>quiz.IndexServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IndexServlet</servlet-name>
+    <url-pattern></url-pattern>
+  </servlet-mapping>
 </web-app>

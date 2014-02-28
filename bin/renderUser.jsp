@@ -10,7 +10,7 @@
         <title>Search for User</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-        
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <!--[if lt IE 9]>
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -38,7 +38,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a href="/Quizzer" class="navbar-brand">Quizzer</a>
+            <a href="/Quizzer/" class="navbar-brand">Quizzer</a>
           </div>
           <nav class="collapse navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
@@ -73,15 +73,34 @@
         <div class="row">
           <div class="col-xs-12">
             <% User reqUser = (User) request.getAttribute("curUser"); 
-               User us = (User)request.getSession().getAttribute("currentUser");
+               User us = (User)session.getAttribute("currentUser");
+               int senderid = us.getUserid();
+               int recipientid = reqUser.getUserid();
+               boolean friendsExist = MessageDao.checkIfFriendsExist(senderid, recipientid);
+               boolean reqExistsPrim = MessageDao.checkIfRequestExist(senderid, recipientid);
+               boolean reqExistsSecon = MessageDao.checkIfRequestExist(recipientid, senderid);
             %>
             <h3>Name: <%= reqUser.getUsername() %></h3> 
             <p>Email: <%= reqUser.getEmail() %></p>
-            <form action="FriendRequestServlet" method="post">
-            	<input name="friendID" type="hidden" value="<%= reqUser.getUserid() %>">
-            	<input name="myID" type="hidden" value="<%= us.getUserid() %>">
+            <% if(!friendsExist && !reqExistsPrim && !reqExistsSecon) { %>
+            <form action="/Quizzer/FriendRequestServlet" method="post">
+            	<input name="friendID" type="hidden" value="<%= recipientid %>">
+            	<input name="myID" type="hidden" value="<%= senderid %>">
             	<button type="submit" class="btn btn-success">Send Friend Request</button>
             </form>
+            <% } else if(!friendsExist && reqExistsPrim && !reqExistsSecon) { %>
+            	Friend request already sent!
+            <% } else if(!friendsExist && !reqExistsPrim && reqExistsSecon) { %>
+            	You have already received a friend request from this person. Check your messages!
+            <% } else if(friendsExist) { %>
+            	You are already friends!
+            	<form action="/Quizzer/DeleteFriend" method="post">
+            		<input name="friendID" type="hidden" value="<%= recipientid %>">
+            		<input name="myID" type="hidden" value="<%= senderid %>">
+            		<button type="submit" class="btn btn-danger">Delete Friend</button>
+            	</form>
+            <% } %>
+            
             
 
 

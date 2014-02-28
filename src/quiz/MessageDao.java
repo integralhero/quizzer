@@ -6,7 +6,35 @@ import java.util.*;
 public class MessageDao {
 	private static Connection connection = Database.connect();
 	
-	public ArrayList<FriendRequest> getAllFriendReqsToUser(int userid) {
+	public static boolean checkIfFriendsExist(int senderid, int recipientid) {
+		boolean exists = false;
+		try {
+			System.out.println("Message.Dao: now checking.... senderid="+senderid + " and recipientid= " + recipientid);
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM friendships WHERE user_id = " + "\"" + senderid + "\" AND friend_id=\"" + recipientid + "\"");
+			exists = rs.next();
+			System.out.println("Result: "+ exists);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return exists;
+	}
+	
+	public static boolean checkIfRequestExist(int senderid, int recipientid) {
+		boolean exists = false;
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM friend_requests WHERE senderid = " + "\"" + senderid + "\" AND recipientid=\"" + recipientid + "\"");
+			exists = rs.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return exists;
+	}
+	
+	public static ArrayList<FriendRequest> getAllFriendReqsToUser(int userid) {
 		ArrayList<FriendRequest> msgs = new ArrayList<FriendRequest>();
 		
 		try {
@@ -27,25 +55,48 @@ public class MessageDao {
 		return msgs;
 	}
 	
-	public void sendFriendRequest(int senderid, int recipientid) {
+	public static void sendFriendRequest(int senderid, int recipientid) {
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("INSERT INTO friend_requests (senderid, recipientid, isConfirmed) VALUES (\""+ senderid + "\",\""+ recipientid + "\", FALSE)");
+			stmt.execute("INSERT INTO friend_requests (senderid, recipientid, isConfirmed) VALUES (\""+ senderid + "\",\""+ recipientid + "\", FALSE)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void confirmFriendRequest(int senderid, int recipientid, int messageID) {
+	public static void confirmFriendRequest(int senderid, int recipientid, int messageID) {
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.executeQuery("UPDATE friend_requests SET isConfirmed = TRUE WHERE ref=\"" + messageID + "\"");
+			stmt.execute("DELETE FROM friend_requests WHERE ref=\"" + messageID + "\"");
 			//add both friends to friendshiptable
 			Statement f1 = connection.createStatement();
-			f1.executeQuery("INSERT INTO friendships (user_id, friend_id) VALUES (\""+ senderid +"\",\"" + recipientid + "\")");
+			f1.execute("INSERT INTO friendships (user_id, friend_id) VALUES (\""+ senderid +"\",\"" + recipientid + "\")");
 			Statement f2 = connection.createStatement();
-			f1.executeQuery("INSERT INTO friendships (user_id, friend_id) VALUES (\""+ recipientid +"\",\"" + senderid + "\")");
+			f2.execute("INSERT INTO friendships (user_id, friend_id) VALUES (\""+ recipientid +"\",\"" + senderid + "\")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void denyFriendRequest(int senderid, int recipientid, int messageID) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.execute("DELETE FROM friend_requests WHERE ref=\"" + messageID + "\"");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void deleteFriendship(int senderid, int recipientid) {
+		try {
+			System.out.println("Deleting " + senderid + " AND " + recipientid);
+			Statement stmt = connection.createStatement();
+			stmt.execute("DELETE FROM friendships WHERE user_id=\"" + senderid + "\" AND friend_id=\"" + recipientid + "\"");
+			Statement stmt2 = connection.createStatement();
+			stmt2.execute("DELETE FROM friendships WHERE user_id=\"" + recipientid + "\" AND friend_id=\"" + senderid + "\"");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
