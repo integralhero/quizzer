@@ -70,62 +70,19 @@
       </header>
 
       <div class="container">
-        <div class="row">
-          <div class="col-xs-12">
-            <% User reqUser = (User) request.getAttribute("curUser"); 
-               User us = (User)session.getAttribute("currentUser");
-               int senderid = us.getUserid();
-               int recipientid = reqUser.getUserid();
-               boolean friendsExist = MessageDao.checkIfFriendsExist(senderid, recipientid);
-               boolean reqExistsPrim = MessageDao.checkIfRequestExist(senderid, recipientid);
-               boolean reqExistsSecon = MessageDao.checkIfRequestExist(recipientid, senderid);
-            %>
-            <h3>Name: <%= reqUser.getUsername() %></h3> 
-            <p>Email: <%= reqUser.getEmail() %></p>
-            <% if(!friendsExist && !reqExistsPrim && !reqExistsSecon) { %>
-            <form action="/Quizzer/FriendRequestServlet" method="post">
-            	<input name="friendID" type="hidden" value="<%= recipientid %>">
-            	<input name="myID" type="hidden" value="<%= senderid %>">
-            	<button type="submit" class="btn btn-success">Send Friend Request</button>
-            </form>
-            <% } else if(!friendsExist && reqExistsPrim && !reqExistsSecon) { %>
-            	Friend request already sent!
-            <% } else if(!friendsExist && !reqExistsPrim && reqExistsSecon) { %>
-            	You have already received a friend request from this person. Check your messages!
-            <% } else if(friendsExist) { %>
-            	You are already friends!
-            	<form action="/Quizzer/DeleteFriend" method="post">
-            		<input name="friendID" type="hidden" value="<%= recipientid %>">
-            		<input name="myID" type="hidden" value="<%= senderid %>">
-            		<button type="submit" class="btn btn-danger">Delete Friend</button>
-            	</form>
-            <% } %>
-            
-            
-
-
-          </div>
-        </div>
+      	<div class="row">
+      		<div class="col-xs-12">
+      			<h3>Add an announcement:</h3>
+      			<form action="/Quizzer/AnnouncementServlet" method="post">
+      				<input type="text" placeholder="Add a new announcement" name="announcement_message">
+      				<button type="submit" class="btn btn-default">Add</button>
+      			</form>
+      		</div>
+      	</div>
       </div>
 
       <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
-      <script type='text/javascript'>
-      
-        $(document).ready(function() {
-          $(function() {
-             $('a#feedBtn').click(function() {
-                $('div#activities').toggle();
-                return false;
-             });
-             $('a#messagesBtn').click(function() {
-                $('div#messages').toggle();
-                return false;
-             });
-          });   
-        });
-      
-      </script>
         
     </body>
 </html>
