@@ -41,7 +41,8 @@ public class LoginServlet extends HttpServlet {
 		User user = new User();
 		String enteredUser = request.getParameter("username");
 		user.setUsername(enteredUser);
-		user.setPassword(request.getParameter("password"));
+		String passHash = Hasher.generateSaltedHash(request.getParameter("password"), UserDao.getSalt(enteredUser));
+		user.setPassword(passHash);
 		
 		int getID = UserDao.validateUser(user);
 		System.out.println(getID);

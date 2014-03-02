@@ -58,7 +58,9 @@ public class CreateServlet extends HttpServlet {
 			
 			User user = new User();
 			user.setUsername(username);
-			user.setPassword(password);
+			String salt = Hasher.generateSalt();
+			user.setSalt(salt);
+			user.setPassword(Hasher.generateSaltedHash(password, salt));
 			user.setEmail(email);
 			UserDao.addUser(user);
 			int idnum = UserDao.validateUser(user);

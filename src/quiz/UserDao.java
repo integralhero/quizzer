@@ -57,10 +57,11 @@ public class UserDao {
 	
 	public static void addUser(User user) {
 		try {
-			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO users(username, password, email) VALUES (?,?,?)");
+			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO users(username, password, email, salt) VALUES (?,?,?,?)");
 			prepStmt.setString(1, user.getUsername());
 			prepStmt.setString(2, user.getPassword());
 			prepStmt.setString(3, user.getEmail());
+			prepStmt.setString(4, user.getSalt());
 			prepStmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -93,7 +94,25 @@ public class UserDao {
 			e.printStackTrace();
 		}
 	}
-
+	
+	static public String getSalt(String username){
+		String salt = "";
+		try {
+			String command = "SELECT * FROM users WHERE username =\"" + username + "\"";
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			if(rs.next()) {
+				salt = rs.getString("salt");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return salt;
+	}
+	
 	static public int validateUser(User user) {
 		
 		int id = -1;
@@ -116,7 +135,7 @@ public class UserDao {
 		return id;
 
 	}
-	
+
 	static public List<User> getAllUser() {
 		List<User> users = new ArrayList<User>();
 		try {

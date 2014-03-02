@@ -8,6 +8,7 @@ public class User {
 	private String username;
 	private String password;
 	private String email;
+	private String salt;
 	private ArrayList<QuizTaken> quizzesTaken;
 	private ArrayList<Quiz> quizzesMade;
 	private ArrayList<User> friends;
@@ -67,6 +68,14 @@ public class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getSalt(){
+		return this.salt;
+	}
+	
+	public void setSalt(String salt){
+		this.salt = salt;
 	}
 }
 
