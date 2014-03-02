@@ -55,6 +55,26 @@ public class MessageDao {
 		return msgs;
 	}
 	
+	public static void sendChallengeRequest(int senderid, int recipientid, int quizid){
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.execute("INSERT INTO challenge_requests (senderid, recipientid, quizid) VALUES (\""+ senderid + "\",\""+ recipientid + "\",\"" + quizid + "\")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void sendNote(int senderid, int recipientid, String message){
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.execute("INSERT INTO notes (senderid, recipientid, message) VALUES (\""+ senderid + "\",\""+ recipientid + "\",\"" + message + "\")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void sendFriendRequest(int senderid, int recipientid) {
 		try {
 			Statement stmt = connection.createStatement();

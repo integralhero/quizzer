@@ -1,11 +1,41 @@
 package quiz;
 
+import java.util.ArrayList;
+
 public class User {
 
 	private int userid;
 	private String username;
 	private String password;
 	private String email;
+	private ArrayList<QuizTaken> quizzesTaken;
+	private ArrayList<Quiz> quizzesMade;
+	private ArrayList<User> friends;
+	private ArrayList<ChallengeRequest> challenges;
+	private ArrayList<Note> notes;
+	private ArrayList<FriendRequest> friendRequests;
+	
+	
+	public User(){
+		quizzesTaken = new ArrayList<QuizTaken>();
+		quizzesMade = new ArrayList<Quiz>();
+	}
+	
+	public void addQuizTaken(QuizTaken quiz){
+		quizzesTaken.add(quiz);
+	}
+	
+	public ArrayList<QuizTaken> getQuizzesTaken(){
+		return quizzesTaken;
+	}
+	
+	public void addQuizMade(Quiz quiz){
+		quizzesMade.add(quiz);
+	}
+	
+	public ArrayList<Quiz> getQuizzesMade(){
+		return quizzesMade;
+	}
 	
 	public int getUserid() {
 		return this.userid;

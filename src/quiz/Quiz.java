@@ -1,21 +1,80 @@
 package quiz;
-
-import java.util.ArrayList;
+import java.util.*;
 
 public class Quiz {
-	
-	public String quizID;
-	public String quizName;
-	public int maxScore;
-	public String userOwns; // the username of the user who owns the quiz
+
+	private int quiz_id;
+	private int totalScore;
+	private String quizName;
+	private int user_id; // user who made the quiz
 	public ArrayList<Question> questions;
-	public boolean randomizeQuestions;
-	public boolean multiplePages;
-	public boolean immediateCorrect;
+	public boolean randomizeQuestions = false;
+	public boolean multiplePages = false;
+	public boolean immediateCorrect = false;
 	
-	public Quiz() {
+	public Quiz() { 
 		
 	}
 	
+	public Quiz(String quizName, int quiz_id, int user_id, ArrayList<Question> questions) {
+		this.quiz_id = quiz_id;
+		this.quizName = quizName;
+		this.user_id = user_id;
+		this.questions = questions;
+		
+		int totalScore = 0;
+		for (int i = 0; i < questions.size(); i++) {
+			totalScore += questions.get(i).getScore();
+		}
+		this.totalScore = totalScore;
+	}
 	
+	public void setMultiplePages() {
+		multiplePages = true;
+	}
+	
+	public void setImmediateCorrect() {
+		immediateCorrect = true;
+	}
+	
+	public void setRandomizeQuestions() {
+		randomizeQuestions = true;
+	}
+	
+	public void addQuestion(Question question) {
+		questions.add(question);
+	}
+	
+	public int getID(){
+		return this.quiz_id;
+	}
+	
+	public void setID(int id){
+		this.quiz_id = id;
+	}
+	
+	public int getScore(){
+		return this.totalScore;
+	}
+	
+	public void setScore(int score){
+		this.totalScore = score;
+	}
+	
+	public String getName(){
+		return this.quizName;
+	}
+	
+	public void setName(String name){
+		this.quizName = name;
+	}
+	
+	public int getUserID(){
+		return this.user_id;
+	}
+	
+	public void setUserID(int user_id){
+		this.user_id = user_id;
+	}
+
 }
