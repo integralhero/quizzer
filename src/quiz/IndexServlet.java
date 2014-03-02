@@ -28,6 +28,8 @@ public class IndexServlet extends HttpServlet {
     	
     	User me = (User)req.getSession(false).getAttribute("currentUser");
     	ArrayList<FriendRequest> frqs = MessageDao.getAllFriendReqsToUser(me.getUserid());
+    	ArrayList<String> allAnnouncements = AnnouncementDao.getAllAccouncements();
+    	req.setAttribute("announcements", allAnnouncements);
     	req.setAttribute("allRequests", frqs);
     	try {
 			req.getRequestDispatcher("/index.jsp").forward(req, res);
