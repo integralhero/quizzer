@@ -1,8 +1,0 @@
-0000000000000000000000000000000000000000 12343ec1ea7f2d562657ec799fb8edc693d0a0f8 Jonathan Yan <jyan93@stanford.edu> 1393559492 -0800	clone: from https://github.com/integralhero/quizzer.git
-12343ec1ea7f2d562657ec799fb8edc693d0a0f8 45083664c72fffe49d284ed6fa9fba6a440fff4a Jonathan Yan <jyan93@stanford.edu> 1393734301 -0800	pull: Fast-forward
-45083664c72fffe49d284ed6fa9fba6a440fff4a 079b9eb8d5dfc1bfa64c1aa76b695296dc529759 Jonathan Yan <jyan93@stanford.edu> 1393734988 -0800	commit: implemented create quiz
-079b9eb8d5dfc1bfa64c1aa76b695296dc529759 c47a5f7eaeb12870ff3a34dc015164ef88189b9e Jonathan Yan <jyan93@stanford.edu> 1393735563 -0800	commit: implemented picture-response
-c47a5f7eaeb12870ff3a34dc015164ef88189b9e 6717c3773093ec582e5ce9bb80dbfffba0e84eab Jonathan Yan <jyan93@stanford.edu> 1393736739 -0800	commit: implementind post for create quiz
-6717c3773093ec582e5ce9bb80dbfffba0e84eab d4973a877cade2b0eb68f167d6a0f135add3840c Jonathan Yan <jyan93@stanford.edu> 1393736821 -0800	commit: implementing do post
-d4973a877cade2b0eb68f167d6a0f135add3840c c6e85857654dd634d8f79e782c2ba2ba4a26d3b5 Jonathan Yan <jyan93@stanford.edu> 1393736946 -0800	commit (merge): resolved merge conflict
-c6e85857654dd634d8f79e782c2ba2ba4a26d3b5 c2dc07a8c5b13bae1bda7bb1c8d9218d5791b512 Jonathan Yan <jyan93@stanford.edu> 1393736951 -0800	pull: Merge made by the 'recursive' strategy.

@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AnnouncementServlet
  */
-@WebServlet("/AnnouncementServlet")
-public class AnnouncementServlet extends HttpServlet {
+@WebServlet("/admin/AnnouncementAdd")
+public class AnnouncementAdd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public AnnouncementServlet() {
+    public AnnouncementAdd() {
         // TODO Auto-generated constructor stub
     }
 
@@ -33,6 +33,8 @@ public class AnnouncementServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String message = request.getParameter("announcement_message");
+		AnnouncementDao.addMessage(message);
+		response.sendRedirect("/Quizzer/admin/index.jsp");
 	}
 
 }

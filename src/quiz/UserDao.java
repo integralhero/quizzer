@@ -17,6 +17,7 @@ public class UserDao {
 				tmpUser.setPassword(rs.getString("password"));
 				tmpUser.setEmail(rs.getString("email"));
 				tmpUser.setUserid(rs.getInt("id"));
+				tmpUser.setSalt(rs.getString("salt"));
 				al.add(tmpUser);
 			}
 		} catch (SQLException e) {
@@ -86,8 +87,8 @@ public class UserDao {
 			PreparedStatement prepStmt = connection.prepareStatement("update users set username=?, password=?, email=? "+ "where userid=?" );
 			prepStmt.setString(1, user.getUsername());
 			prepStmt.setString(2, user.getPassword());
-			prepStmt.setString(4, user.getEmail());
-			prepStmt.setInt(3, user.getUserid());
+			prepStmt.setString(3, user.getEmail());
+			prepStmt.setInt(4, user.getUserid());
 			prepStmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
