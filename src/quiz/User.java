@@ -9,6 +9,7 @@ public class User {
 	private String password;
 	private String email;
 	private String salt;
+	private boolean isAdmin;
 	private ArrayList<QuizTaken> quizzesTaken;
 	private ArrayList<Quiz> quizzesMade;
 	private ArrayList<User> friends;
@@ -17,9 +18,18 @@ public class User {
 	private ArrayList<FriendRequest> friendRequests;
 	
 	
+	
 	public User(){
 		quizzesTaken = new ArrayList<QuizTaken>();
 		quizzesMade = new ArrayList<Quiz>();
+	}
+	
+	public boolean checkIsAdmin() {
+		return this.isAdmin;
+	}
+	
+	public void setAdminStatus(boolean bool) {
+		this.isAdmin = bool;
 	}
 	
 	public void addQuizTaken(QuizTaken quiz){

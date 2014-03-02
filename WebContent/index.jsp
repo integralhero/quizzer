@@ -45,10 +45,7 @@
                 <a href="#">Get Started</a>
               </li>
               <li>
-                <a href="#" id="feedBtn">View Friend Activity</a>
-              </li>
-              <li>
-                <a href="#" id="messagesBtn">View Messages</a>
+                <a href="admin/index.jsp">Administration</a>
               </li>
               <li>
                 <a href="quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
@@ -110,6 +107,8 @@
               </div>
             </div>
           </div>
+          <a href="#" id="feedBtn">View Friend Activity</a>
+          <a href="#" id="messagesBtn">View Messages</a>
           <div class="col-md-2 column" id="messages" style="display:none">
             <h3><small>Your Messages:</small></h3>
             <h4>Friend Requests:</h4>
