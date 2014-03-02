@@ -8,13 +8,13 @@ public class QuizTakenDao {
 	
 	private static Connection connection = Database.connect();
 	
-	public static void addQuiz(Quiz quiz) {
+	public static void addQuiz(QuizTaken quizTaken) {
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(id, score, name, user_id) VALUES (?,?,?,?)");
-			prepStmt.setInt(1, quiz.getID());
-			prepStmt.setInt(2, quiz.getScore());
-			prepStmt.setString(3, quiz.getName());
-			prepStmt.setInt(4, quiz.getUserID());
+			prepStmt.setInt(1, quizTaken.getID());
+			prepStmt.setInt(2, quizTaken.getScore());
+			prepStmt.setString(3, quizTaken.getName());
+			prepStmt.setInt(4, quizTaken.getUserID());
 
 			prepStmt.executeUpdate();
 		} catch (SQLException e) {

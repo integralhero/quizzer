@@ -34,6 +34,21 @@ public class Question {
 	
 	public void resetScore(int newScore) {
 		this.score = newScore;
-	} 
+	}
 	
+	public String getQuestionType() {
+		return this.type;
+	}
+	
+	public String parseAnswers() {
+		String parsed = "";
+		for (int i = 0; i < answers.size(); i++) {
+			if (i == answers.size() - 1) {
+				parsed += answers.get(i);
+			} else {
+				parsed += answers.get(i) + ",";
+			}
+		}
+		return parsed;
+	}
 }

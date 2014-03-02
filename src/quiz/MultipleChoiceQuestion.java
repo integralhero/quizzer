@@ -49,4 +49,16 @@ public class MultipleChoiceQuestion extends Question{
 		answers.clear();
 		addAnswer(answer);
 	}
+	
+	public String parseChoices() {
+		String parsed = "";
+		for (int i = 0; i < choices.size(); i++) {
+			if (i == choices.size() - 1) {
+				parsed += choices.get(i);
+			} else {
+				parsed += choices.get(i) + ",";
+			}
+		}
+		return parsed;
+	}
 }
