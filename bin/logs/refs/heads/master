@@ -1,8 +1,2 @@
-0000000000000000000000000000000000000000 12343ec1ea7f2d562657ec799fb8edc693d0a0f8 mikalway <mikalway@stanford.edu> 1393560823 -0800	clone: from https://github.com/integralhero/quizzer.git
-12343ec1ea7f2d562657ec799fb8edc693d0a0f8 f931db50bd75621758b5e00bdf172f26d29fdc1b mikalway <mikalway@stanford.edu> 1393564414 -0800	commit: fixed errors in web.xml and quizdao
-f931db50bd75621758b5e00bdf172f26d29fdc1b 37e5db542ca553bcd4f81a8c5291f33f640b9d5f mikalway <mikalway@stanford.edu> 1393565327 -0800	commit: QuizDao
-37e5db542ca553bcd4f81a8c5291f33f640b9d5f 7ec090875c77074b282583b1b9b5dcf615d2ecf0 mikalway <mikalway@stanford.edu> 1393569644 -0800	pull: Fast-forward
-7ec090875c77074b282583b1b9b5dcf615d2ecf0 e4e44e5fa97b5f38eea390a9abd123709837d029 mikalway <mikalway@stanford.edu> 1393569701 -0800	commit: Added ChallengeRequestServlet, Note, NoteServlet, QuizTaken, and updated User
-e4e44e5fa97b5f38eea390a9abd123709837d029 5e6f9259a9076962ab880d3f6a1c22b39060a45f mikalway <mikalway@stanford.edu> 1393570561 -0800	pull: Fast-forward
-5e6f9259a9076962ab880d3f6a1c22b39060a45f 185c5250df12786ee05d8dde168b212b874b9ead mikalway <mikalway@stanford.edu> 1393729259 -0800	commit: pre-push for March 1
-185c5250df12786ee05d8dde168b212b874b9ead 0bc9e0d6cf163ad973789365e6ecb2dad3ac3e5f mikalway <mikalway@stanford.edu> 1393733274 -0800	commit: Added hashed/salted password system.
+0000000000000000000000000000000000000000 12343ec1ea7f2d562657ec799fb8edc693d0a0f8 Jonathan Yan <jyan93@stanford.edu> 1393559492 -0800	clone: from https://github.com/integralhero/quizzer.git
+12343ec1ea7f2d562657ec799fb8edc693d0a0f8 45083664c72fffe49d284ed6fa9fba6a440fff4a Jonathan Yan <jyan93@stanford.edu> 1393734301 -0800	pull: Fast-forward

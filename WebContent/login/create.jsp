@@ -31,7 +31,7 @@
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-	<script src="../js/validater_create_users.js"></script>
+	<script type='text/javascript' src="../js/validater_create_users.js"></script>
     <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
 </body>
 </html>

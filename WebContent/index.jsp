@@ -50,6 +50,10 @@
               <li>
                 <a href="#" id="messagesBtn">View Messages</a>
               </li>
+              <li>
+                <a href="quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
+              </li>
+              
               
             </ul>
             <ul class="nav navbar-nav navbar-right">
