@@ -13,4 +13,21 @@ public class QuizTaken {
 		this.timeTaken = timeTaken;
 		this.userID = userID;
 	}
+	
+	public int getQuizID(){
+		return quizID;
+	}
+	
+	public int getScore(){
+		return score;
+	}
+	
+	public int getTimeTaken(){
+		return timeTaken;
+	}
+	
+	public int getUserID(){
+		return userID;
+	}
 }
+

@@ -1,6 +1,7 @@
 package quiz;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +34,14 @@ public class NoteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		int myID = Integer.parseInt(request.getParameter("myID"));
+		int friendID = Integer.parseInt(request.getParameter("friendID"));
+		String message = request.getParameter("message");
+		
+		//System.out.println("myID: " + myID + "---yourID: " + friendID);
+		MessageDao.sendNote(myID, friendID, message);
+		
+		//response.sendRedirect("/Quizzer/quiz/"+quizID);	
 	}
 
 }

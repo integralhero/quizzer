@@ -29,3 +29,5 @@
 /searchUser.jsp
 /NewFile.jsp
 /COMMIT_EDITMSG
+/FETCH_HEAD
+/ORIG_HEAD

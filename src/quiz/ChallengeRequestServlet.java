@@ -1,6 +1,8 @@
 package quiz;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +35,14 @@ public class ChallengeRequestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		int myID = Integer.parseInt(request.getParameter("myID"));
+		int friendID = Integer.parseInt(request.getParameter("friendID"));
+		int quizID = Integer.parseInt(request.getParameter("quizID"));
+		
+		//System.out.println("myID: " + myID + "---yourID: " + friendID);
+		MessageDao.sendChallengeRequest(myID, friendID, quizID);
+		
+		response.sendRedirect("/Quizzer/quiz/"+quizID);
 	}
 
 }

@@ -10,6 +10,11 @@ public class User {
 	private String email;
 	private ArrayList<QuizTaken> quizzesTaken;
 	private ArrayList<Quiz> quizzesMade;
+	private ArrayList<User> friends;
+	private ArrayList<ChallengeRequest> challenges;
+	private ArrayList<Note> notes;
+	private ArrayList<FriendRequest> friendRequests;
+	
 	
 	public User(){
 		quizzesTaken = new ArrayList<QuizTaken>();
