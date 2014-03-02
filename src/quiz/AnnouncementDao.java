@@ -19,13 +19,26 @@ public class AnnouncementDao {
 		}
 	}
 	
-	public static ArrayList<String> getAllAccouncements() {
-		ArrayList<String> ret = new ArrayList<String>();
+	public static void removeMessage(int id) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.execute("DELETE FROM announcements WHERE id=" + id );
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static ArrayList<Announcement> getAllAccouncements() {
+		ArrayList<Announcement> ret = new ArrayList<Announcement>();
 		try {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM announcements");
 			while(rs.next()) {
-				ret.add(rs.getString("message"));
+				Announcement tmp = new Announcement();
+				tmp.setMessage(rs.getString("message"));
+				tmp.setMessage_id(rs.getInt("id"));
+				ret.add(tmp);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

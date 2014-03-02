@@ -45,8 +45,12 @@ public class LoginServlet extends HttpServlet {
 		user.setPassword(passHash);
 		
 		int getID = UserDao.validateUser(user);
+		//pull and set admin status
+		
 		System.out.println(getID);
 		if(getID != -1) { 
+			boolean status = UserDao.setStatus(getID);
+			user.setAdminStatus(status);
 			user.setUserid(getID);
 			HttpSession session = request.getSession(true); 
 			session.setAttribute("currentUser",user); 
