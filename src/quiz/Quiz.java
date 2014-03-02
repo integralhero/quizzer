@@ -7,7 +7,12 @@ public class Quiz {
 	private int totalScore;
 	private String quizName;
 	private int user_id; // user who made the quiz
+	private int numTimesTaken;
+	private String timeCreated;
+	private String description;
+	private String category;
 	public ArrayList<Question> questions;
+	
 	public boolean randomizeQuestions = false;
 	public boolean multiplePages = false;
 	public boolean immediateCorrect = false;
@@ -75,6 +80,20 @@ public class Quiz {
 	
 	public void setUserID(int user_id){
 		this.user_id = user_id;
+	}
+	
+	public void setDescription(String description){
+		this.description = description;
+	}
+	public String getDescription(){
+		return this.description;
+	}
+	
+	public void setCategory(String category){
+		this.category = category;
+	}
+	public String getCategory(){
+		return this.category;
 	}
 
 }
