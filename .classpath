@@ -6,6 +6,6 @@
 	<classpathentry kind="src" path="build"/>
 	<classpathentry kind="src" path=".settings"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/David/Downloads/eclipse 5/plugins/javax.servlet_3.0.0.v201112011016.jar"/>
+	<classpathentry kind="lib" path="/Users/Jonathan/Developer/Eclipse IDEs/eclipse/plugins/javax.servlet_3.0.0.v201112011016.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

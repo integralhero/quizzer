@@ -1,33 +1,4 @@
 <?xml version="1.0" encoding="ASCII"?>
-<<<<<<< HEAD
-<web_1:web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xmlns:web_1="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  <display-name>Quizzer</display-name>
-  <web_1:welcome-file-list>
-    <web_1:welcome-file>index.html</web_1:welcome-file>
-    <web_1:welcome-file>index.htm</web_1:welcome-file>
-    <web_1:welcome-file>index.jsp</web_1:welcome-file>
-    <web_1:welcome-file>default.html</web_1:welcome-file>
-    <web_1:welcome-file>default.htm</web_1:welcome-file>
-    <web_1:welcome-file>default.jsp</web_1:welcome-file>
-  </web_1:welcome-file-list>
-  <web_1:servlet>
-    <web_1:servlet-name>UserServlet</web_1:servlet-name>
-    <web_1:servlet-class>quiz.UserServlet</web_1:servlet-class>
-  </web_1:servlet>
-  <web_1:servlet-mapping>
-    <web_1:servlet-name>UserServlet</web_1:servlet-name>
-    <web_1:url-pattern>/user/*</web_1:url-pattern>
-  </web_1:servlet-mapping>
-  <web_1:servlet>
-    <web_1:servlet-name>IndexServlet</web_1:servlet-name>
-    <web_1:servlet-class>quiz.IndexServlet</web_1:servlet-class>
-  </web_1:servlet>
-  <web_1:servlet-mapping>
-    <web_1:servlet-name>IndexServlet</web_1:servlet-name>
-    <web_1:url-pattern></web_1:url-pattern>
-  </web_1:servlet-mapping>
-</web_1:web-app>
-=======
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>Quizzer</display-name>
   <servlet>
@@ -47,4 +18,3 @@
     <url-pattern></url-pattern>
   </servlet-mapping>
 </web-app>
->>>>>>> 75fda523bdb93a9346ec5d24dfeb3f84d53fbc7d

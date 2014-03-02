@@ -80,8 +80,9 @@
           	<h1>Create Quiz</h1>
           	
 			<form name="create_quiz_form" action="/Quizzer/CreateQuizServlet" method="post" > 
-				<label for="quiz_name_field">Quiz Name:</label><input type='text' id="quiz_name_field" class='form-control ' placeholder='Quiz Name' style="width:50%;">
+				<label for="quiz_name_field">Quiz Name:</label><input type='text' id="quiz_name_field" name='quiz_name_field' class='form-control ' placeholder='Quiz Name' style="width:50%;">
 				&nbsp;
+				<input type='hidden' id='question_count_field' name='question_count_field' value = 0>
 	          	<div id="add_qtn_btn">
 		          	<div class="row">
 					  <div class="col-lg-6">
