@@ -23,3 +23,5 @@ ce6af7c87542ad82f60429e50ecf68d5fde796a6 73e74a0ebff06ff7dbd1897707be15c85567d35
 73e74a0ebff06ff7dbd1897707be15c85567d357 90606b11656cdfcff9b377aa741429728cae3278 David Jiang <dnjiang@stanford.edu> 1393732908 -0800	commit (merge): Added readme
 90606b11656cdfcff9b377aa741429728cae3278 45083664c72fffe49d284ed6fa9fba6a440fff4a David Jiang <dnjiang@stanford.edu> 1393734392 -0800	pull: Fast-forward
 45083664c72fffe49d284ed6fa9fba6a440fff4a 079b9eb8d5dfc1bfa64c1aa76b695296dc529759 David Jiang <dnjiang@stanford.edu> 1393735149 -0800	pull: Fast-forward
+079b9eb8d5dfc1bfa64c1aa76b695296dc529759 cd684b570600ec70706f318866697e9b0c307bfd David Jiang <dnjiang@stanford.edu> 1393736718 -0800	commit: Fixed web.xml
+cd684b570600ec70706f318866697e9b0c307bfd 75fda523bdb93a9346ec5d24dfeb3f84d53fbc7d David Jiang <dnjiang@stanford.edu> 1393736730 -0800	pull: Merge made by the 'recursive' strategy.
