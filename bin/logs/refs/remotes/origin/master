@@ -1,19 +1,7 @@
-0000000000000000000000000000000000000000 8b1019e3bc038e16b7fde49ee86c32c654df81aa David Jiang <dnjiang@stanford.edu> 1393108162 -0800	update by push
-8b1019e3bc038e16b7fde49ee86c32c654df81aa ac47313a04864b153fbbb4ff4b2bfd16e4ddd9ad David Jiang <dnjiang@stanford.edu> 1393109745 -0800	update by push
-ac47313a04864b153fbbb4ff4b2bfd16e4ddd9ad 3f78200c7aebb691f5a8773a546eb8a5b7ece7c2 David Jiang <David@rescomp-13-246260.stanford.edu> 1393178695 -0800	pull: fast-forward
-3f78200c7aebb691f5a8773a546eb8a5b7ece7c2 cd26497bd181dd3c74ebe57ecf53d12f36190590 David Jiang <dnjiang@stanford.edu> 1393223146 -0800	update by push
-cd26497bd181dd3c74ebe57ecf53d12f36190590 c728ee884b69c3ef317257afe70d46b5fa2e4c4b David Jiang <dnjiang@stanford.edu> 1393223161 -0800	update by push
-c728ee884b69c3ef317257afe70d46b5fa2e4c4b fac157b38783af90994716d45d653aa9255c1ea1 David Jiang <dnjiang@stanford.edu> 1393227626 -0800	update by push
-fac157b38783af90994716d45d653aa9255c1ea1 cbcee86edddc0b472046c547895634c43cc4b0ac David Jiang <David@rescomp-13-246260.stanford.edu> 1393400934 -0800	pull: fast-forward
-cbcee86edddc0b472046c547895634c43cc4b0ac 9be9097a8986970ada795885f0b30b4847040f23 David Jiang <dnjiang@stanford.edu> 1393451103 -0800	update by push
-9be9097a8986970ada795885f0b30b4847040f23 2db78b51aa27949376faa2e05da440f7d8c6417e David Jiang <dnjiang@stanford.edu> 1393466372 -0800	update by push
-2db78b51aa27949376faa2e05da440f7d8c6417e 044ab0f635338bd215855389ef250167c18905bc David Jiang <dnjiang@stanford.edu> 1393476160 -0800	update by push
-044ab0f635338bd215855389ef250167c18905bc 326cc3c124d4cb6ca1b25a21f9f16f01a09dd745 David Jiang <dnjiang@stanford.edu> 1393476489 -0800	update by push
-326cc3c124d4cb6ca1b25a21f9f16f01a09dd745 2026cde5aa889a3881989f85fe2cfc864fcacefe David Jiang <dnjiang@stanford.edu> 1393477862 -0800	update by push
-2026cde5aa889a3881989f85fe2cfc864fcacefe 00e857d0aebf4bfebc08313386df642c0d21b7d5 David Jiang <dnjiang@stanford.edu> 1393479922 -0800	update by push
-00e857d0aebf4bfebc08313386df642c0d21b7d5 7edeee894f10205d6d6e6504a150528606e0e6a4 David Jiang <David@rescomp-13-246260.stanford.edu> 1393525272 -0800	pull: fast-forward
-7edeee894f10205d6d6e6504a150528606e0e6a4 a695d77340737a2c96b8f8727cf86d6750061cbf David Jiang <dnjiang@stanford.edu> 1393525356 -0800	update by push
-a695d77340737a2c96b8f8727cf86d6750061cbf 5ee7d6942c5921f3390b4860dc725ed22ee49ce1 David Jiang <dnjiang@stanford.edu> 1393538690 -0800	update by push
-5ee7d6942c5921f3390b4860dc725ed22ee49ce1 e33e7167f2497302860d8d1928bf10509efab449 David Jiang <dnjiang@stanford.edu> 1393544501 -0800	update by push
-e33e7167f2497302860d8d1928bf10509efab449 7ec090875c77074b282583b1b9b5dcf615d2ecf0 David Jiang <David@dn0a227325.sunet> 1393569316 -0800	pull: fast-forward
-7ec090875c77074b282583b1b9b5dcf615d2ecf0 5e6f9259a9076962ab880d3f6a1c22b39060a45f David Jiang <David@rescomp-13-246260.stanford.edu> 1393609434 -0800	pull: fast-forward
+12343ec1ea7f2d562657ec799fb8edc693d0a0f8 f931db50bd75621758b5e00bdf172f26d29fdc1b mikalway <mikalway@stanford.edu> 1393564431 -0800	update by push
+f931db50bd75621758b5e00bdf172f26d29fdc1b 37e5db542ca553bcd4f81a8c5291f33f640b9d5f mikalway <mikalway@stanford.edu> 1393565335 -0800	update by push
+37e5db542ca553bcd4f81a8c5291f33f640b9d5f 7ec090875c77074b282583b1b9b5dcf615d2ecf0 Michael Whalen <MW@dn0a22757a.sunet> 1393569644 -0800	pull: fast-forward
+7ec090875c77074b282583b1b9b5dcf615d2ecf0 e4e44e5fa97b5f38eea390a9abd123709837d029 mikalway <mikalway@stanford.edu> 1393569709 -0800	update by push
+e4e44e5fa97b5f38eea390a9abd123709837d029 5e6f9259a9076962ab880d3f6a1c22b39060a45f Michael Whalen <MW@dn0a22757a.sunet> 1393570561 -0800	pull: fast-forward
+5e6f9259a9076962ab880d3f6a1c22b39060a45f 185c5250df12786ee05d8dde168b212b874b9ead mikalway <mikalway@stanford.edu> 1393729268 -0800	update by push
+185c5250df12786ee05d8dde168b212b874b9ead 90606b11656cdfcff9b377aa741429728cae3278 Michael Whalen <MW@dn0a2279ba.sunet> 1393733340 -0800	pull: fast-forward
