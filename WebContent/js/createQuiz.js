@@ -16,7 +16,8 @@ $('#mult_choice_qtn').click(function(event) {
 });
 
 $('#pic_res_qtn').click(function(event) {
-	$("<div id='question" + questionCount + "'><div class='input-group'><h3>" + questionCount + ".) Multiple Choice</h3><input type='text' class='form-control quiz_qtn_field' placeholder='Question'><h4>Answers:</h4><h5>Please select the correct answer</h5><button onclick='addAnswer()' type='button' id='add_answer_btn' class='btn btn-default'>Add Answer</button><br><br></div></div>").insertBefore("#add_qtn_btn");
+	
+	$("<div id='question" + questionCount + "'><div class='input-group'><h3>" + questionCount + ".) Picture-Response</h3><input type='text' class='form-control quiz_qtn_field' placeholder='Image URL'><h4>Or load image file:</h4><input type='file' >&nbsp;<input type='text' class='form-control quiz_qtn_field' placeholder='Response'>&nbsp;</div></div>").insertBefore("#add_qtn_btn");
 	questionCount++;
 });
 
