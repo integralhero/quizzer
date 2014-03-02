@@ -71,9 +71,16 @@
 
       <div class="container">
         <div class="row clearfix">
+        <% ArrayList<String> allAnnouncements = (ArrayList<String>) request.getAttribute("announcements"); %>
           <div class="col-md-12 column" id="announcements" >
             <h2>List of announcements</h2>
+            <ul>
+            <% for(String msg : allAnnouncements)  { %>
+            	<li><%= msg %></li>
+            <% } %>
+            </ul>
           </div>
+          
         </div>
         <div class="row clearfix">
           <div class="col-md-8 column" id="quizDiv">

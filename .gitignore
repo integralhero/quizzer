@@ -1,15 +1,3 @@
 bin/
 .DS_STORE
 .classpath
-bin/FETCH_HEAD
-bin/ORIG_HEAD
-bin/index
-bin/logs/HEAD
-bin/logs/refs/heads/master
-bin/logs/refs/remotes/origin/master
-bin/refs/heads/master
-<<<<<<< HEAD
-bin/refs/remotes/origin/master
-=======
-bin/refs/remotes/origin/master
->>>>>>> 86d17c34d0cd105ea91c3c587edbb0720ae0fa55

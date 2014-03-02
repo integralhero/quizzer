@@ -73,7 +73,7 @@
       	<div class="row">
       		<div class="col-xs-12">
       			<h3>Add an announcement:</h3>
-      			<form action="/Quizzer/AnnouncementServlet" method="post">
+      			<form action="AnnouncementAdd" method="post">
       				<input type="text" placeholder="Add a new announcement" name="announcement_message">
       				<button type="submit" class="btn btn-default">Add</button>
       			</form>
