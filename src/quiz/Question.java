@@ -6,8 +6,9 @@ public class Question {
 
 	public ArrayList<String> answers; //there is potentially more than 1 answer per question
 	public int score;
-	public static int DEFAULT_SCORE = 5;
+	public static int DEFAULT_SCORE = 1;
 	public String type;
+
 	
 	public Question() {
 		this.score = DEFAULT_SCORE;

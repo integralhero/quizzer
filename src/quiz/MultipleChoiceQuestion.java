@@ -23,6 +23,12 @@ public class MultipleChoiceQuestion extends Question{
 		answers.add(answer);
 	}
 	
+	public MultipleChoiceQuestion(int score, String question, ArrayList<String> choices) {
+		super(score);
+		this.question = question;
+		this.choices = choices;
+	}
+	
 	public ArrayList<String> getChoices() {
 		return choices;
 	}
