@@ -9,6 +9,7 @@ public class MultipleChoiceQuestion extends Question{
 	
 	public MultipleChoiceQuestion(String question, ArrayList<String> choices, String answer) {
 		super();
+		this.type = "MultipleChoice";
 		this.question = question;
 		this.choices = choices;
 		answers.add(answer);
@@ -16,9 +17,16 @@ public class MultipleChoiceQuestion extends Question{
 	
 	public MultipleChoiceQuestion(int score, String question, ArrayList<String> choices, String answer) {
 		super(score);
+		this.type = "MultipleChoice";
 		this.question = question;
 		this.choices = choices;
 		answers.add(answer);
+	}
+	
+	public MultipleChoiceQuestion(int score, String question, ArrayList<String> choices) {
+		super(score);
+		this.question = question;
+		this.choices = choices;
 	}
 	
 	public ArrayList<String> getChoices() {
@@ -40,5 +48,17 @@ public class MultipleChoiceQuestion extends Question{
 	public void resetAnswer(String answer) {
 		answers.clear();
 		addAnswer(answer);
+	}
+	
+	public String parseChoices() {
+		String parsed = "";
+		for (int i = 0; i < choices.size(); i++) {
+			if (i == choices.size() - 1) {
+				parsed += choices.get(i);
+			} else {
+				parsed += choices.get(i) + ",";
+			}
+		}
+		return parsed;
 	}
 }

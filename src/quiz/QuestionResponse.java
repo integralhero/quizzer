@@ -6,12 +6,14 @@ public class QuestionResponse extends Question{
 	
 	public QuestionResponse(String question, String answer) {
 		super();
+		this.type = "QuestionResponse";
 		this.question = question;
 		answers.add(answer);
 	}
 	
 	public QuestionResponse(int score, String question, String answer) {
 		super(score);
+		this.type = "QuestionResponse";
 		this.question = question;
 		answers.add(answer);
 	}

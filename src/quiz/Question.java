@@ -6,7 +6,9 @@ public class Question {
 
 	public ArrayList<String> answers; //there is potentially more than 1 answer per question
 	public int score;
-	public static int DEFAULT_SCORE = 5;
+	public static int DEFAULT_SCORE = 1;
+	public String type;
+
 	
 	public Question() {
 		this.score = DEFAULT_SCORE;
@@ -34,4 +36,19 @@ public class Question {
 		this.score = newScore;
 	}
 	
+	public String getQuestionType() {
+		return this.type;
+	}
+	
+	public String parseAnswers() {
+		String parsed = "";
+		for (int i = 0; i < answers.size(); i++) {
+			if (i == answers.size() - 1) {
+				parsed += answers.get(i);
+			} else {
+				parsed += answers.get(i) + ",";
+			}
+		}
+		return parsed;
+	}
 }

@@ -6,12 +6,14 @@ public class PictureResponseQuestion extends Question{
 	
 	public PictureResponseQuestion(String imageURL, String answer) {
 		super();
+		this.type = "PictureResponse";
 		this.imageURL = imageURL;
 		answers.add(answer);
 	}
 	
 	public PictureResponseQuestion(int score, String imageURL, String answer) {
 		super(score);
+		this.type = "PictureResponse";
 		this.imageURL = imageURL;
 		answers.add(answer);
 	}

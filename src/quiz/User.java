@@ -16,6 +16,7 @@ public class User {
 	private ArrayList<ChallengeRequest> challenges;
 	private ArrayList<Note> notes;
 	private ArrayList<FriendRequest> friendRequests;
+	private ArrayList<Achievement> achievements;
 	
 	
 	
@@ -86,6 +87,10 @@ public class User {
 	
 	public void setSalt(String salt){
 		this.salt = salt;
+	}
+	
+	public ArrayList<Achievement> getAchievements(){
+		return this.achievements;
 	}
 }
 

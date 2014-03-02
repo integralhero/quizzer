@@ -4,10 +4,10 @@ public class QuizTaken {
 
 	private int quizID;
 	private int score;
-	private int timeTaken;
+	private long timeTaken;
 	private int userID;
 	
-	public QuizTaken(int quizID, int score, int timeTaken, int userID){
+	public QuizTaken(int quizID, int score, long timeTaken, int userID){
 		this.quizID = quizID;
 		this.score = score;
 		this.timeTaken = timeTaken;
@@ -22,12 +22,21 @@ public class QuizTaken {
 		return score;
 	}
 	
-	public int getTimeTaken(){
+	public long getTimeTaken(){
 		return timeTaken;
 	}
 	
 	public int getUserID(){
 		return userID;
 	}
+	
+	public void setTimeTaken(long time) {
+		timeTaken = time;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
 }
 
