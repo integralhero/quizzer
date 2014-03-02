@@ -14,7 +14,7 @@ public class FillBlankQuestion extends Question{
 	public FillBlankQuestion(int score, String question, String answer) {
 		super(score);
 		this.type = "FillInBlank";
-		this.question = question.replaceAll(answer, "");
+		this.question = question.replaceAll(answer, getBlank(answer));
 		answers.add(answer);
 	}
 	

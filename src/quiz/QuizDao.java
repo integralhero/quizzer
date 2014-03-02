@@ -77,7 +77,8 @@ public class QuizDao {
 				PreparedStatement prepStmt = connection.prepareStatement(
 						"INSERT INTO" + question.type + "(question, answers, quiz_id) VALUES (?,?,?)");
 				prepStmt.setString(1, ((QuestionResponse)question).question);
-				prepStmt.setString(2, ParseAnswers.getString(question.answers));
+				prepStmt.setString(2, question.parseAnswers());
+				//prepStmt.setString(2, ParseAnswers.getString(question.answers));
 				prepStmt.setInt(3, quiz.getID());
 
 				prepStmt.executeUpdate();
@@ -86,7 +87,7 @@ public class QuizDao {
 				PreparedStatement prepStmt2 = connection.prepareStatement(
 						"INSERT INTO" + question.type + "(pictureURL, answers, quiz_id) VALUES (?,?,?)");
 				prepStmt2.setString(1, ((PictureResponseQuestion)question).imageURL);
-				prepStmt2.setString(2, ParseAnswers.getString(question.answers));
+				prepStmt2.setString(2, question.parseAnswers());
 				prepStmt2.setInt(3, quiz.getID());
 
 				prepStmt2.executeUpdate();
@@ -96,8 +97,8 @@ public class QuizDao {
 				PreparedStatement prepStmt3 = connection.prepareStatement(
 						"INSERT INTO" + question.type + "(question, choices, answers, quiz_id) VALUES (?,?,?,?)");
 				prepStmt3.setString(1, ((MultipleChoiceQuestion)question).question);
-				prepStmt3.setString(2, ParseAnswers.getString(((MultipleChoiceQuestion)question).choices));
-				prepStmt3.setString(3, ParseAnswers.getString(question.answers));
+				prepStmt3.setString(2, ((MultipleChoiceQuestion)question).parseChoices());
+				prepStmt3.setString(3, question.parseAnswers());
 				prepStmt3.setInt(4, quiz.getID());
 
 				prepStmt3.executeUpdate();
@@ -107,7 +108,7 @@ public class QuizDao {
 				PreparedStatement prepStmt4 = connection.prepareStatement(
 						"INSERT INTO" + question.type + "(question, answers, quiz_id) VALUES (?,?,?)");
 				prepStmt4.setString(1, ((FillBlankQuestion)question).question);
-				prepStmt4.setString(2, ParseAnswers.getString(question.answers));
+				prepStmt4.setString(2, question.parseAnswers());
 				prepStmt4.setInt(3, quiz.getID());
 
 				prepStmt4.executeUpdate();

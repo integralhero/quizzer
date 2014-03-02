@@ -28,6 +28,7 @@
     </head>
     
     <body> 
+    <% User me = (User)request.getSession(false).getAttribute("currentUser"); %>
       <header class="navbar navbar-default navbar-static-top" role="banner">
         <div class="container">
           <div class="navbar-header">
@@ -44,9 +45,11 @@
               <li>
                 <a href="#">Get Started</a>
               </li>
+              <% if(me.checkIsAdmin()) { %>
               <li>
                 <a href="admin/index.jsp">Administration</a>
               </li>
+              <% } %>
               <li>
                 <a href="quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
               </li>
@@ -71,12 +74,20 @@
 
       <div class="container">
         <div class="row clearfix">
-        <% ArrayList<String> allAnnouncements = (ArrayList<String>) request.getAttribute("announcements"); %>
+        <% ArrayList<Announcement> allAnnouncements = (ArrayList<Announcement>) request.getAttribute("announcements"); %>
           <div class="col-md-12 column" id="announcements" >
             <h2>List of announcements</h2>
             <ul>
-            <% for(String msg : allAnnouncements)  { %>
-            	<li><%= msg %></li>
+            <% for(Announcement msg : allAnnouncements)  { %>
+            	<li><%= msg.getMessage() %>
+            	<% if(me.checkIsAdmin()) { %>
+            	<form action="AnnouncementRemove" method="post">
+            		<input name="message_id" type="hidden" value="<%= msg.getMessage_id() %>">
+            		<button type="submit" class="btn btn-danger" >Delete</button>
+            	</form>
+            	<% } %>
+            	</li>
+            	
             <% } %>
             </ul>
           </div>
