@@ -17,6 +17,7 @@ public class UserDao {
 				tmpUser.setPassword(rs.getString("password"));
 				tmpUser.setEmail(rs.getString("email"));
 				tmpUser.setUserid(rs.getInt("id"));
+				tmpUser.setAdminStatus(rs.getBoolean("admin"));
 				tmpUser.setSalt(rs.getString("salt"));
 				al.add(tmpUser);
 			}
@@ -82,6 +83,26 @@ public class UserDao {
 		}
 	}
 	
+	public static void promoteUser(int userId) {
+		try {
+			Statement statement = connection.createStatement();
+			statement.execute("UPDATE users SET admin = 1 WHERE id="+userId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void demoteUser(int userId) {
+		try {
+			Statement statement = connection.createStatement();
+			statement.execute("UPDATE users SET admin = 0 WHERE id="+userId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	static public void updateUser(User user) {
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("update users set username=?, password=?, email=? "+ "where userid=?" );
@@ -112,6 +133,22 @@ public class UserDao {
 			e.printStackTrace();
 		}
 		return salt;
+	}
+	
+	public static boolean setStatus(int userid) {
+		boolean ret = false;
+		try {
+			Statement statement = connection.createStatement();
+			String command = "SELECT * FROM users WHERE id =" + userid;
+			ResultSet rs = statement.executeQuery(command);
+			if(rs.next()) {
+				ret = rs.getBoolean("admin");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;
 	}
 	
 	static public int validateUser(User user) {
@@ -148,6 +185,7 @@ public class UserDao {
 				user.setUsername(rs.getString("username"));
 				user.setPassword(rs.getString("password"));
 				user.setEmail(rs.getString("email"));
+				user.setAdminStatus(rs.getBoolean("admin"));
 				users.add(user);
 			}
 		} catch (SQLException e) {
@@ -168,6 +206,7 @@ public class UserDao {
 				user.setUsername(rs.getString("username"));
 				user.setPassword(rs.getString("password"));
 				user.setEmail(rs.getString("email"));
+				user.setAdminStatus(rs.getBoolean("admin"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -72,8 +72,8 @@ public class QuizDao {
 	
 	private static void updateQuestionTables(Quiz quiz, Question question) {
 		try {
-			switch (question.type) {
-			case "QuestionResponse":
+			switch (QuestionTypes.getType(question.type)) {
+			case 1:
 				PreparedStatement prepStmt = connection.prepareStatement(
 						"INSERT INTO" + question.type + "(question, answers, quiz_id) VALUES (?,?,?)");
 				prepStmt.setString(1, ((QuestionResponse)question).question);
@@ -83,7 +83,18 @@ public class QuizDao {
 
 				prepStmt.executeUpdate();
 				break;
-			case "PictureResponse":
+				
+			case 2:
+				PreparedStatement prepStmt4 = connection.prepareStatement(
+						"INSERT INTO" + question.type + "(question, answers, quiz_id) VALUES (?,?,?)");
+				prepStmt4.setString(1, ((FillBlankQuestion)question).question);
+				prepStmt4.setString(2, question.parseAnswers());
+				prepStmt4.setInt(3, quiz.getID());
+
+				prepStmt4.executeUpdate();
+				break;
+				
+			case 4:
 				PreparedStatement prepStmt2 = connection.prepareStatement(
 						"INSERT INTO" + question.type + "(pictureURL, answers, quiz_id) VALUES (?,?,?)");
 				prepStmt2.setString(1, ((PictureResponseQuestion)question).imageURL);
@@ -93,7 +104,7 @@ public class QuizDao {
 				prepStmt2.executeUpdate();
 				break;
 				
-			case "MultipleChoice":
+			case 3:
 				PreparedStatement prepStmt3 = connection.prepareStatement(
 						"INSERT INTO" + question.type + "(question, choices, answers, quiz_id) VALUES (?,?,?,?)");
 				prepStmt3.setString(1, ((MultipleChoiceQuestion)question).question);
@@ -102,16 +113,6 @@ public class QuizDao {
 				prepStmt3.setInt(4, quiz.getID());
 
 				prepStmt3.executeUpdate();
-				break;
-				
-			case "FillInBlank":
-				PreparedStatement prepStmt4 = connection.prepareStatement(
-						"INSERT INTO" + question.type + "(question, answers, quiz_id) VALUES (?,?,?)");
-				prepStmt4.setString(1, ((FillBlankQuestion)question).question);
-				prepStmt4.setString(2, question.parseAnswers());
-				prepStmt4.setInt(3, quiz.getID());
-
-				prepStmt4.executeUpdate();
 				break;
 			}
 			

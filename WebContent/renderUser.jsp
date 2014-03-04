@@ -100,8 +100,19 @@
             		<button type="submit" class="btn btn-danger">Delete Friend</button>
             	</form>
             <% } %>
-            
-            
+            <% if(us.checkIsAdmin()) { %>
+	            <% if(reqUser.checkIsAdmin()) { %>
+	            	<form action="/Quizzer/DemoteUser" method="post">
+	            		<input name="user_id" type="hidden" value="<%= recipientid %>">
+	            		<button type="submit" class="btn btn-danger">Demote User</button>
+	            	</form>
+	            <% } else { %>
+	            	<form action="/Quizzer/PromoteUser" method="post">
+	            		<input name="user_id" type="hidden" value="<%= recipientid %>">
+	            		<button type="submit" class="btn btn-success">Promote User</button>
+	            	</form>
+	            <% } %>
+            <% } %>
 
 
           </div>
