@@ -9,7 +9,7 @@ public class MultipleChoiceQuestion extends Question{
 	
 	public MultipleChoiceQuestion(String question, ArrayList<String> choices, String answer) {
 		super();
-		this.type = "MultipleChoice";
+		this.type = "q_multiple_choice";
 		this.question = question;
 		this.choices = choices;
 		answers.add(answer);
@@ -17,7 +17,7 @@ public class MultipleChoiceQuestion extends Question{
 	
 	public MultipleChoiceQuestion(int score, String question, ArrayList<String> choices, String answer) {
 		super(score);
-		this.type = "MultipleChoice";
+		this.type = "q_multiple_choice";
 		this.question = question;
 		this.choices = choices;
 		answers.add(answer);
@@ -25,7 +25,7 @@ public class MultipleChoiceQuestion extends Question{
 	
 	public MultipleChoiceQuestion(int score, String question, ArrayList<String> choices) {
 		super(score);
-		this.type = "MultipleChoice";
+		this.type = "q_multiple_choice";
 		this.question = question;
 		this.choices = choices;
 	}

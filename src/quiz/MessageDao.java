@@ -9,9 +9,9 @@ public class MessageDao {
 	public static boolean checkIfFriendsExist(int senderid, int recipientid) {
 		boolean exists = false;
 		try {
-			System.out.println("Message.Dao: now checking.... senderid="+senderid + " and recipientid= " + recipientid);
+			System.out.println("Message.Dao: now checking.... senderID = "+senderid + " and recipientID= " + recipientid);
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM friendships WHERE user_id = " + "\"" + senderid + "\" AND friend_id=\"" + recipientid + "\"");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM friendships WHERE userID = " + "\"" + senderid + "\" AND friendID=\"" + recipientid + "\"");
 			exists = rs.next();
 			System.out.println("Result: "+ exists);
 		} catch (SQLException e) {
@@ -25,7 +25,7 @@ public class MessageDao {
 		boolean exists = false;
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM friend_requests WHERE senderid = " + "\"" + senderid + "\" AND recipientid=\"" + recipientid + "\"");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM friend_requests WHERE senderID = " + "\"" + senderid + "\" AND recipientID =\"" + recipientid + "\"");
 			exists = rs.next();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -39,11 +39,11 @@ public class MessageDao {
 		
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM friend_requests WHERE recipientid = " + "\"" + userid + "\"");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM friend_requests WHERE recipientID = " + "\"" + userid + "\"");
 			while(rs.next()) {
 				FriendRequest tmpMsg = new FriendRequest();
-				tmpMsg.setSenderID(rs.getInt("senderid"));
-				tmpMsg.setRecipientID(rs.getInt("recipientid"));
+				tmpMsg.setSenderID(rs.getInt("senderID"));
+				tmpMsg.setRecipientID(rs.getInt("recipientID"));
 				tmpMsg.setMessageID(rs.getInt("ref"));
 				tmpMsg.setStatus(rs.getBoolean("isConfirmed"));
 				msgs.add(tmpMsg);
@@ -58,7 +58,7 @@ public class MessageDao {
 	public static void sendChallengeRequest(int senderid, int recipientid, int quizid){
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.execute("INSERT INTO challenge_requests (senderid, recipientid, quizid) VALUES (\""+ senderid + "\",\""+ recipientid + "\",\"" + quizid + "\")");
+			stmt.execute("INSERT INTO challenge_requests (senderID, recipientID, quizID) VALUES (\""+ senderid + "\",\""+ recipientid + "\",\"" + quizid + "\")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,7 +68,7 @@ public class MessageDao {
 	public static void sendNote(int senderid, int recipientid, String message){
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.execute("INSERT INTO notes (senderid, recipientid, message) VALUES (\""+ senderid + "\",\""+ recipientid + "\",\"" + message + "\")");
+			stmt.execute("INSERT INTO notes (senderID, recipientID, message) VALUES (\""+ senderid + "\",\""+ recipientid + "\",\"" + message + "\")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +78,7 @@ public class MessageDao {
 	public static void sendFriendRequest(int senderid, int recipientid) {
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.execute("INSERT INTO friend_requests (senderid, recipientid, isConfirmed) VALUES (\""+ senderid + "\",\""+ recipientid + "\", FALSE)");
+			stmt.execute("INSERT INTO friend_requests (senderID, recipientID, isConfirmed) VALUES (\""+ senderid + "\",\""+ recipientid + "\", FALSE)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,9 +91,9 @@ public class MessageDao {
 			stmt.execute("DELETE FROM friend_requests WHERE ref=\"" + messageID + "\"");
 			//add both friends to friendshiptable
 			Statement f1 = connection.createStatement();
-			f1.execute("INSERT INTO friendships (user_id, friend_id) VALUES (\""+ senderid +"\",\"" + recipientid + "\")");
+			f1.execute("INSERT INTO friendships (userID, friendID) VALUES (\""+ senderid +"\",\"" + recipientid + "\")");
 			Statement f2 = connection.createStatement();
-			f2.execute("INSERT INTO friendships (user_id, friend_id) VALUES (\""+ recipientid +"\",\"" + senderid + "\")");
+			f2.execute("INSERT INTO friendships (userID, friendID) VALUES (\""+ recipientid +"\",\"" + senderid + "\")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,9 +114,9 @@ public class MessageDao {
 		try {
 			System.out.println("Deleting " + senderid + " AND " + recipientid);
 			Statement stmt = connection.createStatement();
-			stmt.execute("DELETE FROM friendships WHERE user_id=\"" + senderid + "\" AND friend_id=\"" + recipientid + "\"");
+			stmt.execute("DELETE FROM friendships WHERE userID=\"" + senderid + "\" AND friendID=\"" + recipientid + "\"");
 			Statement stmt2 = connection.createStatement();
-			stmt2.execute("DELETE FROM friendships WHERE user_id=\"" + recipientid + "\" AND friend_id=\"" + senderid + "\"");
+			stmt2.execute("DELETE FROM friendships WHERE userID=\"" + recipientid + "\" AND friendID=\"" + senderid + "\"");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

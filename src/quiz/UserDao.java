@@ -16,7 +16,7 @@ public class UserDao {
 				tmpUser.setUsername(rs.getString("username"));
 				tmpUser.setPassword(rs.getString("password"));
 				tmpUser.setEmail(rs.getString("email"));
-				tmpUser.setUserid(rs.getInt("id"));
+				tmpUser.setUserid(rs.getInt("ID"));
 				tmpUser.setAdminStatus(rs.getBoolean("admin"));
 				tmpUser.setSalt(rs.getString("salt"));
 				al.add(tmpUser);
@@ -59,6 +59,7 @@ public class UserDao {
 	
 	public static void addUser(User user) {
 		try {
+			System.out.print("HELLO");
 			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO users(username, password, email, salt) VALUES (?,?,?,?)");
 			prepStmt.setString(1, user.getUsername());
 			prepStmt.setString(2, user.getPassword());
@@ -74,7 +75,7 @@ public class UserDao {
 	static public void deleteUser(int userId) {
 		PreparedStatement prepStmt;
 		try {
-			prepStmt = connection.prepareStatement("delete from users where userid=?");
+			prepStmt = connection.prepareStatement("DELETE FROM users WHERE userID = ?");
 			prepStmt.setInt(1, userId);
 			prepStmt.executeUpdate();
 		} catch (SQLException e) {
@@ -86,7 +87,7 @@ public class UserDao {
 	public static void promoteUser(int userId) {
 		try {
 			Statement statement = connection.createStatement();
-			statement.execute("UPDATE users SET admin = 1 WHERE id="+userId);
+			statement.execute("UPDATE users SET admin = 1 WHERE ID = " + userId);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,7 +97,7 @@ public class UserDao {
 	public static void demoteUser(int userId) {
 		try {
 			Statement statement = connection.createStatement();
-			statement.execute("UPDATE users SET admin = 0 WHERE id="+userId);
+			statement.execute("UPDATE users SET admin = 0 WHERE ID = " + userId);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -105,7 +106,7 @@ public class UserDao {
 	
 	static public void updateUser(User user) {
 		try {
-			PreparedStatement prepStmt = connection.prepareStatement("update users set username=?, password=?, email=? "+ "where userid=?" );
+			PreparedStatement prepStmt = connection.prepareStatement("UPDATE users SET username = ?, password = ?, email = ? "+ "WHERE ID = ?" );
 			prepStmt.setString(1, user.getUsername());
 			prepStmt.setString(2, user.getPassword());
 			prepStmt.setString(3, user.getEmail());
@@ -139,7 +140,7 @@ public class UserDao {
 		boolean ret = false;
 		try {
 			Statement statement = connection.createStatement();
-			String command = "SELECT * FROM users WHERE id =" + userid;
+			String command = "SELECT * FROM users WHERE ID =" + userid;
 			ResultSet rs = statement.executeQuery(command);
 			if(rs.next()) {
 				ret = rs.getBoolean("admin");
@@ -162,7 +163,7 @@ public class UserDao {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
 			if(rs.next()) {
-				id = rs.getInt("id");
+				id = rs.getInt("ID");
 			}
 			
 		} catch (SQLException e) {
@@ -178,10 +179,10 @@ public class UserDao {
 		List<User> users = new ArrayList<User>();
 		try {
 			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery("select * from users");
+			ResultSet rs = statement.executeQuery("SELECT * FROM users");
 			while(rs.next()) {
 				User user = new User();
-				user.setUserid(rs.getInt("userid"));
+				user.setUserid(rs.getInt("ID"));
 				user.setUsername(rs.getString("username"));
 				user.setPassword(rs.getString("password"));
 				user.setEmail(rs.getString("email"));
@@ -199,10 +200,10 @@ public class UserDao {
 		User user = new User();
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE id = " + "\"" + userId + "\"");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE ID = " + "\"" + userId + "\"");
 			
 			if(rs.next()) {
-				user.setUserid(rs.getInt("id"));
+				user.setUserid(rs.getInt("ID"));
 				user.setUsername(rs.getString("username"));
 				user.setPassword(rs.getString("password"));
 				user.setEmail(rs.getString("email"));
