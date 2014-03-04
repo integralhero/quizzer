@@ -7,10 +7,11 @@ public class ParseAnswers {
 	public static String getString(ArrayList<String> answers){
 		if (answers.size() == 1) return answers.get(0);
 		String temp = "";
-		for(int i = 0; i < answers.size(); i++){
+		for(int i = 0; i < answers.size() - 1; i++){
 			temp += answers.get(i);
 			temp += ",";
 		}
+		temp += answers.get(answers.size() - 1);
 		return temp;
 	}
 	

@@ -8,9 +8,11 @@ public class QuestionTypes {
 	private static final int PIC_RES = 4;
 	
 	public static int getType(String type){
+		System.out.print(type + " QT");
+
 		if (type.equals("QuestionResponse")) return QUESTION_RESPONSE;
 		else if (type.equals("FillInBlank")) return FILL_BLANK;
-		else if (type.equals("MultipleChoie")) return MULT_CHOICE;
+		else if (type.equals("MultipleChoice")) return MULT_CHOICE;
 		else if (type.equals("PictureResponse")) return PIC_RES;
 		return -1;
 	}

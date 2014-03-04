@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class CreateQuizServlet
@@ -45,8 +46,16 @@ public class CreateQuizServlet extends HttpServlet {
 		String quizName = request.getParameter("quiz_name_field");
 		System.out.println("QuizName: " + quizName);
 		ArrayList<Question> questions = getQuestionsFromForm(request);
-//		Quiz quiz = new Quiz(quizName, );
-//		QuizDao.createQuiz(quiz);
+		
+		Quiz quiz = new Quiz();
+		HttpSession session = request.getSession();
+		User currUser = (User)session.getAttribute("currentUser");
+		quiz.setName(quizName);
+		quiz.setQuestions(questions);
+		quiz.setUserID(currUser.getUserid());
+		quiz.calculateAndSetScore();
+		
+		QuizDao.addQuiz(quiz);
 		int numQtns = Integer.parseInt(request.getParameter("question_count_field"));
 
 		System.out.println("num questions: " + numQtns);
@@ -92,7 +101,7 @@ public class CreateQuizServlet extends HttpServlet {
 						choices.add(choice);
 					}
 					int score = answers.size();
-					quizQtn = new MultipleChoiceQuestion(score, question, choices);
+					quizQtn = new MultipleChoiceQuestion(score, question, choices);					
 					for (String correctAnswer : answers) {
 						quizQtn.addAnswer(correctAnswer);
 					}

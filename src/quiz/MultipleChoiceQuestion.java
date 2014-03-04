@@ -25,6 +25,7 @@ public class MultipleChoiceQuestion extends Question{
 	
 	public MultipleChoiceQuestion(int score, String question, ArrayList<String> choices) {
 		super(score);
+		this.type = "MultipleChoice";
 		this.question = question;
 		this.choices = choices;
 	}

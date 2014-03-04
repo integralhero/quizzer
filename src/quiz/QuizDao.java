@@ -37,6 +37,8 @@ public class QuizDao {
 
 			prepStmt.executeUpdate();
 			
+			setQuizID(quiz);
+			
 			updateUserTable(quiz, UserDao.getUserById(quiz.getUserID()));
 			for(int i = 0; i < quiz.questions.size(); i++){
 				updateQuestionTables(quiz, quiz.questions.get(i));
@@ -49,6 +51,21 @@ public class QuizDao {
 		}
 	}
 	
+	private static void setQuizID(Quiz quiz){
+		try {
+			String command = "SELECT * FROM quizzes WHERE name = \"" + quiz.getName() + "\"";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+
+			if(rs.next()){
+				quiz.setID(rs.getInt("id"));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	private static void updateUserTable(Quiz quiz, User user) {
 		try {
@@ -57,12 +74,14 @@ public class QuizDao {
 
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
-			int numQuizzes = rs.getInt("numQuizzesTaken");
-			
-			String command2 = "UPDATE users SET numQuizzesTaken = " + numQuizzes + 1 + "WHERE id = " + user.getUserid();
-			Statement statement2 = connection.createStatement();
-			statement2.executeUpdate(command2);
-			
+			if(rs.next()){
+				int numQuizzes = rs.getInt("numQuizzesTaken");
+				
+				String command2 = "UPDATE users SET numQuizzesTaken = " + numQuizzes + 1 + " WHERE id = " + user.getUserid();
+				Statement statement2 = connection.createStatement();
+				statement2.executeUpdate(command2);
+			}
+				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,7 +94,7 @@ public class QuizDao {
 			switch (QuestionTypes.getType(question.type)) {
 			case 1:
 				PreparedStatement prepStmt = connection.prepareStatement(
-						"INSERT INTO" + question.type + "(question, answers, quiz_id) VALUES (?,?,?)");
+						"INSERT INTO " + question.type + " (question, answers, quiz_id) VALUES (?,?,?)");
 				prepStmt.setString(1, ((QuestionResponse)question).question);
 				prepStmt.setString(2, question.parseAnswers());
 				//prepStmt.setString(2, ParseAnswers.getString(question.answers));
@@ -86,7 +105,7 @@ public class QuizDao {
 				
 			case 2:
 				PreparedStatement prepStmt4 = connection.prepareStatement(
-						"INSERT INTO" + question.type + "(question, answers, quiz_id) VALUES (?,?,?)");
+						"INSERT INTO " + question.type + " (question, answers, quiz_id) VALUES (?,?,?)");
 				prepStmt4.setString(1, ((FillBlankQuestion)question).question);
 				prepStmt4.setString(2, question.parseAnswers());
 				prepStmt4.setInt(3, quiz.getID());
@@ -96,7 +115,7 @@ public class QuizDao {
 				
 			case 4:
 				PreparedStatement prepStmt2 = connection.prepareStatement(
-						"INSERT INTO" + question.type + "(pictureURL, answers, quiz_id) VALUES (?,?,?)");
+						"INSERT INTO " + question.type + " (pictureURL, answers, quiz_id) VALUES (?,?,?)");
 				prepStmt2.setString(1, ((PictureResponseQuestion)question).imageURL);
 				prepStmt2.setString(2, question.parseAnswers());
 				prepStmt2.setInt(3, quiz.getID());
@@ -106,7 +125,7 @@ public class QuizDao {
 				
 			case 3:
 				PreparedStatement prepStmt3 = connection.prepareStatement(
-						"INSERT INTO" + question.type + "(question, choices, answers, quiz_id) VALUES (?,?,?,?)");
+						"INSERT INTO " + question.type + " (question, choices, answers, quiz_id) VALUES (?,?,?,?)");
 				prepStmt3.setString(1, ((MultipleChoiceQuestion)question).question);
 				prepStmt3.setString(2, ((MultipleChoiceQuestion)question).parseChoices());
 				prepStmt3.setString(3, question.parseAnswers());
