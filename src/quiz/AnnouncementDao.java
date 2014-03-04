@@ -22,7 +22,7 @@ public class AnnouncementDao {
 	public static void removeMessage(int id) {
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.execute("DELETE FROM announcements WHERE id=" + id );
+			stmt.execute("DELETE FROM announcements WHERE ID=" + id );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,7 +37,7 @@ public class AnnouncementDao {
 			while(rs.next()) {
 				Announcement tmp = new Announcement();
 				tmp.setMessage(rs.getString("message"));
-				tmp.setMessage_id(rs.getInt("id"));
+				tmp.setMessage_id(rs.getInt("ID"));
 				ret.add(tmp);
 			}
 		} catch (SQLException e) {

@@ -8,7 +8,7 @@ public class Question {
 	public int score;
 	public static int DEFAULT_SCORE = 1;
 	public String type;
-
+	public int ID;
 	
 	public Question() {
 		this.score = DEFAULT_SCORE;
