@@ -10,20 +10,12 @@ public class QuizTakenDao {
 	
 	public static void addQuizTaken(QuizTaken quizTaken) {
 		try {
-<<<<<<< HEAD
 			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes_taken(user_id, quiz_id, timeTakingQuiz, scoreOnQuiz, timeElapsed) VALUES (?,?,?,?)");
 			prepStmt.setInt(1, quizTaken.getUserID());
 			prepStmt.setInt(2, quizTaken.getQuizID());
 			prepStmt.setLong(3, quizTaken.getTimeTakingQuiz());
 			prepStmt.setInt(4, quizTaken.getScore());
 			prepStmt.setLong(5, quizTaken.getTimeElapsed());
-=======
-			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(id, score, name, user_id) VALUES (?,?,?,?)");
-			//prepStmt.setInt(1, quizTaken.getID());
-			prepStmt.setInt(2, quizTaken.getScore());
-			//prepStmt.setString(3, quizTaken.getName());
-			prepStmt.setInt(4, quizTaken.getUserID());
->>>>>>> c851686834e59179541009bad960bbf1f6df2404
 
 			prepStmt.executeUpdate();
 		} catch (SQLException e) {
