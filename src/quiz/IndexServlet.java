@@ -26,16 +26,22 @@ public class IndexServlet extends HttpServlet {
 
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
     	User me = (User)req.getSession(false).getAttribute("currentUser");
-    	ArrayList<FriendRequest> frqs = MessageDao.getAllFriendReqsToUser(me.getUserid());
-    	ArrayList<Announcement> allAnnouncements = AnnouncementDao.getAllAccouncements();
-    	req.setAttribute("announcements", allAnnouncements);
-    	req.setAttribute("allRequests", frqs);
-    	try {
-			req.getRequestDispatcher("/index.jsp").forward(req, res);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	if(me != null) {
+    		ArrayList<FriendRequest> frqs = MessageDao.getAllFriendReqsToUser(me.getUserid());
+        	ArrayList<Announcement> allAnnouncements = AnnouncementDao.getAllAccouncements();
+        	req.setAttribute("announcements", allAnnouncements);
+        	req.setAttribute("allRequests", frqs);
+        	try {
+    			req.getRequestDispatcher("/index.jsp").forward(req, res);
+    		} catch (ServletException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	} 
+    	else {
+    		res.sendRedirect("index.jsp");
+    	}
+    	
     }
 
 }
