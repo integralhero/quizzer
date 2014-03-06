@@ -1,6 +1,7 @@
 package quiz;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MultipleChoiceQuestion extends Question{
 	
@@ -61,5 +62,8 @@ public class MultipleChoiceQuestion extends Question{
 			}
 		}
 		return parsed;
+	}
+	public static ArrayList<String> unParseChoice(String str) {
+		return new ArrayList<String>(Arrays.asList(str.split("\\s*,\\s*")));
 	}
 }

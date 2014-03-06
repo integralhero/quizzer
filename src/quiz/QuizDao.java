@@ -24,6 +24,31 @@ public class QuizDao {
 		}
 	}
 	
+	public static Quiz getQuizByID(int quiz_id) {
+		try {
+			String command = "SELECT * FROM quizzes WHERE ID=" + quiz_id;
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);	
+			ArrayList<Question> list = getAllQuestionsFrom(quiz_id);
+			Quiz tmp = new Quiz();
+			tmp.setQuestions(list);
+			tmp.setID(quiz_id);
+			if(rs.next()) {
+				tmp.setCategory(rs.getString("category"));
+				tmp.setName(rs.getString("name"));
+				tmp.setDescription(rs.getString("description"));
+				tmp.setUserID(rs.getInt("userID"));
+			}
+			
+			return tmp;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static void addQuiz(Quiz quiz) {
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category) VALUES (?,?,?,?,?,?,?)");
@@ -104,7 +129,58 @@ public class QuizDao {
 			e.printStackTrace();
 		}			
 	}
-
+	
+	private static ArrayList<Question> getAllQuestionsFrom(int quiz_id) {
+		ArrayList<Question> allQuestions = new ArrayList<Question>();
+		try {
+			String command = "SELECT * FROM question_quiz_index WHERE quizID = " + quiz_id;
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			while(rs.next()) {
+				String type = rs.getString("questionType");
+				int questionID = rs.getInt("questionID");
+				if(QuestionTypes.getType(type) == 1) {//QR
+					String answer = QuestionDao.getAnswers(questionID, type);
+					String question = QuestionDao.getQuestion(questionID, type);
+					FillBlankQuestion tmp = new FillBlankQuestion(question, answer);
+					tmp.setType(type);
+					tmp.setID(questionID);
+					allQuestions.add(tmp);
+					
+				}
+				else if(QuestionTypes.getType(type) == 2) {//FB
+					String answer = QuestionDao.getAnswers(questionID, type);
+					String question = QuestionDao.getQuestion(questionID, type);
+					QuestionResponse tmp = new QuestionResponse(question, answer);
+					tmp.setType(type);
+					tmp.setID(questionID);
+					allQuestions.add(tmp);
+				}
+				
+				else if(QuestionTypes.getType(type) == 3) {//MC
+					String answer = QuestionDao.getAnswers(questionID, type);
+					String question = QuestionDao.getQuestion(questionID, type);
+					String choices = QuestionDao.getChoices(questionID);
+					ArrayList<String> choicesAL = MultipleChoiceQuestion.unParseChoice(choices);
+					MultipleChoiceQuestion tmp = new MultipleChoiceQuestion(question, choicesAL, answer);
+					allQuestions.add(tmp);
+				}
+				
+				else {//PR
+					String answer = QuestionDao.getAnswers(questionID, type);
+					String url = QuestionDao.getImageURL(questionID);
+					PictureResponseQuestion tmp = new PictureResponseQuestion(url, answer);
+					tmp.setType(type);
+					tmp.setID(questionID);
+					allQuestions.add(tmp);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allQuestions;
+	}
 	
 	private static void updateQuestionTables(Quiz quiz, Question question) {
 		try {

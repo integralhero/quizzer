@@ -3,7 +3,7 @@ package quiz;
 import java.util.ArrayList;
 
 public class Question {
-
+	
 	public ArrayList<String> answers; //there is potentially more than 1 answer per question
 	public int score;
 	public static int DEFAULT_SCORE = 1;
@@ -22,6 +22,12 @@ public class Question {
 	
 	public void addAnswer(String answer) {
 		answers.add(answer);
+	}
+	public void setID(int id) {
+		this.ID = id;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	public ArrayList<String> getAnswers() {
