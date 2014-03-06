@@ -16,7 +16,7 @@ public class AchievementDao {
 			String name = temp.getName();
 			String description = temp.getDescription();
 			
-			String command = "INSERT INTO userAchievements(image, name, description) VALUES (" 
+			String command = "INSERT INTO achievements(image, name, description) VALUES (" 
 					+ image + "," + name + "," + description + ")";
 			
 			Statement statement = connection.createStatement();

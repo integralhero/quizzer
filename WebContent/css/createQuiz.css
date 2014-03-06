@@ -1,4 +1,18 @@
 .quiz_qtn_field {
 	min-width: 180%;
-	
 }
+
+#delete_icon {
+	width: 30px;
+	height: auto;
+	float: right;
+	z-index:-1;
+	display: inline;
+	/*margin-top: -35px*/;
+}
+
+.question_header {
+	overflow: hidden;
+ 	background-color: red;	
+}
+	

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class CreateQuizServlet
@@ -45,8 +46,16 @@ public class CreateQuizServlet extends HttpServlet {
 		String quizName = request.getParameter("quiz_name_field");
 		System.out.println("QuizName: " + quizName);
 		ArrayList<Question> questions = getQuestionsFromForm(request);
-//		Quiz quiz = new Quiz(quizName, );
-//		QuizDao.createQuiz(quiz);
+		
+		Quiz quiz = new Quiz();
+		HttpSession session = request.getSession();
+		User currUser = (User)session.getAttribute("currentUser");
+		quiz.setName(quizName);
+		quiz.setQuestions(questions);
+		quiz.setUserID(currUser.getUserid());
+		quiz.calculateAndSetScore();
+		
+		QuizDao.addQuiz(quiz);
 		int numQtns = Integer.parseInt(request.getParameter("question_count_field"));
 
 		System.out.println("num questions: " + numQtns);
@@ -57,58 +66,60 @@ public class CreateQuizServlet extends HttpServlet {
 		
 		int numQuestions =  Integer.parseInt(request.getParameter("question_count_field"));
 		for (int qtnNum = 1; qtnNum <= numQuestions; qtnNum++) {
-			int questionType = Integer.parseInt(request.getParameter("question_type_" + qtnNum));
-			String question = "";
-			String answer = "";
-			Question quizQtn;
-			switch (questionType) {
-				case QUESTION_RESPONSE:
-					question = request.getParameter("question" + qtnNum);
-					System.out.println("Question-Res: " + question);
-					answer = request.getParameter("answer" + qtnNum);
-					System.out.println("Answer: " + answer);
-					quizQtn = new QuestionResponse(question, answer);
-					questions.add(quizQtn);
-					break;
-				case FILL_BLANK:
-					question = request.getParameter("question" + qtnNum);
-					System.out.println("Fill Blank Question: " + question);
-					answer = request.getParameter("answer" + qtnNum);
-					System.out.println("Answer: " + answer);
-					quizQtn = new FillBlankQuestion(question, answer);
-					questions.add(quizQtn);
-					break;
-				case MULT_CHOICE:
-					question = request.getParameter("question" + qtnNum);
-					System.out.println("Mult Choice Question: " + question);
-					int numMultChoiceAnswers = Integer.parseInt(request.getParameter("mult_choice_answer_count_" + qtnNum));
-					ArrayList<String> choices = new ArrayList<String>();
-					ArrayList<String> answers = new ArrayList<String>();
-					for (int choiceNum = 1; choiceNum <= numMultChoiceAnswers; choiceNum++) {
-						String choice = request.getParameter("mult_choice_answer_" + choiceNum);
-						if (request.getParameter("mult_choice_checkbox_" + choiceNum) != null) {
-							answers.add(choice);
+			if (!request.getParameter("question_type_" + qtnNum).equals(null)) {
+				int questionType = Integer.parseInt(request.getParameter("question_type_" + qtnNum));
+				String question = "";
+				String answer = "";
+				Question quizQtn;
+				switch (questionType) {
+					case QUESTION_RESPONSE:
+						question = request.getParameter("question" + qtnNum);
+						System.out.println("Question-Res: " + question);
+						answer = request.getParameter("answer" + qtnNum);
+						System.out.println("Answer: " + answer);
+						quizQtn = new QuestionResponse(question, answer);
+						questions.add(quizQtn);
+						break;
+					case FILL_BLANK:
+						question = request.getParameter("question" + qtnNum);
+						System.out.println("Fill Blank Question: " + question);
+						answer = request.getParameter("answer" + qtnNum);
+						System.out.println("Answer: " + answer);
+						quizQtn = new FillBlankQuestion(question, answer);
+						questions.add(quizQtn);
+						break;
+					case MULT_CHOICE:
+						question = request.getParameter("question" + qtnNum);
+						System.out.println("Mult Choice Question: " + question);
+						int numMultChoiceAnswers = Integer.parseInt(request.getParameter("mult_choice_answer_count_" + qtnNum));
+						ArrayList<String> choices = new ArrayList<String>();
+						ArrayList<String> answers = new ArrayList<String>();
+						for (int choiceNum = 1; choiceNum <= numMultChoiceAnswers; choiceNum++) {
+							String choice = request.getParameter("mult_choice_answer_" + choiceNum);
+							if (request.getParameter("mult_choice_checkbox_" + choiceNum) != null) {
+								answers.add(choice);
+							}
+							choices.add(choice);
 						}
-						choices.add(choice);
-					}
-					int score = answers.size();
-					quizQtn = new MultipleChoiceQuestion(score, question, choices);
-					for (String correctAnswer : answers) {
-						quizQtn.addAnswer(correctAnswer);
-					}
-					questions.add(quizQtn);
-					break;
-				case PIC_RES:
-					question = request.getParameter("question" + qtnNum);
-					System.out.println("Fill Blank Question: " + question);
-					answer = request.getParameter("answer" + qtnNum);
-					System.out.println("Answer: " + answer);
-					quizQtn = new PictureResponseQuestion(question, answer);
-					questions.add(quizQtn);
-					break;
-
-				default: break;
-					
+						int score = answers.size();
+						quizQtn = new MultipleChoiceQuestion(score, question, choices);					
+						for (String correctAnswer : answers) {
+							quizQtn.addAnswer(correctAnswer);
+						}
+						questions.add(quizQtn);
+						break;
+					case PIC_RES:
+						question = request.getParameter("question" + qtnNum);
+						System.out.println("Fill Blank Question: " + question);
+						answer = request.getParameter("answer" + qtnNum);
+						System.out.println("Answer: " + answer);
+						quizQtn = new PictureResponseQuestion(question, answer);
+						questions.add(quizQtn);
+						break;
+	
+					default: break;
+						
+				}
 			}
 		}
 		

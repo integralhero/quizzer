@@ -50,6 +50,10 @@ public class Quiz {
 		questions.add(question);
 	}
 	
+	public void setQuestions(ArrayList<Question> questions){
+		this.questions = questions;
+	}
+	
 	public int getID(){
 		return this.quiz_id;
 	}
@@ -64,6 +68,14 @@ public class Quiz {
 	
 	public void setScore(int score){
 		this.totalScore = score;
+	}
+	
+	public void calculateAndSetScore(){
+		 
+		for (int i = 0; i < questions.size(); i++) {
+			totalScore += questions.get(i).getScore();
+		}
+		
 	}
 	
 	public String getName(){

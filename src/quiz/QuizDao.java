@@ -26,7 +26,7 @@ public class QuizDao {
 	
 	public static void addQuiz(Quiz quiz) {
 		try {
-			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, user_id, numTimesTaken, timeCreated, description, category) VALUES (?,?,?,?,?,?,?)");
+			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category) VALUES (?,?,?,?,?,?,?)");
 			prepStmt.setInt(1, quiz.getScore());
 			prepStmt.setString(2, quiz.getName());
 			prepStmt.setInt(3, quiz.getUserID());
@@ -37,9 +37,12 @@ public class QuizDao {
 
 			prepStmt.executeUpdate();
 			
+			setQuizID(quiz);
+			
 			updateUserTable(quiz, UserDao.getUserById(quiz.getUserID()));
 			for(int i = 0; i < quiz.questions.size(); i++){
 				updateQuestionTables(quiz, quiz.questions.get(i));
+				quiz.questions.get(i).ID = getLastInsertID(quiz.questions.get(i).type);
 				updateQuizQuestionIndexTable(quiz, quiz.questions.get(i));
 			}
 
@@ -49,20 +52,53 @@ public class QuizDao {
 		}
 	}
 	
+	private static int getLastInsertID(String type){
+		try {
+			String command = "SELECT id FROM " + type + " WHERE id = LAST_INSERT_ID();";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+
+			if(rs.next()) return rs.getInt("id");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	private static void setQuizID(Quiz quiz){
+		try {
+			String command = "SELECT * FROM quizzes WHERE name = \"" + quiz.getName() + "\"";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+
+			if(rs.next()){
+				quiz.setID(rs.getInt("id"));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	private static void updateUserTable(Quiz quiz, User user) {
 		try {
 			
-			String command = "SELECT numQuizzesTaken FROM users WHERE id = " + user.getUserid();
+			String command = "SELECT numQuizzesCreated FROM users WHERE ID = " + user.getUserid();
 
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
-			int numQuizzes = rs.getInt("numQuizzesTaken");
-			
-			String command2 = "UPDATE users SET numQuizzesTaken = " + numQuizzes + 1 + "WHERE id = " + user.getUserid();
-			Statement statement2 = connection.createStatement();
-			statement2.executeUpdate(command2);
-			
+			if(rs.next()){
+				int numQuizzes = rs.getInt("numQuizzesCreated");
+				numQuizzes++;
+				System.out.print(numQuizzes);
+				String command2 = "UPDATE users SET numQuizzesCreated = " + numQuizzes + " WHERE ID = " + user.getUserid();
+				Statement statement2 = connection.createStatement();
+				statement2.executeUpdate(command2);
+			}
+				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,7 +111,7 @@ public class QuizDao {
 			switch (QuestionTypes.getType(question.type)) {
 			case 1:
 				PreparedStatement prepStmt = connection.prepareStatement(
-						"INSERT INTO" + question.type + "(question, answers, quiz_id) VALUES (?,?,?)");
+						"INSERT INTO " + question.type + " (question, answers, quizID) VALUES (?,?,?)");
 				prepStmt.setString(1, ((QuestionResponse)question).question);
 				prepStmt.setString(2, question.parseAnswers());
 				//prepStmt.setString(2, ParseAnswers.getString(question.answers));
@@ -86,7 +122,7 @@ public class QuizDao {
 				
 			case 2:
 				PreparedStatement prepStmt4 = connection.prepareStatement(
-						"INSERT INTO" + question.type + "(question, answers, quiz_id) VALUES (?,?,?)");
+						"INSERT INTO " + question.type + " (question, answers, quizID) VALUES (?,?,?)");
 				prepStmt4.setString(1, ((FillBlankQuestion)question).question);
 				prepStmt4.setString(2, question.parseAnswers());
 				prepStmt4.setInt(3, quiz.getID());
@@ -96,7 +132,7 @@ public class QuizDao {
 				
 			case 4:
 				PreparedStatement prepStmt2 = connection.prepareStatement(
-						"INSERT INTO" + question.type + "(pictureURL, answers, quiz_id) VALUES (?,?,?)");
+						"INSERT INTO " + question.type + " (pictureURL, answers, quizID) VALUES (?,?,?)");
 				prepStmt2.setString(1, ((PictureResponseQuestion)question).imageURL);
 				prepStmt2.setString(2, question.parseAnswers());
 				prepStmt2.setInt(3, quiz.getID());
@@ -106,7 +142,7 @@ public class QuizDao {
 				
 			case 3:
 				PreparedStatement prepStmt3 = connection.prepareStatement(
-						"INSERT INTO" + question.type + "(question, choices, answers, quiz_id) VALUES (?,?,?,?)");
+						"INSERT INTO " + question.type + " (question, choices, answers, quizID) VALUES (?,?,?,?)");
 				prepStmt3.setString(1, ((MultipleChoiceQuestion)question).question);
 				prepStmt3.setString(2, ((MultipleChoiceQuestion)question).parseChoices());
 				prepStmt3.setString(3, question.parseAnswers());
@@ -124,8 +160,8 @@ public class QuizDao {
 	
 	private static void updateQuizQuestionIndexTable(Quiz quiz, Question question) {
 		try {
-			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO QuestionQuizIndex(question_id, quiz_id, question_type) VALUES (?,?,?)");
-			prepStmt.setInt(1,QuestionDao.getID(question));
+			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO question_quiz_index (questionID, quizID, questionType) VALUES (?,?,?)");
+			prepStmt.setInt(1,question.ID);
 			prepStmt.setInt(2, quiz.getID());
 			prepStmt.setString(3, question.type);
 
@@ -142,7 +178,7 @@ public class QuizDao {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		
 		try {
-			String command = "SELECT * FROM quizzes WHERE user_id =" + user_id;
+			String command = "SELECT * FROM quizzes WHERE userID =" + user_id;
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
@@ -158,7 +194,7 @@ public class QuizDao {
 			for(int i = 0; i < quizIDs.size(); i++){
 				Quiz temp = new Quiz();
 				
-				command = "SELECT * FROM quizzes WHERE id = " + quizIDs.get(i);
+				command = "SELECT * FROM quizzes WHERE ID = " + quizIDs.get(i);
 				Statement statement2 = connection.createStatement();
 				ResultSet rs2 = statement2.executeQuery(command);
 				
@@ -166,7 +202,7 @@ public class QuizDao {
 				
 				temp.setScore(rs2.getInt("score"));
 				temp.setName(rs2.getString("name"));
-				temp.setUserID(rs2.getInt("user_id"));
+				temp.setUserID(rs2.getInt("userID"));
 				temp.setID(quizIDs.get(i));
 			
 				
@@ -195,8 +231,8 @@ public class QuizDao {
 			
 				quiz.setScore(rs.getInt("score"));
 				quiz.setName(rs.getString("name"));
-				quiz.setUserID(rs.getInt("user_id"));
-				quiz.setID(rs.getInt("id"));
+				quiz.setUserID(rs.getInt("userID"));
+				quiz.setID(rs.getInt("ID"));
 			}
 			
 		} catch (SQLException e) {
