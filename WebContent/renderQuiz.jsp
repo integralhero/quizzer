@@ -79,29 +79,74 @@
              	Quiz curQuiz = (Quiz)request.getAttribute("curQuiz");
                %>
 			<%= curQuiz.getName() %>
-			
+			<form name="take_quiz_form" action="" method="post" > 
 			<%
 			ArrayList<Question> questions = curQuiz.questions;
+			int answerID = 1;
 			for(int i = 0; i < questions.size(); i++)  {
-				Question question = questions.get(i);	
-				System.out.println(QuestionTypes.getType(question.getQuestionType()));
+				Question question = questions.get(i);
+					%>
+					<div class='question'>
+					<%
 						switch (QuestionTypes.getType(question.getQuestionType())) {
 						case 1:	//QR %>
 							<h3><%= ((QuestionResponse)question).getQuestion() %></h3>
-						
-					<%	break;
+					<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+								<input type="text" id="answer_field_<%= answerID%>">
+					<% 			answerID++;
+							}
+					%>
+						<input type="text" value="<%=  %>">
+					
+					<%
+						break;
 						case 2: //FIB %>
 							<h3><%= ((FillBlankQuestion)question).getQuestion() %></h3>
-					<% 	break;
+					<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+								<input type="text" id="answer_field_<%= answerID%>">
+					<% 			answerID++;
+							}
+					
+					 	break;
 						case 3: //MC  %>
 							<h3><%= ((MultipleChoiceQuestion)question).getQuestion() %></h3>
+							
+					<%		String typeOfInput = "radio";
+						//for (String answer : question.getAnswers()) {
+						//	System.out.println("Answers: " + answer);
+						//}
+							if(question.getNumAnswers() > 1) {
+								typeOfInput = "checkbox";
+							}
+							for (String choice : ((MultipleChoiceQuestion)question).getChoices()) {
+					%>
+								<div class='row'>
+									<div class='col-lg-6'>
+										<div class='input-group'>
+											<span class='input-group-addon'><input type='<%= typeOfInput %>' name="mult_choice_answer"></span><input type='text' value="<%= choice %>" class='form-control' id="answer_field_<%= answerID %>"  >
+										</div>
+									</div>
+								</div>
+					<%
+							answerID++;
+							}
+					%>
 					<% 	break;
 						case 4: //PR %>
 							<img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>">
-					<%  break;	
+					<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+								<input type="text" id="answer_field_<%= answerID%>">
+					<% 			answerID++;
+							}
+							
+					  break;	
 						}
-			}	
+					%>
+					</div> <!-- Close question div -->
+					<%
+			} //end for loop	
 			%>
+			</form>
           </div>
         </div>
       </div>
