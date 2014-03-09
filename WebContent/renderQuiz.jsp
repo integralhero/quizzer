@@ -74,37 +74,40 @@
         <div class="row">
           <div class="col-xs-12">
              <% 
-               User us = (User)session.getAttribute("currentUser");
+               	User us = (User)session.getAttribute("currentUser");
              	int curUserID = us.getUserid();
              	Quiz curQuiz = (Quiz)request.getAttribute("curQuiz");
                %>
-		
 			<%= curQuiz.getName() %>
-
+			
+			<%
+			ArrayList<Question> questions = curQuiz.questions;
+			for(int i = 0; i < questions.size(); i++)  {
+				Question question = questions.get(i);	
+				System.out.println(QuestionTypes.getType(question.getQuestionType()));
+						switch (QuestionTypes.getType(question.getQuestionType())) {
+						case 1:	//QR %>
+							<h3><%= ((QuestionResponse)question).getQuestion() %></h3>
+						
+					<%	break;
+						case 2: //FIB %>
+							<h3><%= ((FillBlankQuestion)question).getQuestion() %></h3>
+					<% 	break;
+						case 3: //MC  %>
+							<h3><%= ((MultipleChoiceQuestion)question).getQuestion() %></h3>
+					<% 	break;
+						case 4: //PR %>
+							<img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>">
+					<%  break;	
+						}
+			}	
+			%>
           </div>
         </div>
       </div>
-<%
-	ArrayList<Question> questions = curQuiz.questions;
-	for(int i = 0; i < questions.size(); i++)  {
-		Question question = questions.get(i);
-		switch (QuestionTypes.getType(question.type)) {
-		case 1:	//QR %>
-		
-	<%	break;
-		case 2: //FIB %>
 
-	<% 	break;
-		case 3: //MC  %>
 
-	<% 	break;
-		case 4: //PR %>
 
-	<%  break;	
-		}
-		
-	}	
-%>
 	  
       <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
