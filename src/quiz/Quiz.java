@@ -1,7 +1,7 @@
 package quiz;
 import java.util.*;
 
-public class Quiz {
+public class Quiz implements Comparable<Quiz>{
 
 	private int quiz_id;
 	private int totalScore;
@@ -32,6 +32,12 @@ public class Quiz {
 			totalScore += questions.get(i).getScore();
 		}
 		this.totalScore = totalScore;
+	}
+	
+	public int compareTo(Quiz quiz) {
+		if (this.numTimesTaken > quiz.getNumTimesTaken()) return 1;
+		if (this.numTimesTaken == quiz.getNumTimesTaken()) return 0;
+		else return -1;
 	}
 	
 	public void setMultiplePages() {
@@ -108,4 +114,11 @@ public class Quiz {
 		return this.category;
 	}
 
+	public int getNumTimesTaken() {
+		return this.numTimesTaken;
+	}
+	
+	public void setNumTimesTaken(int numTimesTaken) {
+		this.numTimesTaken = numTimesTaken;
+	}
 }

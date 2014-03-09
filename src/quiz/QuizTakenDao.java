@@ -23,18 +23,32 @@ public class QuizTakenDao {
 		}
 	}
 	
-	//gets quizzes taken within the last x minutes
-	public static void getUserRecentQuizzesTaken(int user_id, int min) {
+	//gets 10 most recent quizzes taken by user 
+	public static ArrayList<Quiz> getUserRecentQuizzesTaken(int user_id) {
 		try {
-			long currentTime = System.currentTimeMillis();
-			long milliseconds = min * 60000; // 60000 equals number of milliseconds in a minute.
-			String command = "SELECT * FROM quizzes_taken WHERE user_id = " + user_id + " AND timeTaken + " + milliseconds + " >= " + currentTime;
+			ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
+			
+			String command = "SELECT * FROM quizzes_taken WHERE userID = " 
+					+ user_id;
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
+			rs.afterLast();
+			int quizCount = 0;
+			while (rs.previous() && quizCount < 10) {
+				quizCount++;
+				int quiz_id = rs.getInt("quizID");
+				Quiz recentQuiz = QuizDao.getQuizByID(quiz_id);
+				recentQuizzes.add(recentQuiz);
+			}
+			
+			return recentQuizzes;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
+	
+	
 }

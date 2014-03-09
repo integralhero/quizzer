@@ -39,11 +39,13 @@ public class QuizDao {
 				tmp.setName(rs.getString("name"));
 				tmp.setDescription(rs.getString("description"));
 				tmp.setUserID(rs.getInt("userID"));
+				tmp.setNumTimesTaken(rs.getInt("numTimesTaken"));
+				tmp.setScore(rs.getInt("score"));
 			}
 			
 			return tmp;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return null;
@@ -294,6 +296,61 @@ public class QuizDao {
 		return quizzes;
 	}
 	
+	// gets the most recently created quizzes without specific user 
+	
+	public static ArrayList<Quiz> getRecentCreatedQuizzes() {
+		try {
+			ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
+			String command = "SELECT * FROM quizzes";
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			rs.afterLast();
+			int quizCount = 0;
+			while (rs.previous() && quizCount < 10) {
+				quizCount++;
+				int quiz_id = rs.getInt("ID");
+				Quiz recentQuiz = QuizDao.getQuizByID(quiz_id);
+				recentQuizzes.add(recentQuiz);
+			}
+			
+			return recentQuizzes;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	//gets the most recently created quizzes created by user 
+	
+	public static ArrayList<Quiz> getRecentUserCreatedQuizzes(int user_id) {
+		try {
+			ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
+			String command = "SELECT * FROM quizzes WHERE userID = " 
+					+ user_id;
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			rs.afterLast();
+			int quizCount = 0;
+			
+			while (rs.previous() && quizCount < 2) {
+				quizCount++;
+				int quiz_id = rs.getInt("ID");
+				Quiz recentQuiz = QuizDao.getQuizByID(quiz_id);
+				recentQuizzes.add(recentQuiz);
+			}
+			
+			return recentQuizzes;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static Quiz searchForQuiz(String quizName){
 		Quiz quiz = new Quiz();
 
@@ -336,6 +393,39 @@ public class QuizDao {
 		}
 		
 		return nameFree;
+	}
+	
+	// returns the five most popular quizzes. if less than five quizzes have been created, then just return the 
+	//
+	
+	public static ArrayList<Quiz> getMostPopularQuizzes() {
+		
+		try {
+			ArrayList<Quiz> popularQuizzes = new ArrayList<Quiz> ();
+			String command = "SELECT * FROM quizzes";
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			Quiz tmp = new Quiz();
+			while (rs.next()) {
+				int numTimesTaken = rs.getInt("numTimesTaken");
+				tmp.setNumTimesTaken(numTimesTaken);
+				popularQuizzes.add(tmp);
+			}
+			
+			Collections.sort(popularQuizzes);
+			if (popularQuizzes.size() <= 5) return popularQuizzes;
+			else {
+				while(popularQuizzes.size() > 5) {
+					popularQuizzes.remove(0);
+				}
+				return popularQuizzes;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static String getCurrentTimeStamp() {

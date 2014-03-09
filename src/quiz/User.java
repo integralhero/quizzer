@@ -10,6 +10,8 @@ public class User {
 	private String email;
 	private String salt;
 	private boolean isAdmin;
+	private int numQuizzesTaken;
+	private int numQuizzesCreated;
 	private ArrayList<QuizTaken> quizzesTaken;
 	private ArrayList<Quiz> quizzesMade;
 	private ArrayList<User> friends;
@@ -23,6 +25,22 @@ public class User {
 	public User(){
 		quizzesTaken = new ArrayList<QuizTaken>();
 		quizzesMade = new ArrayList<Quiz>();
+	}
+	
+	public int getNumQuizzesTaken() {
+		return this.numQuizzesTaken;
+	}
+	
+	public int getNumQuizzesCreated() {
+		return this.numQuizzesCreated;
+	}
+	
+	public void setNumQuizzesTaken(int num) {
+		this.numQuizzesTaken = num;
+	}
+	
+	public void setNumQuizzesCreated(int num) {
+		this.numQuizzesCreated = num;
 	}
 	
 	public boolean checkIsAdmin() {

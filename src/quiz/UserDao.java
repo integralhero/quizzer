@@ -208,6 +208,8 @@ public class UserDao {
 				user.setPassword(rs.getString("password"));
 				user.setEmail(rs.getString("email"));
 				user.setAdminStatus(rs.getBoolean("admin"));
+				user.setNumQuizzesCreated(rs.getInt("numQuizzesCreated"));
+				user.setNumQuizzesTaken(rs.getInt("numQuizzesTaken"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
