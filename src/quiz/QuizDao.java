@@ -171,7 +171,7 @@ public class QuizDao {
 				if(QuestionTypes.getType(type) == 1) {//QR
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String question = QuestionDao.getQuestion(questionID, type);
-					QuestionResponse tmp = new QuestionResponse(question, answer);
+					QuestionResponse tmp = new QuestionResponse(question, ParseAnswers.getArrayList(answer));
 					tmp.setType(type);
 					tmp.setID(questionID);
 					allQuestions.add(tmp);
@@ -180,7 +180,7 @@ public class QuizDao {
 				else if(QuestionTypes.getType(type) == 2) {//FB
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String question = QuestionDao.getQuestion(questionID, type);
-					FillBlankQuestion tmp = new FillBlankQuestion(question, answer);
+					FillBlankQuestion tmp = new FillBlankQuestion(question, ParseAnswers.getArrayList(answer));
 					tmp.setType(type);
 					tmp.setID(questionID);
 					allQuestions.add(tmp);
@@ -191,14 +191,14 @@ public class QuizDao {
 					String question = QuestionDao.getQuestion(questionID, type);
 					String choices = QuestionDao.getChoices(questionID);
 					ArrayList<String> choicesAL = MultipleChoiceQuestion.unParseChoice(choices);
-					MultipleChoiceQuestion tmp = new MultipleChoiceQuestion(question, choicesAL, answer);
+					MultipleChoiceQuestion tmp = new MultipleChoiceQuestion(question, choicesAL, ParseAnswers.getArrayList(answer));
 					allQuestions.add(tmp);
 				}
 				
 				else {//PR
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String url = QuestionDao.getImageURL(questionID);
-					PictureResponseQuestion tmp = new PictureResponseQuestion(url, answer);
+					PictureResponseQuestion tmp = new PictureResponseQuestion(url, ParseAnswers.getArrayList(answer));
 					tmp.setType(type);
 					tmp.setID(questionID);
 					allQuestions.add(tmp);

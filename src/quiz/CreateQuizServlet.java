@@ -82,7 +82,7 @@ public class CreateQuizServlet extends HttpServlet {
 						System.out.println("Question-Res: " + question);
 						answer = request.getParameter("answer" + qtnNum);
 						System.out.println("Answer: " + answer);
-						quizQtn = new QuestionResponse(question, answer);
+						quizQtn = new QuestionResponse(question, ParseAnswers.getArrayList(answer));
 						questions.add(quizQtn);
 						break;
 					case FILL_BLANK:
@@ -90,7 +90,7 @@ public class CreateQuizServlet extends HttpServlet {
 						System.out.println("Fill Blank Question: " + question);
 						answer = request.getParameter("answer" + qtnNum);
 						System.out.println("Answer: " + answer);
-						quizQtn = new FillBlankQuestion(question, answer);
+						quizQtn = new FillBlankQuestion(question, ParseAnswers.getArrayList(answer));
 						questions.add(quizQtn);
 						break;
 					case MULT_CHOICE:
@@ -118,7 +118,7 @@ public class CreateQuizServlet extends HttpServlet {
 						System.out.println("Fill Blank Question: " + question);
 						answer = request.getParameter("answer" + qtnNum);
 						System.out.println("Answer: " + answer);
-						quizQtn = new PictureResponseQuestion(question, answer);
+						quizQtn = new PictureResponseQuestion(question, ParseAnswers.getArrayList(answer));
 						questions.add(quizQtn);
 						break;
 //					case MULT_CHOICE_MULT_ANS:
