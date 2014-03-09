@@ -95,6 +95,7 @@
 					          <li><a id="qtn_res_qtn" href="#">Question-Response</a></li>
 					          <li><a id="fill_blank_qtn" href="#">Fill in the Blank</a></li>
 					          <li><a id="mult_choice_qtn" href="#">Multiple Choice</a></li>
+					          <!--<li><a id="mult_choice_mult_ans_qtn" href="#">Multiple Choice w/ Multiple Answers</a></li>-->
 					          <li><a id="pic_res_qtn" href="#">Picture Response</a></li>
 					          
 					           <!-- <li class="divider"></li>

@@ -21,6 +21,9 @@ public class QuestionResponse extends Question{
 	public String getQuestion() {
 		return question;
 	}
+	public String getString() {
+		return "test String";
+	}
 	
 	public void resetQuestion(String newQuestion) {
 		this.question = newQuestion;
