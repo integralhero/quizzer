@@ -55,7 +55,11 @@ public class CreateQuizServlet extends HttpServlet {
 		quiz.setQuestions(questions);
 		quiz.setUserID(currUser.getUserid());
 		quiz.calculateAndSetScore();
-		
+		quiz.setDescription(request.getParameter("description"));
+		quiz.setImmediateCorrect(request.getParameter("feedback") != null);
+		quiz.setPracticeModeAvailable(request.getParameter("practice") != null);
+		quiz.setMultiplePages(request.getParameter("mult_pages") != null);
+		quiz.setRandomQuestions(request.getParameter("randomize") != null);
 		QuizDao.addQuiz(quiz);
 		int numQtns = Integer.parseInt(request.getParameter("question_count_field"));
 
