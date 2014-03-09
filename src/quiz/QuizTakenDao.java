@@ -37,4 +37,19 @@ public class QuizTakenDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public static int getNumberOfQuizzesTaken(){
+		int numTaken = 0;
+		try {
+			String command = "SELECT COUNT(*) AS number FROM quizzes_taken";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			if(rs.next()) numTaken = rs.getInt("number");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return numTaken;
+	}
 }

@@ -15,7 +15,9 @@ public class Quiz {
 	
 	public boolean randomizeQuestions = false;
 	public boolean multiplePages = false;
-	public boolean immediateCorrect = false;
+	public boolean immediateCorrection = false;
+	public boolean practiceModeAvailable = true;
+	
 	
 	public Quiz() { 
 		
@@ -33,19 +35,7 @@ public class Quiz {
 		}
 		this.totalScore = totalScore;
 	}
-	
-	public void setMultiplePages() {
-		multiplePages = true;
-	}
-	
-	public void setImmediateCorrect() {
-		immediateCorrect = true;
-	}
-	
-	public void setRandomizeQuestions() {
-		randomizeQuestions = true;
-	}
-	
+
 	public void addQuestion(Question question) {
 		questions.add(question);
 	}
@@ -106,6 +96,54 @@ public class Quiz {
 	}
 	public String getCategory(){
 		return this.category;
+	}
+	
+	public boolean getRandomizeQuestions(){
+		return this.randomizeQuestions;
+	}
+	
+	public boolean getMultiplePages(){
+		return this.multiplePages;
+	}
+	
+	public boolean getImmediateCorrection(){
+		return this.immediateCorrection;
+	}
+	
+	public boolean getPracticeModeAvailable(){
+		return practiceModeAvailable;
+	}
+	
+	public void setRandomQuestions(boolean bool){
+		this.randomizeQuestions = bool;
+	}
+	
+	public void setMultiplePages(boolean bool){
+		this.multiplePages = bool;
+	}
+	
+	public void setImmediateCorrect(boolean bool){
+		this.immediateCorrection = bool;
+	}
+	
+	public void setPracticeModeAvailable(boolean bool){
+		this.practiceModeAvailable = bool;
+	}
+	
+	public void setNumTimesTaken(int number){
+		this.numTimesTaken = number;
+	}
+	
+	public void setTimeCreated(String time){
+		this.timeCreated = time;
+	}
+	
+	public int getNumTimesTaken(){
+		return this.numTimesTaken;
+	}
+	
+	public String getTimeCreated(){
+		return this.timeCreated;
 	}
 
 }
