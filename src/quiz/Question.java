@@ -23,9 +23,11 @@ public class Question {
 	public void addAnswer(String answer) {
 		answers.add(answer);
 	}
+	
 	public void setID(int id) {
 		this.ID = id;
 	}
+	
 	public void setType(String type) {
 		this.type = type;
 	}

@@ -1,4 +1,5 @@
-<%@ page import="quiz.*" %>
+<%@ page import="quiz.*, java.util.*, javax.*" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -83,7 +84,28 @@
           </div>
         </div>
       </div>
+<%
+	ArrayList<Question> questions = curQuiz.questions;
+	for(int i = 0; i < questions.size(); i++)  {
+		Question question = questions.get(i);
+		switch (QuestionTypes.getType(question.type)) {
+		case 1:	//QR %>
+		
+	<%	break;
+		case 2: //FIB %>
 
+	<% 	break;
+		case 3: //MC  %>
+
+	<% 	break;
+		case 4: //PR %>
+
+	<%  break;	
+		}
+		
+	}	
+%>
+	  
       <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
       <script type='text/javascript'>
