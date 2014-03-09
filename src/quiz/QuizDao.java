@@ -171,7 +171,7 @@ public class QuizDao {
 				if(QuestionTypes.getType(type) == 1) {//QR
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String question = QuestionDao.getQuestion(questionID, type);
-					FillBlankQuestion tmp = new FillBlankQuestion(question, answer);
+					QuestionResponse tmp = new QuestionResponse(question, answer);
 					tmp.setType(type);
 					tmp.setID(questionID);
 					allQuestions.add(tmp);
@@ -180,7 +180,7 @@ public class QuizDao {
 				else if(QuestionTypes.getType(type) == 2) {//FB
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String question = QuestionDao.getQuestion(questionID, type);
-					QuestionResponse tmp = new QuestionResponse(question, answer);
+					FillBlankQuestion tmp = new FillBlankQuestion(question, answer);
 					tmp.setType(type);
 					tmp.setID(questionID);
 					allQuestions.add(tmp);
