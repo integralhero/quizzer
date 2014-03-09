@@ -8,20 +8,20 @@ public class MultipleChoiceQuestion extends Question{
 	public ArrayList<String> choices;
 	public String question;
 	
-	public MultipleChoiceQuestion(String question, ArrayList<String> choices, String answer) {
+	public MultipleChoiceQuestion(String question, ArrayList<String> choices, ArrayList<String> answer) {
 		super();
 		this.type = "q_multiple_choice";
 		this.question = question;
 		this.choices = choices;
-		answers.add(answer);
+		this.answers = answer;
 	}
 	
-	public MultipleChoiceQuestion(int score, String question, ArrayList<String> choices, String answer) {
+	public MultipleChoiceQuestion(int score, String question, ArrayList<String> choices, ArrayList<String> answer) {
 		super(score);
 		this.type = "q_multiple_choice";
 		this.question = question;
 		this.choices = choices;
-		answers.add(answer);
+		this.answers = answer;
 	}
 	
 	public MultipleChoiceQuestion(int score, String question, ArrayList<String> choices) {

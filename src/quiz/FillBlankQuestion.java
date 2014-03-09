@@ -1,21 +1,25 @@
 package quiz;
 
+import java.util.ArrayList;
+
 public class FillBlankQuestion extends Question{
 	
 	public String question;
 	
-	public FillBlankQuestion(String question, String answer) {
+	public FillBlankQuestion(String question, ArrayList<String> answer) {
 		super();
 		this.type = "q_fill_in_blank";
-		this.question = question.replaceAll(answer, getBlank(answer));
-		answers.add(answer);
+		for(int i = 0; i < answer.size(); i++)
+			this.question = question.replaceAll(answer.get(i), getBlank(answer.get(i)));
+		this.answers = answer;
 	}
 	
-	public FillBlankQuestion(int score, String question, String answer) {
+	public FillBlankQuestion(int score, String question, ArrayList<String> answer) {
 		super(score);
 		this.type = "q_fill_in_blank";
-		this.question = question.replaceAll(answer, getBlank(answer));
-		answers.add(answer);
+		for(int i = 0; i < answer.size(); i++)
+			this.question = question.replaceAll(answer.get(i), getBlank(answer.get(i)));		
+		this.answers = answer;
 	}
 	
 	public String getBlank(String answer) {

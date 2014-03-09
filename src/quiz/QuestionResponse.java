@@ -1,21 +1,23 @@
 package quiz;
 
+import java.util.ArrayList;
+
 public class QuestionResponse extends Question{
 	
 	public String question;
 	
-	public QuestionResponse(String question, String answer) {
+	public QuestionResponse(String question, ArrayList<String> answer) {
 		super();
 		this.type = "q_question_response";
 		this.question = question;
-		answers.add(answer);
+		this.answers = answer;
 	}
 	
-	public QuestionResponse(int score, String question, String answer) {
+	public QuestionResponse(int score, String question, ArrayList<String> answer) {
 		super(score);
 		this.type = "q_question_response";
 		this.question = question;
-		answers.add(answer);
+		this.answers = answer;
 	}
 	
 	public String getQuestion() {

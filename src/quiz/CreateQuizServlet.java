@@ -55,7 +55,11 @@ public class CreateQuizServlet extends HttpServlet {
 		quiz.setQuestions(questions);
 		quiz.setUserID(currUser.getUserid());
 		quiz.calculateAndSetScore();
-		
+		quiz.setDescription(request.getParameter("description"));
+		quiz.setImmediateCorrect(request.getParameter("feedback") != null);
+		quiz.setPracticeModeAvailable(request.getParameter("practice") != null);
+		quiz.setMultiplePages(request.getParameter("mult_pages") != null);
+		quiz.setRandomQuestions(request.getParameter("randomize") != null);
 		QuizDao.addQuiz(quiz);
 		int numQtns = Integer.parseInt(request.getParameter("question_count_field"));
 
@@ -78,7 +82,7 @@ public class CreateQuizServlet extends HttpServlet {
 						System.out.println("Question-Res: " + question);
 						answer = request.getParameter("answer" + qtnNum);
 						System.out.println("Answer: " + answer);
-						quizQtn = new QuestionResponse(question, answer);
+						quizQtn = new QuestionResponse(question, ParseAnswers.getArrayList(answer));
 						questions.add(quizQtn);
 						break;
 					case FILL_BLANK:
@@ -86,7 +90,7 @@ public class CreateQuizServlet extends HttpServlet {
 						System.out.println("Fill Blank Question: " + question);
 						answer = request.getParameter("answer" + qtnNum);
 						System.out.println("Answer: " + answer);
-						quizQtn = new FillBlankQuestion(question, answer);
+						quizQtn = new FillBlankQuestion(question, ParseAnswers.getArrayList(answer));
 						questions.add(quizQtn);
 						break;
 					case MULT_CHOICE:
@@ -114,7 +118,7 @@ public class CreateQuizServlet extends HttpServlet {
 						System.out.println("Fill Blank Question: " + question);
 						answer = request.getParameter("answer" + qtnNum);
 						System.out.println("Answer: " + answer);
-						quizQtn = new PictureResponseQuestion(question, answer);
+						quizQtn = new PictureResponseQuestion(question, ParseAnswers.getArrayList(answer));
 						questions.add(quizQtn);
 						break;
 //					case MULT_CHOICE_MULT_ANS:
