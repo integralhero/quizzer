@@ -59,4 +59,8 @@ public class Question {
 		}
 		return parsed;
 	}
+	
+	public int getNumAnswers() {
+		return answers.size();
+	}
 }

@@ -35,12 +35,22 @@ public class QuizDao {
 			tmp.setQuestions(list);
 			tmp.setID(quiz_id);
 			if(rs.next()) {
-				tmp.setCategory(rs.getString("category"));
+				tmp.setID(rs.getInt("ID"));
+				tmp.setScore(rs.getInt("score"));;
 				tmp.setName(rs.getString("name"));
-				tmp.setDescription(rs.getString("description"));
 				tmp.setUserID(rs.getInt("userID"));
 				tmp.setNumTimesTaken(rs.getInt("numTimesTaken"));
+<<<<<<< HEAD
 				tmp.setScore(rs.getInt("score"));
+=======
+				tmp.setTimeCreated(rs.getString("timeCreated"));
+				tmp.setDescription(rs.getString("description"));
+				tmp.setCategory(rs.getString("category"));
+				tmp.setRandomQuestions(rs.getBoolean("randomizeQuestions"));
+				tmp.setMultiplePages(rs.getBoolean("multiplePages"));
+				tmp.setImmediateCorrect(rs.getBoolean("immediateCorrection"));
+				tmp.setPracticeModeAvailable(rs.getBoolean("practiceModeAvailable"));
+>>>>>>> 4f1c3a367f102fc8d93b9e11d8a31ed93314187a
 			}
 			
 			return tmp;
@@ -53,7 +63,9 @@ public class QuizDao {
 	
 	public static void addQuiz(Quiz quiz) {
 		try {
-			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category) VALUES (?,?,?,?,?,?,?)");
+			
+			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category, randomizeQuestions, multiplePages, immediateCorrection, practiceModeAvailable) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 			prepStmt.setInt(1, quiz.getScore());
 			prepStmt.setString(2, quiz.getName());
 			prepStmt.setInt(3, quiz.getUserID());
@@ -61,6 +73,11 @@ public class QuizDao {
 			prepStmt.setString(5, getCurrentTimeStamp());
 			prepStmt.setString(6,  quiz.getDescription());
 			prepStmt.setString(7, quiz.getCategory());
+			prepStmt.setBoolean(8, quiz.getRandomizeQuestions());
+			prepStmt.setBoolean(9, quiz.getMultiplePages());
+			prepStmt.setBoolean(10, quiz.getImmediateCorrection());
+			prepStmt.setBoolean(11, quiz.getPracticeModeAvailable());
+
 
 			prepStmt.executeUpdate();
 			
@@ -132,19 +149,33 @@ public class QuizDao {
 		}			
 	}
 	
+	public void deleteQuizHistory(int quiz_id){
+		try {
+			
+			String command = "DELETE * FROM quizzes_taken WHERE ID = " + quiz_id;
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+					
+		}
+	}
+	
 	private static ArrayList<Question> getAllQuestionsFrom(int quiz_id) {
 		ArrayList<Question> allQuestions = new ArrayList<Question>();
 		try {
 			String command = "SELECT * FROM question_quiz_index WHERE quizID = " + quiz_id;
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
+			
 			while(rs.next()) {
 				String type = rs.getString("questionType");
 				int questionID = rs.getInt("questionID");
 				if(QuestionTypes.getType(type) == 1) {//QR
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String question = QuestionDao.getQuestion(questionID, type);
-					FillBlankQuestion tmp = new FillBlankQuestion(question, answer);
+					QuestionResponse tmp = new QuestionResponse(question, ParseAnswers.getArrayList(answer));
 					tmp.setType(type);
 					tmp.setID(questionID);
 					allQuestions.add(tmp);
@@ -153,7 +184,7 @@ public class QuizDao {
 				else if(QuestionTypes.getType(type) == 2) {//FB
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String question = QuestionDao.getQuestion(questionID, type);
-					QuestionResponse tmp = new QuestionResponse(question, answer);
+					FillBlankQuestion tmp = new FillBlankQuestion(question, ParseAnswers.getArrayList(answer));
 					tmp.setType(type);
 					tmp.setID(questionID);
 					allQuestions.add(tmp);
@@ -164,14 +195,14 @@ public class QuizDao {
 					String question = QuestionDao.getQuestion(questionID, type);
 					String choices = QuestionDao.getChoices(questionID);
 					ArrayList<String> choicesAL = MultipleChoiceQuestion.unParseChoice(choices);
-					MultipleChoiceQuestion tmp = new MultipleChoiceQuestion(question, choicesAL, answer);
+					MultipleChoiceQuestion tmp = new MultipleChoiceQuestion(question, choicesAL, ParseAnswers.getArrayList(answer));
 					allQuestions.add(tmp);
 				}
 				
 				else {//PR
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String url = QuestionDao.getImageURL(questionID);
-					PictureResponseQuestion tmp = new PictureResponseQuestion(url, answer);
+					PictureResponseQuestion tmp = new PictureResponseQuestion(url, ParseAnswers.getArrayList(answer));
 					tmp.setType(type);
 					tmp.setID(questionID);
 					allQuestions.add(tmp);

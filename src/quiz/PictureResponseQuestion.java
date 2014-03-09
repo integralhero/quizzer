@@ -1,21 +1,23 @@
 package quiz;
 
+import java.util.ArrayList;
+
 public class PictureResponseQuestion extends Question{
 	
 	public String imageURL;
 	
-	public PictureResponseQuestion(String imageURL, String answer) {
+	public PictureResponseQuestion(String imageURL, ArrayList<String> answer) {
 		super();
 		this.type = "q_picture_response";
 		this.imageURL = imageURL;
-		answers.add(answer);
-	}
+		this.answers = answer;
+	}	
 	
-	public PictureResponseQuestion(int score, String imageURL, String answer) {
+	public PictureResponseQuestion(int score, String imageURL, ArrayList<String> answer) {
 		super(score);
 		this.type = "q_picture_response";
 		this.imageURL = imageURL;
-		answers.add(answer);
+		this.answers = answer;
 	}
 	
 	public String getURL() {

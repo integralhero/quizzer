@@ -2,7 +2,7 @@ package quiz;
 
 public class Achievement {
 	
-	private int id;
+	private int ID;
 	private String image;
 	private String name;
 	private String description;
@@ -26,7 +26,7 @@ public class Achievement {
 	}
 	
 	public int getID(){
-		return this.id;
+		return this.ID;
 		
 	}
 }

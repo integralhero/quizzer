@@ -50,5 +50,22 @@ public class QuizTakenDao {
 		return null;
 	}
 	
+<<<<<<< HEAD
 	
+=======
+	public static int getNumberOfQuizzesTaken(){
+		int numTaken = 0;
+		try {
+			String command = "SELECT COUNT(*) AS number FROM quizzes_taken";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			if(rs.next()) numTaken = rs.getInt("number");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return numTaken;
+	}
+>>>>>>> 4f1c3a367f102fc8d93b9e11d8a31ed93314187a
 }

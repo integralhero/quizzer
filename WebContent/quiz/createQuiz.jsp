@@ -84,6 +84,9 @@
 			<form name="create_quiz_form" action="/Quizzer/CreateQuizServlet" method="post" > 
 				<label for="quiz_name_field">Quiz Name:</label><input type='text' id="quiz_name_field" name='quiz_name_field' class='form-control ' placeholder='Quiz Name' style="width:50%;">
 				&nbsp;
+				<BR>
+				Description: <input type="text" name="description" style="width:50%;"><BR>
+				<HR>
 				<input type='hidden' id='question_count_field' name='question_count_field' value = 0>
 	          	<div id="add_qtn_btn">
 		          	<div class="row">
@@ -95,6 +98,7 @@
 					          <li><a id="qtn_res_qtn" href="#">Question-Response</a></li>
 					          <li><a id="fill_blank_qtn" href="#">Fill in the Blank</a></li>
 					          <li><a id="mult_choice_qtn" href="#">Multiple Choice</a></li>
+					          <!--<li><a id="mult_choice_mult_ans_qtn" href="#">Multiple Choice w/ Multiple Answers</a></li>-->
 					          <li><a id="pic_res_qtn" href="#">Picture Response</a></li>
 					          
 					           <!-- <li class="divider"></li>
@@ -105,6 +109,12 @@
 					  </div> <!-- /.col-lg-6 --> 
 					</div> <!-- / row --> 
 				</div> <!-- /add_qtn_btn -->
+				<HR>
+				Randomize Questions: <input type="checkbox" name="randomize"><BR>
+				Multiple Pages: <input type="checkbox" name="mult_pages"><BR>
+				Immediate Feedback: <input type="checkbox" name="feedback"><BR>
+				Allow Practice Mode: <input type="checkbox" name="practice"><BR>
+				<HR>
 				<input type="submit" class="btn btn-default">
 			  
 			  </form>

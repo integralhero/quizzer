@@ -218,4 +218,19 @@ public class UserDao {
 		return user;
 	}
 	
+	public static int getNumberOfUsers(){
+		int numUsers = 0;
+		try {
+			String command = "SELECT COUNT(*) AS numUsers FROM users";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			if(rs.next()) numUsers = rs.getInt("numUsers");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return numUsers;
+	}
+	
 }
