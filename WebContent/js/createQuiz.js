@@ -2,19 +2,15 @@ var questionCount = 1;
 var mult_choice_answer_count = 1;
 
 
-
-
-//$(document).ready(function() {
-//	console.log("hello");
-$(function() {
-	$(".question_delete_btn").on("click", function(event) {
-		alert("in button clicked");
-		
-		$(this).closest("div").remove();
+$(document).ready(function() {
+	$(document).on('click', '.question_delete_btn', function(event) {
+		$(this).parent().closest("div").remove();
 	});
 });
 	
 //});
+
+
 
 function removeQuestion() {
 	console.log("in button clicked");
@@ -42,8 +38,13 @@ function addAnswer() {
 $('#qtn_res_qtn').click(function(event) {
 	
    $("<div id='question" + questionCount + "'>" + 
+<<<<<<< HEAD
 		   "<div class='input-group'><h3>" + questionCount + ".) Question-Response </h3><button type='button' class='question_delete_btn btn btn-default btn-sm '>" + 
 		   "<span class='glyphicon glyphicon-remove-circle'></span> Delete </button>" + 
+=======
+		   "<div class='input-group'><h3>" + questionCount + ".) Question-Response <button type='button' class='question_delete_btn btn btn-default btn-sm'>" + 
+		   "<span class='glyphicon glyphicon-remove-circle'></span> Delete </button></h3>" + 
+>>>>>>> b4a064c9494f595d0c92f288cd54f22d65b1c2c0
 		   "<input type='text' class='form-control quiz_qtn_field' name='question" + questionCount + "' placeholder='Question'>&nbsp;" + 
 		   "<input type='text' class='form-control quiz_qtn_field' name='answer" + questionCount + "' placeholder='Response'>&nbsp;" + 
 		   "</div></div>").insertBefore("#question_count_field");
