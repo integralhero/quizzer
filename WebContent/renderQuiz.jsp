@@ -82,69 +82,91 @@
 			<form name="take_quiz_form" action="" method="post" > 
 			<%
 			ArrayList<Question> questions = curQuiz.questions;
-			int answerID = 1;
-			for(int i = 0; i < questions.size(); i++)  {
-				Question question = questions.get(i);
-					%>
-					<div class='question'>
-					<%
-						switch (QuestionTypes.getType(question.getQuestionType())) {
-						case 1:	//QR %>
-							<h3><%= ((QuestionResponse)question).getQuestion() %></h3>
-					<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-								<input type="text" id="answer_field_<%= answerID%>">
-					<% 			answerID++;
+			if (curQuiz.getRandomizeQuestions()) {
+				Collections.shuffle(questions);
+			}
+			if (curQuiz.getMultiplePages()) {
+				for(int i = 0; i < questions.size(); i++)  {
+					Question question = questions.get(i);
+						%>
+						<div class='question'>
+						<%
+							switch (QuestionTypes.getType(question.getQuestionType())) {
+							case 1:	//QR %>
+								<h3>Question: <%= ((QuestionResponse)question).getQuestion() %></h3>
+						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField">
+						<% 		}
+						
+							for (String answer : question.getAnswers()) {
+						%>
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+													
+						<%
 							}
-					%>
-						<input type="text" value="<%=  %>">
-					
-					<%
-						break;
-						case 2: //FIB %>
-							<h3><%= ((FillBlankQuestion)question).getQuestion() %></h3>
-					<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-								<input type="text" id="answer_field_<%= answerID%>">
-					<% 			answerID++;
+							break;
+							case 2: //FIB %>
+								<h3>Question: <%= ((FillBlankQuestion)question).getQuestion() %></h3>
+						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+									<label for="answerField">Answer:&nbsp;</label><input type="text" id="answerField">
+						<% 		}
+							for (String answer : question.getAnswers()) {
+						%>
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+													
+						<%
 							}
-					
-					 	break;
-						case 3: //MC  %>
-							<h3><%= ((MultipleChoiceQuestion)question).getQuestion() %></h3>
-							
-					<%		String typeOfInput = "radio";
-						//for (String answer : question.getAnswers()) {
-						//	System.out.println("Answers: " + answer);
-						//}
-							if(question.getNumAnswers() > 1) {
-								typeOfInput = "checkbox";
-							}
-							for (String choice : ((MultipleChoiceQuestion)question).getChoices()) {
-					%>
-								<div class='row'>
-									<div class='col-lg-6'>
-										<div class='input-group'>
-											<span class='input-group-addon'><input type='<%= typeOfInput %>' name="mult_choice_answer"></span><input type='text' value="<%= choice %>" class='form-control' id="answer_field_<%= answerID %>"  >
+						 	break;
+							case 3: //MC  %>
+								<h3>Question: <%= ((MultipleChoiceQuestion)question).getQuestion() %></h3>
+								
+						<%		String typeOfInput = "radio";
+								if(question.getNumAnswers() > 1) {
+									typeOfInput = "checkbox";
+								}
+								for (String choice : ((MultipleChoiceQuestion)question).getChoices()) {
+						%>
+									<div class='row'>
+										<div class='col-lg-6'>
+											<div class='input-group'>
+												<span class='input-group-addon'><input type='<%= typeOfInput %>' name="mult_choice_answer"></span><input type='text' value="<%= choice %>" class='form-control' id="answerField"  >
+											</div>
 										</div>
 									</div>
-								</div>
-					<%
-							answerID++;
+						<%
+								}
+							for (String answer : question.getAnswers()) {
+						%>
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+													
+						<%
 							}
-					%>
-					<% 	break;
-						case 4: //PR %>
-							<img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>">
-					<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-								<input type="text" id="answer_field_<%= answerID%>">
-					<% 			answerID++;
+							break;
+							case 4: //PR %>
+								<h3>Question: </h3><img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>"><br><br>
+						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+									<label for="answerField">Answer:&nbsp;</label><input type="text" id="answerField">
+						<% 		}
+							for (String answer : question.getAnswers()) {
+						%>
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+													
+						<%
+							}	
+						  break;	
 							}
-							
-					  break;	
-						}
-					%>
-					</div> <!-- Close question div -->
-					<%
-			} //end for loop	
+						%>
+						<ul class="pager">
+						  <li class="previous disabled"><a href="#">&larr; Older</a></li>
+						  <li class="next"><a href="#">Newer &rarr;</a></li>
+						</ul>
+						<div class="feedback"></div>
+						</div> <!-- Close question div -->
+						<%
+				} //end for loop	
+			} else {
+				//single page code
+			}
 			%>
 			</form>
           </div>
