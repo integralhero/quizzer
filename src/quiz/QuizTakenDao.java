@@ -50,9 +50,7 @@ public class QuizTakenDao {
 		return null;
 	}
 	
-<<<<<<< HEAD
-	
-=======
+
 	public static int getNumberOfQuizzesTaken(){
 		int numTaken = 0;
 		try {
@@ -67,5 +65,4 @@ public class QuizTakenDao {
 		
 		return numTaken;
 	}
->>>>>>> 4f1c3a367f102fc8d93b9e11d8a31ed93314187a
 }

@@ -35,7 +35,6 @@ public class Quiz implements Comparable<Quiz>{
 		}
 		this.totalScore = totalScore;
 	}
-<<<<<<< HEAD
 	
 	public int compareTo(Quiz quiz) {
 		if (this.numTimesTaken > quiz.getNumTimesTaken()) return 1;
@@ -43,21 +42,6 @@ public class Quiz implements Comparable<Quiz>{
 		else return -1;
 	}
 	
-	public void setMultiplePages() {
-		multiplePages = true;
-	}
-	
-	public void setImmediateCorrect() {
-		immediateCorrect = true;
-	}
-	
-	public void setRandomizeQuestions() {
-		randomizeQuestions = true;
-	}
-	
-=======
-
->>>>>>> 4f1c3a367f102fc8d93b9e11d8a31ed93314187a
 	public void addQuestion(Question question) {
 		questions.add(question);
 	}
@@ -168,11 +152,4 @@ public class Quiz implements Comparable<Quiz>{
 		return this.timeCreated;
 	}
 
-	public int getNumTimesTaken() {
-		return this.numTimesTaken;
-	}
-	
-	public void setNumTimesTaken(int numTimesTaken) {
-		this.numTimesTaken = numTimesTaken;
-	}
 }

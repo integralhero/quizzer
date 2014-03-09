@@ -40,9 +40,7 @@ public class QuizDao {
 				tmp.setName(rs.getString("name"));
 				tmp.setUserID(rs.getInt("userID"));
 				tmp.setNumTimesTaken(rs.getInt("numTimesTaken"));
-<<<<<<< HEAD
-				tmp.setScore(rs.getInt("score"));
-=======
+
 				tmp.setTimeCreated(rs.getString("timeCreated"));
 				tmp.setDescription(rs.getString("description"));
 				tmp.setCategory(rs.getString("category"));
@@ -50,7 +48,6 @@ public class QuizDao {
 				tmp.setMultiplePages(rs.getBoolean("multiplePages"));
 				tmp.setImmediateCorrect(rs.getBoolean("immediateCorrection"));
 				tmp.setPracticeModeAvailable(rs.getBoolean("practiceModeAvailable"));
->>>>>>> 4f1c3a367f102fc8d93b9e11d8a31ed93314187a
 			}
 			
 			return tmp;
