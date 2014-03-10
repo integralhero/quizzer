@@ -36,7 +36,9 @@ public class TakeQuizServlet extends HttpServlet {
 		System.out.println("in take quiz servlet");
 		String[] userAnswers = request.getParameterValues("answerField");
 		String[] correctAnswers = request.getParameterValues("hiddenAnswer");
-		// TODO Auto-generated method stub
+		int numQuestions = Integer.parseInt(request.getParameter("num_questions"));
+		
+		for()
 	}
 
 }

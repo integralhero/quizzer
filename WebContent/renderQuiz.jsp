@@ -81,8 +81,12 @@
 			<%= curQuiz.getName() %>
 			<form name="take_quiz_form" action="/Quizzer/TakeQuizServlet" method="post" > 
 			<input type="hidden" value="<%= curQuiz.getID() %>" name="quiz_id">
+			
 			<%
 			ArrayList<Question> questions = curQuiz.questions;
+			%>
+			<input type=hidden value="<%= questions.size() %>" name="num_questions">
+			<%
 			if (curQuiz.getRandomizeQuestions()) {
 				Collections.shuffle(questions);
 			}
@@ -101,7 +105,7 @@
 						
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="hidden" value="<%= question.getQuestionType() %>" name="questionType">
+							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
 							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer">
 													
 						<%
@@ -114,7 +118,7 @@
 						<% 		}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="hidden" value="<%= question.getQuestionType() %>" name="questionType">
+							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
 							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer">
 													
 						<%
@@ -122,6 +126,7 @@
 						 	break;
 							case 3: //MC  %>
 								<h3>Question: <%= ((MultipleChoiceQuestion)question).getQuestion() %></h3>
+								<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
 								
 						<%		String typeOfInput = "radio";
 								if(question.getNumAnswers() > 1) {
@@ -140,7 +145,6 @@
 								}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
 							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer">
 													
 						<%
@@ -153,6 +157,7 @@
 						<% 		}
 							for (String answer : question.getAnswers()) {
 						%>
+							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
 							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer">
 													
 						<%
