@@ -10,12 +10,13 @@ public class QuizTakenDao {
 	
 	public static void addQuizTaken(QuizTaken quizTaken) {
 		try {
-			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes_taken(user_id, quiz_id, timeTakingQuiz, scoreOnQuiz, timeElapsed) VALUES (?,?,?,?)");
+			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes_taken(userID, quizID, timeTaken, score, timeElapsed) VALUES (?,?,?,?,?)");
 			prepStmt.setInt(1, quizTaken.getUserID());
 			prepStmt.setInt(2, quizTaken.getQuizID());
-			prepStmt.setLong(3, quizTaken.getTimeTakingQuiz());
+			prepStmt.setString(3, quizTaken.getTimeTakingQuiz());
 			prepStmt.setInt(4, quizTaken.getScore());
 			prepStmt.setLong(5, quizTaken.getTimeElapsed());
+			
 			prepStmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -23,13 +24,37 @@ public class QuizTakenDao {
 		}
 	}
 	
+	public static ArrayList<QuizTaken> getQuizTakenByUser(int userID, int quizID){
+		ArrayList<QuizTaken> quizzes = new ArrayList<QuizTaken> ();
+
+		try {
+			
+			String command = "SELECT * FROM quizzes_taken WHERE userID = " + userID + " AND quizID = " + quizID;
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			
+			while(rs.next()){
+				String timeTaken = rs.getString("timeTaken");
+				int score = rs.getInt("score");
+				int timeElapsed = rs.getInt("timeElapsed");
+				QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
+				quizzes.add(temp);
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return quizzes;
+	}
+	
 	//gets 10 most recent quizzes taken by user 
-	public static ArrayList<Quiz> getUserRecentQuizzesTaken(int user_id) {
+	public static ArrayList<Quiz> getUserRecentQuizzesTaken(int userID) {
 		try {
 			ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
 			
 			String command = "SELECT * FROM quizzes_taken WHERE userID = " 
-					+ user_id;
+					+ userID;
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
@@ -37,8 +62,8 @@ public class QuizTakenDao {
 			int quizCount = 0;
 			while (rs.previous() && quizCount < 10) {
 				quizCount++;
-				int quiz_id = rs.getInt("quizID");
-				Quiz recentQuiz = QuizDao.getQuizByID(quiz_id);
+				int quizID = rs.getInt("quizID");
+				Quiz recentQuiz = QuizDao.getQuizByID(quizID);
 				recentQuizzes.add(recentQuiz);
 			}
 			

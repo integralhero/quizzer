@@ -39,6 +39,20 @@ public class AchievementDao {
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(command);
 			
+			updateNumUsers(achievementID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateNumUsers(int achievementID){
+		try {
+			String command = "UPDATE achievements SET numUsers = numUsers + 1 WHERE ID = " + achievementID; 
+			
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
