@@ -1,6 +1,7 @@
 package quiz;
 
 import java.io.IOException;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,11 +35,39 @@ public class TakeQuizServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("in take quiz servlet");
-		String[] userAnswers = request.getParameterValues("answerField");
-		String[] correctAnswers = request.getParameterValues("hiddenAnswer");
 		int numQuestions = Integer.parseInt(request.getParameter("num_questions"));
+		int score = 0;
+		for(int i = 0; i < numQuestions; i++) {
+			String[] userAnswers = request.getParameterValues("answerField" + i);
+			String[] correctAnswers = request.getParameterValues("hiddenAnswer" + i);
+			HashSet<String> userAnswersSet = new HashSet<String>();
+			System.out.println("answer: " + userAnswers[0]);
+			Collections.addAll(userAnswersSet, userAnswers);
+			HashSet<String> correctAnswersSet = new HashSet<String>();
+			Collections.addAll(correctAnswersSet, correctAnswers);
+
+			score += checkAnswers(userAnswersSet, correctAnswersSet);
+			System.out.println("Score: " + score);
+		}
+		User currUser = (User)request.getSession(false).getAttribute("currentUser");
+		int userID = currUser.getUserid();
+		int quizID = Integer.parseInt(request.getParameter("quiz_id"));
+		QuizTaken quiz = new QuizTaken(userID, quizID, "10", score, 100);
+	}
+
+	
+	protected int checkAnswers(HashSet<String> userAnswers, HashSet<String> correctAnswers) {
+		System.out.println("in check Answers function");
+		int score = 0;
 		
-		for()
+		for (String userAnswer : userAnswers) {
+			if (correctAnswers.contains(userAnswer)) {
+				score++;
+				correctAnswers.remove(userAnswer);
+			}
+		}
+		
+		return score;
 	}
 
 }

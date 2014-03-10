@@ -72,117 +72,40 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-xs-9">
              <% 
                	User us = (User)session.getAttribute("currentUser");
              	int curUserID = us.getUserid();
              	Quiz curQuiz = (Quiz)request.getAttribute("curQuiz");
                %>
-			<%= curQuiz.getName() %>
-			<form name="take_quiz_form" action="/Quizzer/TakeQuizServlet" method="post" > 
-			<input type="hidden" value="<%= curQuiz.getID() %>" name="quiz_id">
-			<input type="hidden" value="" name ="timeStart">;
+			<h1>Quiz Title: <%= curQuiz.getName() %></h1><BR>
+			Created by: <a href="/Quizzer/user/<%= curQuiz.getUserID() %>">Quiz Creator Profile</a><BR>
+			<% if(curQuiz.getCategory() != null) { %> <h3> <small><%= curQuiz.getCategory() %></small></h3><BR><%} %>
+			<p><%= curQuiz.getDescription() %></p>
 			
-			<%
-			ArrayList<Question> questions = curQuiz.questions;
-			%>
-			<input type=hidden value="<%= questions.size() %>" name="num_questions">
-			<%
-			if (curQuiz.getRandomizeQuestions()) {
-				Collections.shuffle(questions);
-			}
-			if (curQuiz.getMultiplePages()) {
-				for(int i = 0; i < questions.size(); i++)  {
-					Question question = questions.get(i);
-						%>
-						<div class='question'>
-						<%
-							switch (QuestionTypes.getType(question.getQuestionType())) {
-							case 1:	//QR %>
-								<h3>Question: <%= ((QuestionResponse)question).getQuestion() %></h3>
-						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField<%=i%>">
-						<% 		}
-						
-							for (String answer : question.getAnswers()) {
-						%>
-							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
-							<input type="text" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
-													
-						<%
-							}
-							break;
-							case 2: //FIB %>
-								<h3>Question: <%= ((FillBlankQuestion)question).getQuestion() %></h3>
-						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField<%=i%>">
-						<% 		}
-							for (String answer : question.getAnswers()) {
-						%>
-							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
-							<input type="text" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
-													
-						<%
-							}
-						 	break;
-							case 3: //MC  %>
-								<h3>Question: <%= ((MultipleChoiceQuestion)question).getQuestion() %></h3>
-								<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
-								<input type='text' value='<%=i%>' class="qtnNum">
-								
-						<%		String typeOfInput = "radio";
-								if(question.getNumAnswers() > 1) {
-									typeOfInput = "checkbox";
-								}
-								for (String choice : ((MultipleChoiceQuestion)question).getChoices()) {
-						%>
-								<div class='row'>
-									<div class='col-lg-6'>
-										<div class='input-group'>
-											<span class='input-group-addon'><input class="mult_choice_checkbox" type='<%= typeOfInput %>' ></span><input type='text' value="<%= choice %>" class='form-control answerField' readonly >
-										</div>
-									</div>
-								</div>
-											
-						<%
-								}
-							for (String answer : question.getAnswers()) {
-						%>
-							<input type="text" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
-													
-						<%
-							}
-							break;
-							case 4: //PR %>
-								<h3>Question: </h3><img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>"><br><br>
-						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField<%=i%>">
-						<% 		}
-							for (String answer : question.getAnswers()) {
-						%>
-							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
-							<input type="text" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
-													
-						<%
-							}	
-						  break;	
-							}
-						%>
-						<ul class="pager">
-						  <li class="previous"><a href="#">&larr; Older</a></li>
-						  <li class="next"><a href="#">Newer &rarr;</a></li>
-						</ul>
-						<div class="feedback"></div>
-						</div> <!-- Close question div -->
-						<%
-				} //end for loop
-				%><input type="submit"><%
-			} else {
-				//single page code
-			}
-			%>
-			</form>
           </div>
+          <div class="col-xs-3">
+          	<a href="/Quizzer/qz/<%= curQuiz.getID() %>"><button type="button" class="btn btn-success">Take Quiz</button></a>
+          </div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-4">
+        		<h3>Your previous performance:</h3>
+        	</div>
+        	<div class="col-xs-4">
+        		<h3>Highest performers (of all time):</h3>
+        	</div>
+        	<div class="col-xs-4">
+        		<h3>Highest performers (today):</h3>
+        	</div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-4">
+        		<h3>Recent performance:</h3>
+        	</div>
+        	<div class="col-xs-8">
+        		<h3>Summary Statistics: </h3>
+        	</div>
         </div>
       </div>
 
