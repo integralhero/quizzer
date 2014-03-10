@@ -45,16 +45,14 @@ public class BenTestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Quiz> list = QuizDao.getRecentUserCreatedQuizzes(1);
-		if (list == null) System.out.println("list is null");
-		else {
-			System.out.println("not null");
-			System.out.println("size is " + list.size());
-			for (int i = 0; i < list.size(); i++) {
-				printQuiz(list.get(i));
-				System.out.println();
-			}
+		Rate rate = new Rate(7, 1, "SEVEN", 3);
+		RatingsDao.addRate(rate);
+		ArrayList<String> reviews = RatingsDao.getReviewsOfQuiz(1);
+		int rating = RatingsDao.getRating(1);
+		for (int i = 0; i < reviews.size(); i++) {
+			System.out.println(reviews.get(i));
 		}
+		System.out.println("Rating is " + rating);
 	}
 
 }
