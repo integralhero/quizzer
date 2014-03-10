@@ -29,14 +29,9 @@ public class UserDao {
 	}
 	
 	public static boolean checkUserNameExists(String username) {
-		System.out.println("Username: "+username);
 		try {
-			System.out.println("in checkusernameexists");
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT 1 FROM users WHERE username = " + "\"" + username + "\"");
-			//boolean a = rs.next();
-			//while (rs.next()) System.out.println(rs.getString("username"));
-//			System.out.println(rs == null);
 			boolean more = rs.next();
 
 			System.out.println(more);
@@ -53,13 +48,11 @@ public class UserDao {
        catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("HAHAHAH");
 		return false;
 	}
 	
 	public static void addUser(User user) {
 		try {
-			System.out.print("HELLO");
 			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO users(username, password, email, salt) VALUES (?,?,?,?)");
 			prepStmt.setString(1, user.getUsername());
 			prepStmt.setString(2, user.getPassword());
