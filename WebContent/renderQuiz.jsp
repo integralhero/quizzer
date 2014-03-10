@@ -163,9 +163,87 @@
 						<div class="feedback"></div>
 						</div> <!-- Close question div -->
 						<%
-				} //end for loop	
+				} //end for loop	%>
+				
+				
+				<% 
 			} else {
-				//single page code
+				for(int i = 0; i < questions.size(); i++)  {
+					Question question = questions.get(i);
+						%>
+						<div class='questionn'>
+						<%
+							switch (QuestionTypes.getType(question.getQuestionType())) {
+							case 1:	//QR %>
+								<h3>Question: <%= ((QuestionResponse)question).getQuestion() %></h3>
+						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField">
+						<% 		}
+						
+							for (String answer : question.getAnswers()) {
+						%>
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+													
+						<%
+							}
+							break;
+							case 2: //FIB %>
+								<h3>Question: <%= ((FillBlankQuestion)question).getQuestion() %></h3>
+						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField">
+						<% 		}
+							for (String answer : question.getAnswers()) {
+						%>
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+													
+						<%
+							}
+						 	break;
+							case 3: //MC  %>
+								<h3>Question: <%= ((MultipleChoiceQuestion)question).getQuestion() %></h3>
+								
+						<%		String typeOfInput = "radio";
+								if(question.getNumAnswers() > 1) {
+									typeOfInput = "checkbox";
+								}
+								for (String choice : ((MultipleChoiceQuestion)question).getChoices()) {
+						%>
+									<div class='row'>
+										<div class='col-lg-6'>
+											<div class='input-group'>
+												<span class='input-group-addon'><input type='<%= typeOfInput %>' name="mult_choice_answer"></span><input type='text' value="<%= choice %>" class='form-control' id="answerField" readonly >
+											</div>
+										</div>
+									</div>
+						<%
+								}
+							for (String answer : question.getAnswers()) {
+						%>
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+													
+						<%
+							}
+							break;
+							case 4: //PR %>
+								<h3>Question: </h3><img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>"><br><br>
+						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField">
+						<% 		}
+							for (String answer : question.getAnswers()) {
+						%>
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+													
+						<%
+							}	
+						  break;	
+							}
+						%>
+						<div class="feedback"></div>
+						</div> <!-- Close question div -->
+						<%
+				} //end for loop	%>
+				<button type="submit" id="submitbtn">Submit</button>
+				<% 
 			}
 			%>
 			</form>

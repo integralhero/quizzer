@@ -91,6 +91,7 @@
         <div class="row">
         	<div class="col-xs-4">
         		<h3>Your previous performance:</h3>
+        		<% %>
         	</div>
         	<div class="col-xs-4">
         		<h3>Highest performers (of all time):</h3>
