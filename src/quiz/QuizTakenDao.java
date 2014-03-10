@@ -179,7 +179,39 @@ public class QuizTakenDao {
 		}
 		return average;
 	}
+	
+	private static final int FIFTEEN_MINUTES_MS = 900000;
+	private static final int ONE_DAY_MS = 864 * (10 ^ 5);
+	
+	public static ArrayList<QuizTaken> getTodaysHighScores(int quizID){
+			
+		ArrayList<QuizTaken> quizzes = new ArrayList<QuizTaken> ();
 
+		try {
+			
+			String command = "SELECT * FROM quizzes_taken WHERE quizID = " + quizID + " ORDER BY score DESC";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			
+			while(rs.next() && quizzes.size() < 10){
+				String timeTaken = rs.getString("timeTaken");
+				int score = rs.getInt("score");
+				int timeElapsed = rs.getInt("timeElapsed");
+				int userID = rs.getInt("userID");
+				
+				long timeTakenMilliseconds = ParseDateString.getMilliseconds(timeTaken);
+				if(timeTakenMilliseconds > System.currentTimeMillis() - FIFTEEN_MINUTES_MS){
+					QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
+					quizzes.add(temp);
+				}
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return quizzes;
+		
+	}
 	public static int getNumberOfQuizzesTaken(){
 		int numTaken = 0;
 		try {
