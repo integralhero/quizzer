@@ -18,6 +18,14 @@
     <url-pattern>/qz/*</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>QuizLandingServlet</servlet-name>
+    <servlet-class>quiz.QuizLandingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuizLandingServlet</servlet-name>
+    <url-pattern>/ql/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>IndexServlet</servlet-name>
     <servlet-class>quiz.IndexServlet</servlet-class>
   </servlet>
