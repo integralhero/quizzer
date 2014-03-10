@@ -79,7 +79,8 @@
              	Quiz curQuiz = (Quiz)request.getAttribute("curQuiz");
                %>
 			<%= curQuiz.getName() %>
-			<form name="take_quiz_form" action="" method="post" > 
+			<form name="take_quiz_form" action="/Quizzer/TakeQuizServlet" method="post" > 
+			<input type="hidden" value="<%= curQuiz.getID() %>" name="quiz_id">
 			<%
 			ArrayList<Question> questions = curQuiz.questions;
 			if (curQuiz.getRandomizeQuestions()) {
@@ -95,12 +96,13 @@
 							case 1:	//QR %>
 								<h3>Question: <%= ((QuestionResponse)question).getQuestion() %></h3>
 						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField">
+									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField">
 						<% 		}
 						
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+							<input type="hidden" value="<%= question.getQuestionType() %>" name="questionType">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer">
 													
 						<%
 							}
@@ -108,11 +110,12 @@
 							case 2: //FIB %>
 								<h3>Question: <%= ((FillBlankQuestion)question).getQuestion() %></h3>
 						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-									<label for="answerField">Answer:&nbsp;</label><input type="text" id="answerField">
+									<label for="answerField">Answer:&nbsp;</label><input type="text" id="answerField" name="answerField">
 						<% 		}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+							<input type="hidden" value="<%= question.getQuestionType() %>" name="questionType">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer">
 													
 						<%
 							}
@@ -129,7 +132,7 @@
 									<div class='row'>
 										<div class='col-lg-6'>
 											<div class='input-group'>
-												<span class='input-group-addon'><input type='<%= typeOfInput %>' name="mult_choice_answer"></span><input type='text' value="<%= choice %>" class='form-control' id="answerField"  >
+												<span class='input-group-addon'><input type='<%= typeOfInput %>' name="mult_choice_answer"></span><input type='text' value="<%= choice %>" class='form-control' id="answerField" readonly >
 											</div>
 										</div>
 									</div>
@@ -137,7 +140,8 @@
 								}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer">
 													
 						<%
 							}
@@ -145,11 +149,11 @@
 							case 4: //PR %>
 								<h3>Question: </h3><img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>"><br><br>
 						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-									<label for="answerField">Answer:&nbsp;</label><input type="text" id="answerField">
+									<label for="answerField">Answer:&nbsp;</label><input type="text" id="answerField" name="answerField">
 						<% 		}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer">
 													
 						<%
 							}	
@@ -163,7 +167,8 @@
 						<div class="feedback"></div>
 						</div> <!-- Close question div -->
 						<%
-				} //end for loop	
+				} //end for loop
+				%><input type="submit"><%
 			} else {
 				//single page code
 			}
