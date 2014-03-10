@@ -62,6 +62,9 @@ public class CreateQuizServlet extends HttpServlet {
 		quiz.setRandomQuestions(request.getParameter("randomize") != null);
 		QuizDao.addQuiz(quiz);
 		int numQtns = Integer.parseInt(request.getParameter("question_count_field"));
+		
+		currUser.addQuizMade(quiz);
+		AchievementListener.createQuiz(currUser);
 
 		System.out.println("num questions: " + numQtns);
 	}

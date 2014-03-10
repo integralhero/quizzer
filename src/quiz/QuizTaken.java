@@ -4,15 +4,15 @@ public class QuizTaken {
 
 	private int quizID;
 	private int score;
-	private long timeElapsed;
+	private int timeElapsed;
 	private int userID;
-	private long timeTakingQuiz;
+	private String timeTaken;
 	
-	public QuizTaken(int quizID, int score, long timeTakingQuiz, int userID){
+	public QuizTaken(int userID, int quizID, String timeTaken, int score, int timeElapsed){
 		this.quizID = quizID;
 		this.score = score;
-		this.timeElapsed = timeTakingQuiz;
-		this.timeTakingQuiz = timeTakingQuiz;
+		this.timeElapsed = timeElapsed;
+		this.timeTaken = timeTaken;
 		this.userID = userID;
 	}
 	
@@ -24,8 +24,8 @@ public class QuizTaken {
 		return score;
 	}
 	
-	public long getTimeTakingQuiz(){
-		return timeTakingQuiz;
+	public String getTimeTakingQuiz(){
+		return timeTaken;
 	}
 	
 	public int getUserID(){
@@ -36,12 +36,12 @@ public class QuizTaken {
 		return this.timeElapsed;
 	}
 	
-	public void setTimeElapsed(long currentTime) {
-		this.timeElapsed = currentTime - this.timeElapsed;
+	public void setTimeTaken(String currentTime) {
+		this.timeTaken = currentTime;
 	}
 	
-	public void setTimeTakingQuiz(long time) {
-		timeTakingQuiz = time;
+	public void setTimeElapsed(int time) {
+		this.timeElapsed = time;
 	}
 	
 	public void setScore(int score) {
