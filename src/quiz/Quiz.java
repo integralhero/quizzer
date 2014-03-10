@@ -13,6 +13,10 @@ public class Quiz implements Comparable<Quiz>{
 	private String category;
 	public ArrayList<Question> questions;
 	
+	//extension reviews and ratings
+	private ArrayList<String> reviews = new ArrayList<String>();
+	private double rating;
+	
 	public boolean randomizeQuestions = false;
 	public boolean multiplePages = false;
 	public boolean immediateCorrection = false;
@@ -40,6 +44,26 @@ public class Quiz implements Comparable<Quiz>{
 		if (this.numTimesTaken > quiz.getNumTimesTaken()) return 1;
 		if (this.numTimesTaken == quiz.getNumTimesTaken()) return 0;
 		else return -1;
+	}
+	
+	public double getRating() {
+		return this.rating;
+	}
+	
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+	
+	public ArrayList<String> getReviews() {
+		return this.reviews;
+	}
+	
+	public void setReviews(ArrayList<String> reviews) {
+		this.reviews = reviews;
+	}
+	
+	public void addRating(String rating) {
+		this.reviews.add(rating);
 	}
 	
 	public void addQuestion(Question question) {
