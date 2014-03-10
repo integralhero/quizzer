@@ -85,27 +85,85 @@
 			
           </div>
           <div class="col-xs-3">
-          	<a href="/Quizzer/qz/<%= curQuiz.getID() %>"><button type="button" class="btn btn-success">Take Quiz</button></a>
+          	<a href="/Quizzer/qz/<%= curQuiz.getID() %>"><button type="button" class="btn btn-success btn-lg">Take Quiz</button></a>
           </div>
         </div>
         <div class="row">
         	<div class="col-xs-4">
         		<h3>Your previous performance:</h3>
-        		<% %>
+        		<% ArrayList<QuizTaken> list = QuizTakenDao.getRecentQuizzesByUserID(curUserID);
+        		%> <table class="table table-striped">
+        			<tr>
+        				<th>Date:</th>
+        				<th>Score:</th>
+        				<th>Time taken:</th>
+        			</tr>
+        			<% if(list.size() == 0)  { %>
+        				<tr>
+        					<td>Error, no records found!</td>
+        				</tr>
+        			<% }  %>
+        		<% for(int i = 0 ; i < list.size(); i++) { %>
+        		<tr>
+        		<td> <%= list.get(i).getTimeTakingQuiz() %></td>
+        		<td><%= list.get(i).getScore() %></td>
+        		<td><%= list.get(i).getTimeElapsed() %></td>
+        		</tr>
+        		<% } %>
+        		</table>
         	</div>
         	<div class="col-xs-4">
         		<h3>Highest performers (of all time):</h3>
+        		<% ArrayList<QuizTaken> lists = QuizTakenDao.getHighScores(curQuiz.getID());
+        		%> <table class="table table-striped">
+        			<tr>
+        				<th>User:</th>
+        				<th>Score:</th>
+        			</tr>
+        			<% if(list.size() == 0)  { %>
+        				<tr>
+        					<td>Error, no records found!</td>
+        				</tr>
+        			<% }  %>
+        		<% for(int i = 0 ; i < list.size(); i++) { %>
+        		<tr>
+        		<td> <%=UserDao.getUserById(lists.get(i).getUserID()).getUsername() %></td>
+        		<td><%= lists.get(i).getScore() %></td>
+        		</tr>
+        		<% } %>
+        		</table>
         	</div>
         	<div class="col-xs-4">
         		<h3>Highest performers (today):</h3>
+        		
         	</div>
         </div>
         <div class="row">
         	<div class="col-xs-4">
         		<h3>Recent performance:</h3>
+        		<% ArrayList<QuizTaken> listss = QuizTakenDao.getHighScores(curQuiz.getID());
+        		%> <table class="table table-striped">
+        			<tr>
+        				<th>User:</th>
+        				<th>Score:</th>
+        			</tr>
+        			<% if(list.size() == 0)  { %>
+        				<tr>
+        					<td>Error, no records found!</td>
+        				</tr>
+        			<% }  %>
+        		<% for(int i = 0 ; i < list.size(); i++) { %>
+        		<tr>
+        		<td> <%=UserDao.getUserById(listss.get(i).getUserID()).getUsername() %></td>
+        		<td><%= listss.get(i).getScore() %></td>
+        		</tr>
+        		<% } %>
+        		</table>
         	</div>
         	<div class="col-xs-8">
         		<h3>Summary Statistics: </h3>
+        		Average Score: <%= QuizTakenDao.getAverageScore(curQuiz.getID()) %><BR>
+        		Average Time Taken: <%= QuizTakenDao.getAverageTimeElapsed(curQuiz.getID()) %>
         	</div>
         </div>
       </div>
