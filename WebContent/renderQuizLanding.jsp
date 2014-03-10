@@ -120,12 +120,12 @@
         				<th>User:</th>
         				<th>Score:</th>
         			</tr>
-        			<% if(list.size() == 0)  { %>
+        			<% if(lists.size() == 0)  { %>
         				<tr>
         					<td>Error, no records found!</td>
         				</tr>
         			<% }  %>
-        		<% for(int i = 0 ; i < list.size(); i++) { %>
+        		<% for(int i = 0 ; i < lists.size(); i++) { %>
         		<tr>
         		<td> <%=UserDao.getUserById(lists.get(i).getUserID()).getUsername() %></td>
         		<td><%= lists.get(i).getScore() %></td>
@@ -135,7 +135,24 @@
         	</div>
         	<div class="col-xs-4">
         		<h3>Highest performers (today):</h3>
-        		
+        		<% ArrayList<QuizTaken> listr = QuizTakenDao.getTodaysHighScores(curQuiz.getID());
+        		%> <table class="table table-striped">
+        			<tr>
+        				<th>User:</th>
+        				<th>Score:</th>
+        			</tr>
+        			<% if(listr.size() == 0)  { %>
+        				<tr>
+        					<td>Error, no records found!</td>
+        				</tr>
+        			<% }  %>
+        		<% for(int i = 0 ; i < listr.size(); i++) { %>
+        		<tr>
+        		<td> <%=UserDao.getUserById(listr.get(i).getUserID()).getUsername() %></td>
+        		<td><%= listr.get(i).getScore() %></td>
+        		</tr>
+        		<% } %>
+        		</table>
         	</div>
         </div>
         <div class="row">
@@ -147,12 +164,12 @@
         				<th>User:</th>
         				<th>Score:</th>
         			</tr>
-        			<% if(list.size() == 0)  { %>
+        			<% if(listss.size() == 0)  { %>
         				<tr>
         					<td>Error, no records found!</td>
         				</tr>
         			<% }  %>
-        		<% for(int i = 0 ; i < list.size(); i++) { %>
+        		<% for(int i = 0 ; i < listss.size(); i++) { %>
         		<tr>
         		<td> <%=UserDao.getUserById(listss.get(i).getUserID()).getUsername() %></td>
         		<td><%= listss.get(i).getScore() %></td>
