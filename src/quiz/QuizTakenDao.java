@@ -104,6 +104,8 @@ public class QuizTakenDao {
 		return null;
 	}
 	
+	//returns list of top 5 scorers for a quiz. rank top scores first by number of questions correct, then
+	// by time taken if needed.
 	public static ArrayList<QuizTaken> getHighScores(int quizID){
 		
 		ArrayList<QuizTaken> quizzes = new ArrayList<QuizTaken> ();
@@ -121,6 +123,15 @@ public class QuizTakenDao {
 				int userID = rs.getInt("userID");
 				QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
 				quizzes.add(temp);
+			}
+			
+			Collections.sort(quizzes);
+			if (quizzes.size() <= 5) return quizzes;
+			else {
+				while(quizzes.size() > 5) {
+					quizzes.remove(0);
+				}
+				return quizzes;
 			}
 						
 		} catch (SQLException e) {

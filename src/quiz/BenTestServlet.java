@@ -41,14 +41,23 @@ public class BenTestServlet extends HttpServlet {
 		System.out.println("UserID is " + quiz.getUserID());
 		
 	}
+	
+	public void printQuizTaken(QuizTaken quizTaken) {
+		System.out.println("QuizID is " + quizTaken.getQuizID());
+		System.out.println("UserID is " + quizTaken.getUserID());
+		System.out.println("Score is " + quizTaken.getScore());
+		System.out.println("TimeElapsed is " + quizTaken.getTimeElapsed());
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Quiz> popQuizzes = QuizDao.getMostPopularQuizzes();
-		for (int i = 0; i < popQuizzes.size(); i++) {
-			printQuiz(popQuizzes.get(i));
+		QuizTaken quizTaken = new QuizTaken(7, 1, "2011", 5, 3);
+		QuizTakenDao.addQuizTaken(quizTaken);
+		ArrayList<QuizTaken> highQuizzes = QuizTakenDao.getHighScores(1);
+		for (int i = 0; i < highQuizzes.size(); i++) {
+			printQuizTaken(highQuizzes.get(i));
 			System.out.println();
 		}
 
