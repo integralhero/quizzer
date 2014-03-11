@@ -39,20 +39,19 @@ public class BenTestServlet extends HttpServlet {
 		System.out.println("numTimesTaken is " + quiz.getNumTimesTaken());
 		System.out.println("Score is " + quiz.getScore());
 		System.out.println("UserID is " + quiz.getUserID());
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Rate rate = new Rate(7, 1, "SEVEN", 3);
-		RatingsDao.addRate(rate);
-		ArrayList<String> reviews = RatingsDao.getReviewsOfQuiz(1);
-		int rating = RatingsDao.getRating(1);
-		for (int i = 0; i < reviews.size(); i++) {
-			System.out.println(reviews.get(i));
+		ArrayList<Quiz> popQuizzes = QuizDao.getMostPopularQuizzes();
+		for (int i = 0; i < popQuizzes.size(); i++) {
+			printQuiz(popQuizzes.get(i));
+			System.out.println();
 		}
-		System.out.println("Rating is " + rating);
+
 	}
 
 }

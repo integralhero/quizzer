@@ -434,10 +434,21 @@ public class QuizDao {
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
-			Quiz tmp = new Quiz();
+			
 			while (rs.next()) {
-				int numTimesTaken = rs.getInt("numTimesTaken");
-				tmp.setNumTimesTaken(numTimesTaken);
+				Quiz tmp = new Quiz();
+				tmp.setID(rs.getInt("ID"));
+				tmp.setScore(rs.getInt("score"));
+				tmp.setName(rs.getString("name"));
+				tmp.setUserID(rs.getInt("userID"));
+				tmp.setNumTimesTaken(rs.getInt("numTimesTaken"));
+				tmp.setTimeCreated(rs.getString("timeCreated"));
+				tmp.setDescription(rs.getString("description"));
+				tmp.setCategory(rs.getString("category"));
+				tmp.setRandomQuestions(rs.getBoolean("randomizeQuestions"));
+				tmp.setMultiplePages(rs.getBoolean("multiplePages"));
+				tmp.setImmediateCorrect(rs.getBoolean("immediateCorrection"));
+				tmp.setPracticeModeAvailable(rs.getBoolean("practiceModeAvailable"));
 				popularQuizzes.add(tmp);
 			}
 			
