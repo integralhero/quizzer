@@ -4,7 +4,7 @@ var mult_choice_answer_count = 1;
 
 $(document).ready(function() {
 	$(document).on('click', '.question_delete_btn', function(event) {
-		$(this).parent().closest("div").remove();
+		$(this).parent().parent().parent().closest("div").remove();
 	});
 });
 	
@@ -42,8 +42,8 @@ $('#qtn_res_qtn').click(function(event) {
 		   "<span class='glyphicon glyphicon-remove-circle'></span> Delete </button></h3>" + 
 		   "<input type='text' class='form-control quiz_qtn_field' name='question" + questionCount + "' placeholder='Question'>&nbsp;" + 
 		   "<input type='text' class='form-control quiz_qtn_field' name='answer" + questionCount + "' placeholder='Response'>&nbsp;" + 
-		   "</div></div>").insertBefore("#question_count_field");
-   $("#question" + questionCount).after("<input type='hidden' name='question_type_" + questionCount + "' value='1'>");
+		   "</div><input type='hidden' name='question_type_" + questionCount + "' value='1'></div>").insertBefore("#question_count_field");
+//   $("#question" + questionCount).after("<input type='hidden' name='question_type_" + questionCount + "' value='1'>");
    $('#question_count_field').val(questionCount); 
    questionCount++;
 });

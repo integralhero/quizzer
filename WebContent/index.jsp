@@ -111,28 +111,50 @@
 	              <div class="col-md-6 column" id="hotQuizzes">
 	                <h3>Hot Quizzes</h3>
 	                <p>
-	                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum vestibulum augue vel faucibus. Vivamus a est eget velit iaculis feugiat. Nulla non dui auctor, pharetra felis sit amet, congue ante. Ut tempor erat lacus, vel convallis massa imperdiet vestibulum. Donec ullamcorper ipsum non quam blandit faucibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque egestas ullamcorper faucibus. Morbi at lobortis lectus. Nulla sollicitudin purus vitae dui mollis, nec placerat elit pulvinar. In nec libero leo.
+						<% ArrayList<Quiz> popularQuizzes = QuizDao.getMostPopularQuizzes(); %>
+						<% for(int i = 0; i < popularQuizzes.size(); i++){ %>
+						<a href="ql/<%= popularQuizzes.get(i).getID() %>.jsp"><%= popularQuizzes.get(i).getName() %></a>
+						- <%= popularQuizzes.get(i).getDescription() %><BR>
+						<% } %>
 	                </p>
 	              </div>
 	              <div class="col-md-6 column" id="recentQuizzes">
 	                <h3>Recent Quizzes</h3>
 	                <p>
-	                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum vestibulum augue vel faucibus. Vivamus a est eget velit iaculis feugiat. Nulla non dui auctor, pharetra felis sit amet, congue ante. Ut tempor erat lacus, vel convallis massa imperdiet vestibulum. Donec ullamcorper ipsum non quam blandit faucibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque egestas ullamcorper faucibus. Morbi at lobortis lectus. Nulla sollicitudin purus vitae dui mollis, nec placerat elit pulvinar. In nec libero leo.
+						<% ArrayList<Quiz> recentQuizzes = QuizDao.getRecentCreatedQuizzes(); %>
+						<% for(int i = 0; i < recentQuizzes.size(); i++){ %>
+						<a href="ql/<%= recentQuizzes.get(i).getID() %>.jsp"><%= recentQuizzes.get(i).getName() %></a>
+						- <%= recentQuizzes.get(i).getDescription() %><BR>
+						<% } %>
 	                </p>
 	              </div>
 	            </div>
 	            <div class="row clearfix">
 	              <div class="col-md-6 column" id="quizzesTaken">
-	                <h3>Quizzes Taken</h3>
+	              	<% ArrayList<QuizTaken> takenQuizzes = QuizTakenDao.getRecentQuizzesByUserID(me.getUserid()); %>
+	              	<% if(takenQuizzes.size() != 0){ %>
+	              
+	                <h3>Your Taken Quizzes</h3>
 	                <p>
-	                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum vestibulum augue vel faucibus. Vivamus a est eget velit iaculis feugiat. Nulla non dui auctor, pharetra felis sit amet, congue ante. Ut tempor erat lacus, vel convallis massa imperdiet vestibulum. Donec ullamcorper ipsum non quam blandit faucibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque egestas ullamcorper faucibus. Morbi at lobortis lectus. Nulla sollicitudin purus vitae dui mollis, nec placerat elit pulvinar. In nec libero leo.
-	                </p>
+						<% for(int i = 0; i < takenQuizzes.size(); i++){ %>
+						<a href="ql/<%= takenQuizzes.get(i).getQuizID() %>.jsp"><%= QuizDao.getQuizByID(takenQuizzes.get(i).getQuizID()).getName() %></a>
+						- <%= QuizDao.getQuizByID(takenQuizzes.get(i).getQuizID()).getDescription() %><BR>
+						<% } %>
+					<% } %>
+					 </p>
 	              </div>
 	              <div class="col-md-6 column" id="quizzesCreated">
-	                <h3>Quizzes Created</h3>
+	              	
+	             	<% ArrayList<Quiz> createdQuizzes = QuizDao.getRecentUserCreatedQuizzes(me.getUserid()); %>
+	             	<% if(createdQuizzes.size() != 0){ %>
+	                <h3>Your Created Quizzes</h3>
 	                <p>
-	                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum vestibulum augue vel faucibus. Vivamus a est eget velit iaculis feugiat. Nulla non dui auctor, pharetra felis sit amet, congue ante. Ut tempor erat lacus, vel convallis massa imperdiet vestibulum. Donec ullamcorper ipsum non quam blandit faucibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque egestas ullamcorper faucibus. Morbi at lobortis lectus. Nulla sollicitudin purus vitae dui mollis, nec placerat elit pulvinar. In nec libero leo.
-	                </p>
+						<% for(int i = 0; i < createdQuizzes.size(); i++){ %>
+						<a href="ql/<%= createdQuizzes.get(i).getID() %>.jsp"><%= createdQuizzes.get(i).getName() %></a>
+						- <%= createdQuizzes.get(i).getDescription() %><BR>
+						<% } %>	 
+					<% } %>  
+					</p>
 	              </div>
 	            </div>
 	          </div>

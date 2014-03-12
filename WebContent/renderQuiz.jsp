@@ -59,7 +59,7 @@
                 <div class="form-group">
                   <input type="text" class="form-control" placeholder="Add a friend" name="usernamequery">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+               		<button type="submit" class="btn btn-default">Submit</button>
               </form>
               <li>
                 <a href="#" id="logout">Logout</a>
@@ -79,10 +79,10 @@
              	Quiz curQuiz = (Quiz)request.getAttribute("curQuiz");
                %>
 			<%= curQuiz.getName() %>
-			<form name="take_quiz_form" action="/Quizzer/TakeQuizServlet" method="post" > 
+			<form id="take_quiz_form" name="take_quiz_form" action="/Quizzer/TakeQuizServlet" method="post" > 
 			<input type="hidden" value="<%= curQuiz.getID() %>" name="quiz_id">
-			<input type="hidden" value="" name ="timeStart">;
-			
+			<input type="hidden" value="" id="dateTaken" name="dateTaken">
+			<input type="hidden" value="" id="time" name="time">
 			<%
 			ArrayList<Question> questions = curQuiz.questions;
 			%>
@@ -173,7 +173,7 @@
 						  <li class="next"><a href="#">Newer &rarr;</a></li>
 						</ul>
 						<div class="feedback"></div>
-						</div> <!-- Close question div -->
+						</div>  <!-- Close question div -->
 						<%
 				} //end for loop	%>
 				
@@ -254,7 +254,7 @@
 						</div> <!-- Close question div -->
 						<%
 				} //end for loop	%>
-				<button type="submit" id="submitbtn">Submit</button>
+				<button onclick"submitTakeQuizForm()" id="submitbtn">Submit</button>
 				<% 
 			}
 			%>
