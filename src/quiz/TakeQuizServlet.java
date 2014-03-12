@@ -51,8 +51,14 @@ public class TakeQuizServlet extends HttpServlet {
 		}
 		User currUser = (User)request.getSession(false).getAttribute("currentUser");
 		int userID = currUser.getUserid();
+		System.out.println(request.getParameter("quiz_id"));
 		int quizID = Integer.parseInt(request.getParameter("quiz_id"));
-		QuizTaken quiz = new QuizTaken(userID, quizID, "10", score, 100);
+		String timeTaken = request.getParameter("dateTaken");
+		System.out.println(request.getParameter("time"));
+		long timeElapsed = Long.parseLong(request.getParameter("time"));
+		System.out.println("User ID: " + userID + ", quizID: " + quizID + ", timeTaken: " + timeTaken + ", score: " + score + ", timeElapsed: " + timeElapsed);
+		QuizTaken quizTaken = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
+		QuizTakenDao.addQuizTaken(quizTaken);
 	}
 
 	

@@ -73,8 +73,12 @@ public class CreateQuizServlet extends HttpServlet {
 		ArrayList<Question> questions = new ArrayList<Question>();
 		
 		int numQuestions =  Integer.parseInt(request.getParameter("question_count_field"));
+		System.out.println("numQuestions: " + numQuestions);
 		for (int qtnNum = 1; qtnNum <= numQuestions; qtnNum++) {
-			if (!request.getParameter("question_type_" + qtnNum).equals(null)) {
+			System.out.println("QtnNum: " + qtnNum);
+			
+			if (request.getParameter("question" + qtnNum) != null) {
+				System.out.println("hello");
 				int questionType = Integer.parseInt(request.getParameter("question_type_" + qtnNum));
 				String question = "";
 				String answer = "";
@@ -124,6 +128,8 @@ public class CreateQuizServlet extends HttpServlet {
 						quizQtn = new PictureResponseQuestion(question, ParseAnswers.getArrayList(answer));
 						questions.add(quizQtn);
 						break;
+					default: break;
+
 //					case MULT_CHOICE_MULT_ANS:
 //						question = request.getParameter("question" + qtnNum);
 //						System.out.println("Mult Choice Question: " + question);
@@ -144,8 +150,7 @@ public class CreateQuizServlet extends HttpServlet {
 //						}
 //						questions.add(quizQtn);
 //						break;
-					default: break;
-						
+				
 				}
 			}
 		}
