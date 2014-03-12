@@ -3,6 +3,7 @@ package quiz;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,6 +68,9 @@ public class CreateQuizServlet extends HttpServlet {
 		AchievementListener.createQuiz(currUser);
 
 		System.out.println("num questions: " + numQtns);
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher("ql/" + quiz.getID());
+		dispatch.forward(request, response);
 	}
 	
 	private ArrayList<Question> getQuestionsFromForm(HttpServletRequest request) {

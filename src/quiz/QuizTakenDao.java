@@ -18,8 +18,22 @@ public class QuizTakenDao {
 			prepStmt.setLong(5, quizTaken.getTimeElapsed());
 			
 			prepStmt.executeUpdate();
+			
+			incrementNumberOfTimesTaken(quizTaken.getQuizID());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void incrementNumberOfTimesTaken(int quizID){
+		try {
+			
+			String command = "UPDATE quizzes SET numTimesTaken = numTimesTaken + 1 WHERE quizID =" + quizID;
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);
+						
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
