@@ -55,6 +55,46 @@ public class MessageDao {
 		return msgs;
 	}
 	
+	public static ArrayList<Note> getAllNotesToUser(int userid) {
+		ArrayList<Note> msgs = new ArrayList<Note>();
+		
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM notes WHERE recipientID = " + "\"" + userid + "\"");
+			while(rs.next()) {
+				Note tmpMsg = new Note();
+				tmpMsg.setSenderID(rs.getInt("senderID"));
+				tmpMsg.setRecipientID(rs.getInt("recipientID"));
+				tmpMsg.setMessage(rs.getString("message"));
+				msgs.add(tmpMsg);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return msgs;
+	}
+	
+	public static ArrayList<ChallengeRequest> getAllChallengesToUser(int userid) {
+		ArrayList<ChallengeRequest> msgs = new ArrayList<ChallengeRequest>();
+		
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM challenge_requests WHERE recipientID = " + "\"" + userid + "\"");
+			while(rs.next()) {
+				ChallengeRequest tmpMsg = new ChallengeRequest();
+				tmpMsg.setSenderID(rs.getInt("senderID"));
+				tmpMsg.setRecipientID(rs.getInt("recipientID"));
+				tmpMsg.setQuizID(rs.getInt("quizID"));
+				msgs.add(tmpMsg);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return msgs;
+	}
+	
 	public static void sendChallengeRequest(int senderid, int recipientid, int quizid){
 		try {
 			Statement stmt = connection.createStatement();

@@ -85,6 +85,9 @@
 	        <% ArrayList<Announcement> allAnnouncements = (ArrayList<Announcement>) request.getAttribute("announcements"); %>
 	          <div class="col-md-12 column" id="announcements" >
 	            <h2>List of announcements</h2>
+	            <% if(allAnnouncements.size() == 0)  { %>
+	            	<i>No announcements found!</i>
+	            <% } %>
 	            <ul>
 	            <% for(Announcement msg : allAnnouncements)  { %>
 	            	<li><%= msg.getMessage() %>
@@ -133,12 +136,16 @@
 	              </div>
 	            </div>
 	          </div>
-	          <a href="#" id="feedBtn">View Friend Activity</a>
-	          <a href="#" id="messagesBtn">View Messages</a>
-	          <div class="col-md-2 column" id="messages" style="display:none">
+	          <button class="btn btn-default" id="feedBtn" style="margin-right: 20px;">View Friend Activity </button>    
+	           
+	          <button  class="btn btn-default"  id="messagesBtn">View Messages</button>
+	          <div class="col-md-4 column" id="messages" style="display:none">
 	            <h3><small>Your Messages:</small></h3>
 	            <h4>Friend Requests:</h4>
 	            <% ArrayList<FriendRequest> frqs = (ArrayList<FriendRequest>) request.getAttribute("allRequests"); %>
+	            <% if(frqs.size() == 0) { %>
+	            	<i>No friend requests found.</i>
+	            <% } %>
 	            <ul>
 	            <% for(FriendRequest f: frqs) {%>
 	            <%  User sender = UserDao.getUserById(f.getSenderID());  
@@ -162,8 +169,32 @@
 	            </li>
 	            <% } %>
 	            </ul>
+	            <HR>
+	            <h4>Notes:</h4>
+	            <% ArrayList<Note> allnotes = (ArrayList<Note>) request.getAttribute("notes"); %>
+	            <% if(allnotes.size() == 0) { %>
+	            	<i>No notes found.</i>
+	            <% } %>
+	            <% for(Note n: allnotes) { %>
+	            	<b>From:</b> <%= UserDao.getUserById(n.senderID).getUsername() %><BR>
+	            	<b>Message:</b> <%= n.getMessage() %>
+	            	<BR>
+	            	<BR>
+	            <% } %>
+	            <HR>
+	            <h4>Challenge Requests:</h4>
+	            <% ArrayList<ChallengeRequest> challenges = (ArrayList<ChallengeRequest>) request.getAttribute("challenges"); %>
+	            <% if(challenges.size() == 0) { %>
+	            	<i>No challenges found.</i>
+	            <% } %>
+	            <% for(ChallengeRequest cr: challenges) { %>
+	            	You received a challenge request from <%= UserDao.getUserById(cr.getSenderID()).getUsername() %> to take
+	            	<a href="/Quizzer/qz/<%= cr.getQuizID() %>"><%= QuizDao.getQuizByID(cr.getQuizID()).getName() %></a>!<BR>
+	            	<BR>
+	            	<BR>
+	            <% } %>
 	          </div>
-	          <div class="col-md-2 column" id="activities" style="display:none">
+	          <div class="col-md-4 column" id="activities" style="display:none">
 	            <h3><small>Recent Activity</small></h3>
 	            <p>
 	              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum vestibulum augue vel faucibus. Vivamus a est eget velit iaculis feugiat. Nulla non dui auctor, pharetra felis sit amet, congue ante. Ut tempor erat lacus, vel convallis massa imperdiet vestibulum. Donec ullamcorper ipsum non quam blandit faucibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque egestas ullamcorper faucibus. Morbi at lobortis lectus. Nulla sollicitudin purus vitae dui mollis, nec placerat elit pulvinar. In nec libero leo.
@@ -186,12 +217,14 @@
 	      
 	        $(document).ready(function() {
 	          $(function() {
-	             $('a#feedBtn').click(function() {
-	                $('div#activities').toggle();
+	             $('#feedBtn').click(function() {
+	                $('div#activities').fadeIn();
+	                $('div#messages').fadeOut();
 	                return false;
 	             });
-	             $('a#messagesBtn').click(function() {
-	                $('div#messages').toggle();
+	             $('#messagesBtn').click(function() {
+	                $('div#messages').fadeIn();
+	                $('div#activities').fadeOut();
 	                return false;
 	             });
 	          });   

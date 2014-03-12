@@ -72,7 +72,7 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-xs-9">
+          <div class="col-xs-6">
              <% 
                	User us = (User)session.getAttribute("currentUser");
              	int curUserID = us.getUserid();
@@ -84,8 +84,24 @@
 			<p><%= curQuiz.getDescription() %></p>
 			
           </div>
-          <div class="col-xs-3">
-          	<a href="/Quizzer/qz/<%= curQuiz.getID() %>"><button type="button" class="btn btn-success btn-lg">Take Quiz</button></a>
+          <div class="col-xs-6">
+          	<%  ArrayList<User> allFriends = UserDao.getAllFriendsOf(us.getUserid()); %>
+			<h3>Send a message to a friend:</h3>
+			<% if(allFriends.size() == 0) { %>
+				<i>No friends found</i>
+			<% } else { %>
+				<form action="/Quizzer/ChallengeRequestServlet" method="post">
+	            	<input name="myID" type="hidden" value="<%= us.getUserid() %>">
+	            	<input name="quizID" type="hidden" value="<%= curQuiz.getID() %>">
+	            	Challenge <select name="friendID">
+	            	<% for(User friend: allFriends)  { %>
+	            		<option value="<%= friend.getUserid() %>"><%= friend.getUsername() %></option>
+	            	<% }  %>
+	            	</select> to take this quiz!
+	            	<button type="submit" class="btn btn-success">Send Message</button>
+	            </form>
+			<% } %>
+          	<a href="/Quizzer/qz/<%= curQuiz.getID() %>"><button type="button" class="btn btn-success btn-lg pull-right">Take Quiz</button></a>
           </div>
         </div>
         <div class="row">

@@ -168,7 +168,7 @@ public class UserDao {
 
 	}
 
-	static public List<User> getAllUser() {
+	public static List<User> getAllUser() {
 		List<User> users = new ArrayList<User>();
 		try {
 			Statement statement = connection.createStatement();
@@ -187,6 +187,27 @@ public class UserDao {
 			e.printStackTrace();
 		}
 		return users;
+	}
+	
+	public static ArrayList<User> getAllFriendsOf(int userId) {
+		ArrayList<Integer> friendIDs = new ArrayList<Integer>();
+		ArrayList<User> allFriends = new ArrayList<User>();
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM friendships WHERE userID = " + "\"" + userId + "\"");
+			
+			while(rs.next()) {
+				friendIDs.add(rs.getInt("friendID"));
+			}
+			
+			for(int j: friendIDs) {
+				allFriends.add(getUserById(j));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allFriends;
 	}
 	
 	static public User getUserById(int userId) {

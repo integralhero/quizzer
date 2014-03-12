@@ -42,7 +42,7 @@ public class ChallengeRequestServlet extends HttpServlet {
 		//System.out.println("myID: " + myID + "---yourID: " + friendID);
 		MessageDao.sendChallengeRequest(myID, friendID, quizID);
 		
-		response.sendRedirect("/Quizzer/quiz/"+quizID);
+		response.sendRedirect("/Quizzer/qz/"+quizID);
 	}
 
 }

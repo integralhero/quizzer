@@ -1,4 +1,4 @@
-<%@ page import="quiz.*, javax.*" %>
+<%@ page import="quiz.*, javax.*, java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -113,8 +113,24 @@
 	            	</form>
 	            <% } %>
             <% } %>
-
-
+			<%  ArrayList<User> allFriends = UserDao.getAllFriendsOf(us.getUserid()); %>
+			<h3>Send a message to a friend:</h3>
+			<% if(allFriends.size() == 0) { %>
+				You should add some friends!
+			<% } else { %>
+				<form action="/Quizzer/NoteServlet" method="post">
+	            	<input name="myID" type="hidden" value="<%= us.getUserid() %>">
+	            	To: <select name="friendID">
+	            	<% for(User friend: allFriends)  { %>
+	            		<option value="<%= friend.getUserid() %>"><%= friend.getUsername() %></option>
+	            	<% }  %>
+	            	</select><BR>
+	            	<BR>
+	            	<textarea rows="5" cols="80" name="message"></textarea><BR>
+	            	<BR>
+	            	<button type="submit" class="btn btn-success">Send Message</button>
+	            </form>
+			<% } %>
           </div>
         </div>
       </div>

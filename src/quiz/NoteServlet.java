@@ -41,7 +41,7 @@ public class NoteServlet extends HttpServlet {
 		//System.out.println("myID: " + myID + "---yourID: " + friendID);
 		MessageDao.sendNote(myID, friendID, message);
 		
-		//response.sendRedirect("/Quizzer/quiz/"+quizID);	
+		response.sendRedirect("/Quizzer/");	
 	}
 
 }
