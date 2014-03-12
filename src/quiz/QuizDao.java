@@ -423,19 +423,48 @@ public class QuizDao {
 		return nameFree;
 	}
 	
-	// returns the five most popular quizzes. if less than five quizzes have been created, then just return the 
-	//
+	
+	/*public static ArrayList<Quiz> getHotQuizzes(){
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz> ();
+
+		try {
+			
+			String command = "SELECT * FROM quizzes ORDER BY numTimesTaken DESC ";
+				
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			
+			while (rs.next() && quizzes.size() < 10) {
+				Quiz temp = new Quiz();
+				temp.setID(rs.getInt("ID"));
+				temp.setScore(rs.getInt("score"));
+				temp.setName(rs.getString("name"));
+				temp.setUserID(rs.getInt("userID"));
+				temp.setNumTimesTaken(rs.getInt("numTimesTaken"));
+				temp.setTimeCreated(rs.getString("timeCreated"));
+				temp.setDescription(rs.getString("description"));
+				temp.setCategory(rs.getString("category"));
+				quizzes.add(temp);
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return quizzes;
+
+	}*/
 	
 	public static ArrayList<Quiz> getMostPopularQuizzes() {
-		
+		ArrayList<Quiz> popularQuizzes = new ArrayList<Quiz> ();
+
 		try {
-			ArrayList<Quiz> popularQuizzes = new ArrayList<Quiz> ();
-			String command = "SELECT * FROM quizzes";
+			String command = "SELECT * FROM quizzes ORDER BY numTimesTaken DESC";
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
 			
-			while (rs.next()) {
+			while (rs.next() && popularQuizzes.size() < 10) {
 				Quiz tmp = new Quiz();
 				tmp.setID(rs.getInt("ID"));
 				tmp.setScore(rs.getInt("score"));
@@ -452,19 +481,10 @@ public class QuizDao {
 				popularQuizzes.add(tmp);
 			}
 			
-			Collections.sort(popularQuizzes);
-			if (popularQuizzes.size() <= 5) return popularQuizzes;
-			else {
-				while(popularQuizzes.size() > 5) {
-					popularQuizzes.remove(0);
-				}
-				return popularQuizzes;
-			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return popularQuizzes;
 	}
 	
 	public static String getCurrentTimeStamp() {
