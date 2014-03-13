@@ -95,7 +95,105 @@
 				<BR>
 				Description: <input type="text" name="description" style="width:50%;" value="<%=curQuiz.getDescription() %>"><BR>
 				<HR>
-				<input type='hidden' id='question_count_field' name='question_count_field' value = 0>
+				<% 
+				final int QUESTION_RESPONSE = 1;
+				final int FILL_BLANK = 2;
+				final int MULT_CHOICE = 3;
+				final int PIC_RES = 4;
+				int questionCount = 0;
+
+				for (Question question : curQuiz.questions) {
+					int questionType = QuestionTypes.getType(question.getQuestionType());
+					switch (questionType) {
+						case QUESTION_RESPONSE:
+				%>
+						<div id='question<%= questionCount %>'>
+							<div class='input-group'><h3>Question-Response <button type='button' class='question_delete_btn btn btn-default btn-sm'>
+								<span class='glyphicon glyphicon-remove-circle'></span> Delete </button></h3>" + 
+								<input type='text' class='form-control quiz_qtn_field' name='question<%= questionCount %>' placeholder='Question' value='<%= ((QuestionResponse)question).getQuestion() %>'>&nbsp;
+				<%
+								for (String answer : ((QuestionResponse)question).getAnswers()) {
+				%>
+									<input type='text' class='form-control quiz_qtn_field' name='answer<%= questionCount %>' placeholder='Response' value='<%= answer %>'>&nbsp;
+				<%
+								}
+				%> 
+							</div>
+							<input type='hidden' name='question_type_<%= questionCount %>' value='1'>
+						</div>
+				<%
+							break;
+						case FILL_BLANK:
+				%>
+					   	<div id='question<%= questionCount %>'>
+							<div class='input-group'>
+								<h3>Fill in the Blank</h3>
+								<input type='text' class='form-control quiz_qtn_field' name='question<%= questionCount %>' placeholder='Sentence' value='<%= ((FillBlankQuestion)question).getQuestion() %>'>&nbsp;
+				<%
+								for (String answer : ((FillBlankQuestion)question).getAnswers()) {
+				%>
+									<input type='text' class='form-control' name='answer<%= questionCount %>' placeholder='Word to be left blank' value='<%= answer %>'>&nbsp;
+				<%
+								}
+				%> 
+							   	</div>
+							<input type='hidden' name='question_type_<%= questionCount %>' value='2'>
+						</div>
+				<%
+							break;
+						case MULT_CHOICE:
+				%>
+						<div id='question<%= questionCount %>'> 
+							<div class='input-group'>
+								<h3>Multiple Choice</h3> 
+								<input type='text' class='form-control quiz_qtn_field' name='question<%= questionCount %>' placeholder='Question' value='<%= ((MultipleChoiceQuestion)question).getQuestion() %>'> 
+				<%
+								int multipleChoiceAnswerCount = 0;
+								for (String answer : ((MultipleChoiceQuestion)question).getAnswers()) {
+									
+				%>
+									<div class='row'>
+										<div class='col-lg-6'>
+											<div class='input-group'>
+												<span class='input-group-addon'><input name='mult_choice_checkbox_<%= multipleChoiceAnswerCount %>' type='checkbox'></span>
+													<input name='mult_choice_answer_<%= multipleChoiceAnswerCount %>' type='text' class='form-control' >
+												</div>
+											</div>
+										</div>
+				<%
+									multipleChoiceAnswerCount++;
+								}
+				%> 
+								
+								<button onclick='addAnswer()' type='button' id='add_answer_btn' class='btn btn-default'>Add Answer</button><br><br> 
+							</div>
+							<input type='hidden' id='question_type_<%= questionCount %>' name='question_type_<%= questionCount %>' value='3'>
+							<input type='hidden' id='mult_choice_answer_count_<%= questionCount %>' name='mult_choice_answer_count_<%= questionCount %>' value='<%=multipleChoiceAnswerCount %>'>
+						</div>
+				<%
+							break;
+						case PIC_RES:
+				%>
+							<div id='question<%= questionCount %>'>
+								<div class='input-group'>
+									<h3>Picture-Response</h3>
+									<input type='text' class='form-control quiz_qtn_field' name='question<%= questionCount %>' placeholder='Image URL'>
+									<h4>Or load image file:</h4>
+									<input type='file' >&nbsp;
+									<input type='text' class='form-control quiz_qtn_field' name='answer<%= questionCount %>' placeholder='Response'>&nbsp;
+								</div>
+								<input type='hidden' name='question_type_<%= questionCount %>' value='4'>
+							</div>
+				
+				<%
+							break;
+						default: break;
+
+					} // close switch statement
+					questionCount++;
+				} // close for loop
+				
+				%>
 	          	<div id="add_qtn_btn">
 		          	<div class="row">
 					  <div class="col-lg-6">

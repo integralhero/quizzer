@@ -191,5 +191,9 @@ public class Quiz implements Comparable<Quiz>{
 	public String getTimeCreated(){
 		return this.timeCreated;
 	}
+	
+	public int getNumQuestions() {
+		return this.questions.size();
+	}
 
 }

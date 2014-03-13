@@ -108,7 +108,6 @@
 	          	if(us.getUserid() == curQuiz.getUserID()) { %>
           			<a href="/Quizzer/eq/<%= curQuiz.getID() %>"><button type="submit" class="btn btn-danger btn-lg">Edit Quiz</button></a>
           		<%} %>
-          		          			<a href="/Quizzer/eq/<%= curQuiz.getID() %>"><button type="submit" class="btn btn-danger btn-lg">Edit Quiz</button></a>
           		
           	
           	<form action="/Quizzer/ReportQuizServlet" method="post">
