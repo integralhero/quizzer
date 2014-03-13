@@ -7,6 +7,7 @@ public class MessageDao {
 	private static Connection connection = Database.connect();
 	
 	public static boolean checkIfFriendsExist(int senderid, int recipientid) {
+		
 		boolean exists = false;
 		try {
 			System.out.println("Message.Dao: now checking.... senderID = "+senderid + " and recipientID= " + recipientid);
