@@ -134,8 +134,8 @@ public class QuizDao {
 	public static void addQuiz(Quiz quiz) {
 		try {
 			
-			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category, randomizeQuestions, multiplePages, immediateCorrection, practiceModeAvailable) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category, randomizeQuestions, multiplePages, immediateCorrection, practiceModeAvailable, flagNum) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 			prepStmt.setInt(1, quiz.getScore());
 			prepStmt.setString(2, quiz.getName());
 			prepStmt.setInt(3, quiz.getUserID());
@@ -147,7 +147,7 @@ public class QuizDao {
 			prepStmt.setBoolean(9, quiz.getMultiplePages());
 			prepStmt.setBoolean(10, quiz.getImmediateCorrection());
 			prepStmt.setBoolean(11, quiz.getPracticeModeAvailable());
-
+			prepStmt.setInt(12, quiz.getNumFlags());
 
 			prepStmt.executeUpdate();
 			
