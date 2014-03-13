@@ -253,7 +253,7 @@ public class QuizTakenDao {
 		
 	}
 	
-	public static ArrayList<QuizTaken> getFriendsCreatedQuizzes(int userID){
+	public static ArrayList<QuizTaken> getFriendsTakenQuizzes(int userID){
 		ArrayList<QuizTaken> recentQuizzes = new ArrayList<QuizTaken> ();
 
 		try {

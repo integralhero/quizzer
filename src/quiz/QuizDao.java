@@ -111,7 +111,7 @@ public class QuizDao {
 	public static Quiz getQuizByID(int quiz_id) {
 		try {
 			String command = "SELECT * FROM quizzes WHERE ID=" + quiz_id;
-			
+			System.out.println("THIS" + quiz_id);
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);	
 			ArrayList<Question> list = getAllQuestionsFrom(quiz_id);
@@ -135,8 +135,8 @@ public class QuizDao {
 	public static void addQuiz(Quiz quiz) {
 		try {
 			
-			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category, randomizeQuestions, multiplePages, immediateCorrection, practiceModeAvailable, flagNum) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category, randomizeQuestions, multiplePages, immediateCorrection, practiceModeAvailable) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 			prepStmt.setInt(1, quiz.getScore());
 			prepStmt.setString(2, quiz.getName());
 			prepStmt.setInt(3, quiz.getUserID());
@@ -148,7 +148,7 @@ public class QuizDao {
 			prepStmt.setBoolean(9, quiz.getMultiplePages());
 			prepStmt.setBoolean(10, quiz.getImmediateCorrection());
 			prepStmt.setBoolean(11, quiz.getPracticeModeAvailable());
-			prepStmt.setInt(12, quiz.getNumFlags());
+
 
 			prepStmt.executeUpdate();
 			
@@ -526,7 +526,9 @@ public class QuizDao {
 		try {
 			String command = "SELECT * FROM friendships WHERE userID = " 
 					+ userID;
+			System.out.print(command + "\n");
 			
+
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
 			
@@ -540,6 +542,8 @@ public class QuizDao {
 			for(int i = 1; i < friendIDs.size(); i++){
 				command2 += " OR userID = " + friendIDs.get(i);
 			}
+			
+			System.out.print(command2 + "\n");
 			
 			Statement statement2 = connection.createStatement();
 			ResultSet rs2 = statement2.executeQuery(command2);

@@ -52,7 +52,6 @@ public class AchievementDao {
 			
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(command);
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +77,6 @@ public class AchievementDao {
 					temp.add(getAchievementByID(rs2.getInt("ID")));
 				}
 			}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -8,6 +8,9 @@ public class RatingsDao {
 	private static Connection connection = Database.connect();
 	
 	public static void addRate(Rate rate) {
+		if(connection == null) {
+			connection = Database.connect();
+		}
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO ratings(userID, quizID, rating, review) VALUES (?,?,?,?)");
 			prepStmt.setInt(1, rate.getUserID());
@@ -15,6 +18,7 @@ public class RatingsDao {
 			prepStmt.setInt(3, rate.getRating());
 			prepStmt.setString(4, rate.getReview());
 			prepStmt.executeUpdate();
+			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -22,6 +26,9 @@ public class RatingsDao {
 	
 	public static ArrayList<String> getReviewsOfQuiz(int quiz_id) {
 		ArrayList<String> reviews = new ArrayList<String>();
+		if(connection == null) {
+			connection = Database.connect();
+		}
 		try {
 			
 			String command = "SELECT * FROM ratings WHERE quizID=" + quiz_id;
@@ -32,7 +39,7 @@ public class RatingsDao {
 				String review = rs.getString("review");
 				reviews.add(review);
 			}
-			
+			connection.close();
 			return reviews;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,6 +49,9 @@ public class RatingsDao {
 	
 	//returns the average rating of a quiz.
 	public static int getRating(int quiz_id) {
+		if(connection == null) {
+			connection = Database.connect();
+		}
 		try {
 			String command = "SELECT * FROM ratings WHERE quizID=" + quiz_id;
 			int totalRating = 0;
@@ -55,6 +65,7 @@ public class RatingsDao {
 			}
 			
 			if (totalRating == 0 && totalUsers == 0) return -2;
+			connection.close();
 			return totalRating/totalUsers;
 			
 		} catch (Exception e) {
