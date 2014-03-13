@@ -118,11 +118,12 @@ public class QuizDao {
 			Quiz tmp = new Quiz();
 			tmp.setQuestions(list);
 			tmp.setID(quiz_id);
+			
 			if(rs.next()) {
 				initializeQuiz(rs);
 
 			}
-			
+
 			return tmp;
 		} catch (SQLException e) {
 			
