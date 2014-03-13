@@ -142,7 +142,7 @@
 	                <p>
 						<% ArrayList<Quiz> popularQuizzes = QuizDao.getMostPopularQuizzes(); %>
 						<% for(int i = 0; i < popularQuizzes.size(); i++){ %>
-						<a href="ql/<%= popularQuizzes.get(i).getID() %>.jsp"><%= popularQuizzes.get(i).getName() %></a>
+						<a href="ql/<%= popularQuizzes.get(i).getID() %>"><%= popularQuizzes.get(i).getName() %></a>
 						- <%= popularQuizzes.get(i).getDescription() %><BR>
 						<% } %>
 	                </p>
@@ -152,7 +152,7 @@
 	                <p>
 						<% ArrayList<Quiz> recentQuizzes = QuizDao.getRecentCreatedQuizzes(); %>
 						<% for(int i = 0; i < recentQuizzes.size(); i++){ %>
-						<a href="ql/<%= recentQuizzes.get(i).getID() %>.jsp"><%= recentQuizzes.get(i).getName() %></a>
+						<a href="ql/<%= recentQuizzes.get(i).getID() %>"><%= recentQuizzes.get(i).getName() %></a>
 						- <%= recentQuizzes.get(i).getDescription() %><BR>
 						<% } %>
 	                </p>
@@ -162,11 +162,10 @@
 	              <div class="col-md-6 column" id="quizzesTaken">
 	              	<% ArrayList<QuizTaken> takenQuizzes = QuizTakenDao.getRecentQuizzesByUserID(me.getUserid()); %>
 	              	<% if(takenQuizzes.size() != 0){ %>
-	              
 	                <h3>Your Taken Quizzes</h3>
 	                <p>
 						<% for(int i = 0; i < takenQuizzes.size(); i++){ %>
-						<a href="ql/<%= takenQuizzes.get(i).getQuizID() %>.jsp"><%= QuizDao.getQuizByID(takenQuizzes.get(i).getQuizID()).getName() %></a>
+						<a href="ql/<%= takenQuizzes.get(i).getQuizID() %>"><%= QuizDao.getQuizByID(takenQuizzes.get(i).getQuizID()).getName() %></a>
 						- <%= QuizDao.getQuizByID(takenQuizzes.get(i).getQuizID()).getDescription() %><BR>
 						<% } %>
 					<% } %>
@@ -179,7 +178,7 @@
 	                <h3>Your Created Quizzes</h3>
 	                <p>
 						<% for(int i = 0; i < createdQuizzes.size(); i++){ %>
-						<a href="ql/<%= createdQuizzes.get(i).getID() %>.jsp"><%= createdQuizzes.get(i).getName() %></a>
+						<a href="ql/<%= createdQuizzes.get(i).getID() %>"><%= createdQuizzes.get(i).getName() %></a>
 						- <%= createdQuizzes.get(i).getDescription() %><BR>
 						<% } %>	 
 					<% } %>  
@@ -249,25 +248,33 @@
 	            <h3><small>Recent Activity</small></h3>
 	             <h4>Created Quizzes:</h4>
 		            <% ArrayList<Quiz> friendsCreatedQuizzes = QuizDao.getFriendsCreatedQuizzes(me.getUserid()); %>
-		            <% if(friendsCreatedQuizzes.size() == 0) { %>
-		            	<i>No friend activity found.</i>
-		            <% } %>
-		            <ul>
-		            <% for(Quiz q: friendsCreatedQuizzes) {%>
-		            <a href="ql/<%= q.getID() %>.jsp"><%= q.getName() %></a>
-		            
-		            <% } %>
+		            <% if(friendsCreatedQuizzes!= null) { %>
+			            <% if(friendsCreatedQuizzes.size() == 0) { %>
+			            	<i>No friend activity found.</i>
+			            <% } %>
+			            <ul>
+			            <% for(Quiz q: friendsCreatedQuizzes) {%>
+			            <a href="ql/<%= q.getID() %>"><%= q.getName() %></a> - <%= q.getDescription() %><BR>
+			            
+			            <% } %>
+			       	 <% } else {%> 
+			        	<i>No friend activity found. NULL</i>
+			         <% } %>
 		            </ul>
 		         <h4>Taken Quizzes:</h4>
-		          	<% ArrayList<Quiz> friendsTakenQuizzes = QuizDao.getFriendsCreatedQuizzes(me.getUserid()); %>
-		            <% if(friendsCreatedQuizzes.size() == 0) { %>
-		            	<i>No friend activity found.</i>
-		            <% } %>
-		            <ul>
-		            <% for(Quiz q: friendsCreatedQuizzes) {%>
-		            <a href="ql/<%= q.getID() %>.jsp"><%= q.getName() %></a>
-		            
-		            <% } %>
+		          	<% ArrayList<QuizTaken> friendsTakenQuizzes = QuizTakenDao.getFriendsTakenQuizzes(me.getUserid()); %>
+			        <%if(friendsTakenQuizzes != null){ %> 
+			            <% if(friendsTakenQuizzes.size() == 0) { %>
+			            	<i>No friend activity found.</i>
+			            <% } %>
+			            <ul>
+			            <% for(QuizTaken q: friendsTakenQuizzes) {%>
+			            <a href="ql/<%= q.getQuizID() %>"><%= QuizDao.getQuizByID(q.getQuizID()).getName() %></a><BR>
+			            
+			            <% } %>
+		            <% } else { %> 
+		        		<i>No friend activity found. NULL</i>
+		        	<% } %>
 		            </ul>
 	          </div>
 	        </div>

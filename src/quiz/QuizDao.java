@@ -10,7 +10,9 @@ public class QuizDao {
 	private static Connection connection = Database.connect();
 
 	public static void deleteQuiz(Quiz quiz) {
-				
+		if(connection == null){
+			connection = Database.connect();
+		}
 		try {
 			int id = quiz.getID();
 			String command = "DELETE FROM quizzes WHERE id =" + id;
@@ -22,9 +24,19 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static ArrayList<Quiz> getAllFlaggedQuizzes() {
+		if(connection == null){
+			connection = Database.connect();
+		}
 		ArrayList<Quiz> tmp = new ArrayList<Quiz>();
 		try {
 			String command = "SELECT * FROM quizzes WHERE flagNum > 0";
@@ -39,10 +51,19 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return tmp;
 	}
 	
 	public static void addAnotherFlagTo(int quizid) {
+		if(connection == null){
+			connection = Database.connect();
+		}
 		try {
 			String commandGet = "SELECT * FROM quizzes WHERE ID=" + quizid;
 			
@@ -61,9 +82,18 @@ public class QuizDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void deleteQuizByID(int id) {
+		if(connection == null){
+			connection = Database.connect();
+		}
 		
 		try {
 			String command = "DELETE FROM quizzes WHERE ID =" + id;
@@ -79,9 +109,18 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void removeChallengeReqByID(int quizid) {
+		if(connection == null){
+			connection = Database.connect();
+		}
 		try {
 			String command = "DELETE FROM challenge_requests WHERE quizID=" + quizid;
 			
@@ -92,9 +131,18 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void deleteQuizQuestionByID(int id) {
+		if(connection == null){
+			connection = Database.connect();
+		}
 		
 		try {
 			String command = "DELETE FROM question_quiz_index WHERE quizID =" + id;
@@ -106,9 +154,18 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static Quiz getQuizByID(int quiz_id) {
+		if(connection == null){
+			connection = Database.connect();
+		}
 		try {
 			String command = "SELECT * FROM quizzes WHERE ID=" + quiz_id;
 			System.out.println("THIS" + quiz_id);
@@ -122,20 +179,34 @@ public class QuizDao {
 				initializeQuiz(rs);
 
 			}
-			
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return tmp;
 		} catch (SQLException e) {
 			
+			e.printStackTrace();
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
 	public static void addQuiz(Quiz quiz) {
+		if(connection == null){
+			connection = Database.connect();
+		}
 		try {
 			
-			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category, randomizeQuestions, multiplePages, immediateCorrection, practiceModeAvailable) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category, randomizeQuestions, multiplePages, immediateCorrection, practiceModeAvailable, flagNum) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 			prepStmt.setInt(1, quiz.getScore());
 			prepStmt.setString(2, quiz.getName());
 			prepStmt.setInt(3, quiz.getUserID());
@@ -147,7 +218,7 @@ public class QuizDao {
 			prepStmt.setBoolean(9, quiz.getMultiplePages());
 			prepStmt.setBoolean(10, quiz.getImmediateCorrection());
 			prepStmt.setBoolean(11, quiz.getPracticeModeAvailable());
-
+			prepStmt.setInt(12, quiz.getNumFlags());
 
 			prepStmt.executeUpdate();
 			
@@ -164,9 +235,16 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private static int getLastInsertID(String type){
+	
 		try {
 			String command = "SELECT id FROM " + type + " WHERE id = LAST_INSERT_ID();";
 			Statement statement = connection.createStatement();
@@ -182,6 +260,7 @@ public class QuizDao {
 	}
 	
 	private static void setQuizID(Quiz quiz){
+
 		try {
 			String command = "SELECT * FROM quizzes WHERE name = \"" + quiz.getName() + "\"";
 			Statement statement = connection.createStatement();
@@ -198,6 +277,7 @@ public class QuizDao {
 	}
 	
 	private static void updateUserTable(Quiz quiz, User user) {
+
 		try {
 			
 			String command = "SELECT numQuizzesCreated FROM users WHERE ID = " + user.getUserid();
@@ -220,6 +300,9 @@ public class QuizDao {
 	}
 	
 	public void deleteQuizHistory(int quiz_id){
+		if(connection == null){
+			connection = Database.connect();
+		}
 		try {
 			
 			String command = "DELETE * FROM quizzes_taken WHERE ID = " + quiz_id;
@@ -229,6 +312,13 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 					
+		}
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -354,6 +444,9 @@ public class QuizDao {
 	}
 
 	public static ArrayList<Quiz> getUserQuizzes(int user_id){
+		if(connection == null){
+			connection = Database.connect();
+		}
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		
 		try {
@@ -373,13 +466,21 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return quizzes;
 	}
 	
 	// gets the most recently created quizzes without specific user 
 	
 	public static ArrayList<Quiz> getRecentCreatedQuizzes() {
+		if(connection == null){
+			connection = Database.connect();
+		}
 		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
 
 		try {
@@ -398,13 +499,21 @@ public class QuizDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return recentQuizzes;
 	}
 	
 	//gets the most recently created quizzes created by user 
 	
 	public static ArrayList<Quiz> getRecentUserCreatedQuizzes(int user_id) {
+		if(connection == null){
+			connection = Database.connect();
+		}
 		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
 
 		try {
@@ -423,10 +532,20 @@ public class QuizDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return recentQuizzes;
 	}
 	
 	public static Quiz searchForQuiz(String quizName){
+		if(connection == null){
+			connection = Database.connect();
+		}
 		Quiz quiz = new Quiz();
 
 		try {
@@ -443,12 +562,20 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return quiz;
 
 	}
 	
 	public static boolean checkName(String quizName){
+		if(connection == null){
+			connection = Database.connect();
+		}
 		boolean nameFree = true;
 		try {
 			String command = "SELECT * FROM quizzes WHERE name = \"" + quizName + " \"";
@@ -462,7 +589,12 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return nameFree;
 	}
 	
@@ -499,6 +631,9 @@ public class QuizDao {
 	}*/
 	
 	public static ArrayList<Quiz> getMostPopularQuizzes() {
+		if(connection == null){
+			connection = Database.connect();
+		}
 		ArrayList<Quiz> popularQuizzes = new ArrayList<Quiz> ();
 
 		try {
@@ -516,16 +651,27 @@ public class QuizDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return popularQuizzes;
 	}
 	
 	public static ArrayList<Quiz> getFriendsCreatedQuizzes(int userID){
+		if(connection == null){
+			connection = Database.connect();
+		}
 		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
 
 		try {
 			String command = "SELECT * FROM friendships WHERE userID = " 
 					+ userID;
+			System.out.print(command + "\n");
 			
+
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
 			
@@ -540,6 +686,8 @@ public class QuizDao {
 				command2 += " OR userID = " + friendIDs.get(i);
 			}
 			
+			System.out.print(command2 + "\n");
+			
 			Statement statement2 = connection.createStatement();
 			ResultSet rs2 = statement2.executeQuery(command2);
 			
@@ -551,6 +699,12 @@ public class QuizDao {
 			}
 						
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return recentQuizzes;
