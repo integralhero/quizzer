@@ -111,7 +111,7 @@ public class QuizDao {
 	public static Quiz getQuizByID(int quiz_id) {
 		try {
 			String command = "SELECT * FROM quizzes WHERE ID=" + quiz_id;
-			
+			System.out.println("THIS" + quiz_id);
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);	
 			ArrayList<Question> list = getAllQuestionsFrom(quiz_id);

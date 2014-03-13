@@ -97,24 +97,26 @@
 		            <div class="item">
 		                <img src="http://placehold.it/1200x300/e67e22/ffffff&text=Announcements">
 		                <div class="carousel-caption">
-		                    <% ArrayList<Announcement> allAnnouncements = (ArrayList<Announcement>) request.getAttribute("announcements"); %>
-					          <div class="col-md-12 column" >
-					            <% if(allAnnouncements.size() == 0)  { %>
-					            	<i>No announcements found!</i>
-					            <% } %>
-					            <ul>
-					            <% for(Announcement msg : allAnnouncements)  { %>
-					            	<li><%= msg.getMessage() %>
-					            	<% if(me.checkIsAdmin()) { %>
-					            	<form action="AnnouncementRemove" method="post">
-					            		<input name="message_id" type="hidden" value="<%= msg.getMessage_id() %>">
-					            		<button type="submit" class="btn btn-danger" >Delete</button>
-					            	</form>
-					            	<% } %>
-					            	</li>
-					            	
-					            <% } %>
-					            </ul>
+		                	<div id="announce">
+			                    <% ArrayList<Announcement> allAnnouncements = (ArrayList<Announcement>) request.getAttribute("announcements"); %>
+						          <div class="col-md-12 column" >
+						            <% if(allAnnouncements.size() == 0)  { %>
+						            	<i>No announcements found!</i>
+						            <% } %>
+						            <ul>
+						            <% for(Announcement msg : allAnnouncements)  { %>
+						            	<li><%= msg.getMessage() %>
+						            	<% if(me.checkIsAdmin()) { %>
+						            	<form action="AnnouncementRemove" method="post">
+						            		<input name="message_id" type="hidden" value="<%= msg.getMessage_id() %>">
+						            		<button type="submit" class="btn btn-danger" >Delete</button>
+						            	</form>
+						            	<% } %>
+						            	</li>
+						            	
+						            <% } %>
+						            </ul>
+					         </div>
 		                </div>
 		            </div>
 		            <!-- End Item -->
