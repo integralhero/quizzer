@@ -9,9 +9,6 @@ public class QuizTakenDao {
 	private static Connection connection = Database.connect();
 	
 	public static void addQuizTaken(QuizTaken quizTaken) {
-		if(connection == null){
-			connection = Database.connect();
-		}
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes_taken(userID, quizID, timeTaken, score, timeElapsed) VALUES (?,?,?,?,?)");
 			prepStmt.setInt(1, quizTaken.getUserID());
@@ -27,19 +24,10 @@ public class QuizTakenDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public static void deleteQuizTakenByID(int id) {
-		if(connection == null){
-			connection = Database.connect();
-		}
+		
 		try {
 			String command = "DELETE FROM quizzes_taken WHERE quizID =" + id;
 			
@@ -50,20 +38,10 @@ public class QuizTakenDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 
 	public static void incrementNumberOfTimesTaken(int quizID){
-		if(connection == null){
-			connection = Database.connect();
-		}
 		try {
 			
 			String command = "UPDATE quizzes SET numTimesTaken = numTimesTaken + 1 WHERE quizID =" + quizID;
@@ -73,19 +51,9 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public static ArrayList<QuizTaken> getQuizTakenByUser(int userID, int quizID){
-		if(connection == null){
-			connection = Database.connect();
-		}
 		ArrayList<QuizTaken> quizzes = new ArrayList<QuizTaken> ();
 
 		try {
@@ -105,20 +73,12 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return quizzes;
 	}
 	
 	//gets 10 most recent quizzes taken by user 
 	public static ArrayList<QuizTaken> getRecentQuizzesByUserID(int userID) {
-		if(connection == null){
-			connection = Database.connect();
-		}
 		ArrayList<QuizTaken> recentQuizzes = new ArrayList<QuizTaken> ();
 
 		try {			
@@ -140,19 +100,10 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return recentQuizzes;
 	}
 
 	public static ArrayList<QuizTaken> getRecentQuizzesByUser(int userid, int quizID) {
-		if(connection == null){
-			connection = Database.connect();
-		}
 		
 		ArrayList<QuizTaken> recentQuizzes = new ArrayList<QuizTaken> ();
 
@@ -173,21 +124,10 @@ public class QuizTakenDao {
 				QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
 				recentQuizzes.add(temp);
 			}
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			return recentQuizzes;
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -196,10 +136,6 @@ public class QuizTakenDao {
 	//returns list of top 5 scorers for a quiz. rank top scores first by number of questions correct, then
 	// by time taken if needed.
 	public static ArrayList<QuizTaken> getHighScores(int quizID){
-		
-		if(connection == null){
-			connection = Database.connect();
-		}
 		
 		ArrayList<QuizTaken> quizzes = new ArrayList<QuizTaken> ();
 
@@ -224,33 +160,16 @@ public class QuizTakenDao {
 				while(quizzes.size() > 5) {
 					quizzes.remove(0);
 				}
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				return quizzes;
 			}
 						
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return quizzes;
 	}
 	
 	public static double getAverageScore(int quizID){
-		
-		if(connection == null){
-			connection = Database.connect();
-		}
 		double average = 0;
 		try {
 			
@@ -272,20 +191,10 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return average;
 	}
 	
 	public static double getAverageTimeElapsed(int quizID){
-		
-		if(connection == null){
-			connection = Database.connect();
-		}
 		double average = 0;
 		
 		try {
@@ -308,13 +217,6 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return average;
 	}
 	
@@ -322,9 +224,6 @@ public class QuizTakenDao {
 	private static final int ONE_DAY_MS = 864 * (10 ^ 5);
 	
 	public static ArrayList<QuizTaken> getTodaysHighScores(int quizID){
-		if(connection == null){
-			connection = Database.connect();
-		}
 			
 		ArrayList<QuizTaken> quizzes = new ArrayList<QuizTaken> ();
 
@@ -350,21 +249,11 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return quizzes;
 		
 	}
 	
 	public static ArrayList<QuizTaken> getFriendsTakenQuizzes(int userID){
-		if(connection == null){
-			connection = Database.connect();
-		}
 		ArrayList<QuizTaken> recentQuizzes = new ArrayList<QuizTaken> ();
 
 		try {
@@ -403,20 +292,10 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return recentQuizzes;
 	}
 	
 	public static int getNumberOfQuizzesTaken(){
-		if(connection == null){
-			connection = Database.connect();
-		}
 		int numTaken = 0;
 		try {
 			String command = "SELECT COUNT(*) AS number FROM quizzes_taken";
@@ -427,12 +306,7 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return numTaken;
 	}
 }
