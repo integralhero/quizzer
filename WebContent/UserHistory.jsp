@@ -78,19 +78,35 @@
         <div class="row">
           <div class="col-xs-12">
           	<h1>Your Past Performance</h1>
-           	<%
-           	User me = (User) request.getSession(false).getAttribute("currentUser");
+          	
+          	<table class="table"> 
+          	<th>QuizID</th>
+          	<th>Quiz Name</th>
+          	<th>Score</th> 
+          	<th>Time Elapsed</th> 
+          	<th>Time Taken</th>
+          	<% 
+         	User me = (User) request.getSession(false).getAttribute("currentUser");
            	ArrayList<QuizTaken> pastQuizzes = QuizTakenDao.getAllQuizzesTakenByUser(me.getUserid());
            	Collections.sort(pastQuizzes);
-           	for (int i = pastQuizzes.size() - 1; i >= 0; i--) {
-           		QuizTaken quizTaken = pastQuizzes.get(i);
-           		Quiz quiz = QuizDao.getQuizByID(quizTaken.getQuizID());
-           		out.println(quiz.getName());
-           		out.println("Score: " + quizTaken.getScore());
-           		out.println("Time Elapsed: " + quizTaken.getTimeElapsed() + " ms");
-           		out.println("Time Taken: " + quizTaken.getTimeTakingQuiz() + " ms");
-           	}
-           	%>
+           	for(int i = pastQuizzes.size() - 1; i>= 0; i--) { %>
+           	
+           	<%
+           	QuizTaken quizTaken = pastQuizzes.get(i);
+       		Quiz quiz = QuizDao.getQuizByID(quizTaken.getQuizID());
+           	%> 
+           	
+          	<tr> 
+          		<td><%= quiz.getID() %></td> 
+          		<td><%= quiz.getName() %></td> 
+          		<td><%= ((double)(quizTaken.getScore())/quiz.getScore()) * 100 + "%" %></td>
+          		<td><%= quizTaken.getTimeElapsed() %></td>
+          		<td><%= quizTaken.getTimeTakingQuiz() %></td>
+          	</tr> 
+          	
+          	<% } %> 
+          	</table>
+          	
           	</div>
           	</div>
           	</div>
