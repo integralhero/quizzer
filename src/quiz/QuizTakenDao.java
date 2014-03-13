@@ -26,6 +26,21 @@ public class QuizTakenDao {
 		}
 	}
 	
+	public static void deleteQuizTakenByID(int id) {
+		
+		try {
+			String command = "DELETE FROM quizzes_taken WHERE quizID =" + id;
+			
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);	
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
 	public static void incrementNumberOfTimesTaken(int quizID){
 		try {
 			
@@ -88,14 +103,14 @@ public class QuizTakenDao {
 		return recentQuizzes;
 	}
 
-	public static ArrayList<QuizTaken> getRecentQuizzesByQuizID(int quizID) {
+	public static ArrayList<QuizTaken> getRecentQuizzesByUser(int userid, int quizID) {
 		
 		ArrayList<QuizTaken> recentQuizzes = new ArrayList<QuizTaken> ();
 
 		try {
 			
 			String command = "SELECT * FROM quizzes_taken WHERE quizID = " 
-					+ quizID;
+					+ quizID + " AND userID=" + userid;
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);

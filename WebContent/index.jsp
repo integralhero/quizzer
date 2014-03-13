@@ -19,6 +19,7 @@
         <link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/img/apple-touch-icon-72x72.png">
         <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/carous.css">
         
         <style type="text/css">
             header {
@@ -30,14 +31,14 @@
     
     <body> 
     <% if(request.getSession().getAttribute("currentUser") == null)  { %>
-    	<%= "Error, not logged in. Redirecting..." %>
+    	<h1><%= "Error, not logged in. Redirecting..." %></h1>
     	<META HTTP-EQUIV="refresh" CONTENT="3;URL=/Quizzer/login/login.jsp">
 
     <% } else { %>
       <% 
       User me = (User)request.getSession(false).getAttribute("currentUser");  
       %>
-	      <header class="navbar navbar-default navbar-static-top" role="banner">
+	      <header class="navbar navbar-default navbar-static-top" id="navNav" role="banner">
 	        <div class="container">
 	          <div class="navbar-header">
 	            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
@@ -79,31 +80,57 @@
 	          </nav>
 	        </div>
 	      </header>
-	
-	      <div class="container">
-	        <div class="row clearfix">
-	        <% ArrayList<Announcement> allAnnouncements = (ArrayList<Announcement>) request.getAttribute("announcements"); %>
-	          <div class="col-md-12 column" id="announcements" >
-	            <h2>List of announcements</h2>
-	            <% if(allAnnouncements.size() == 0)  { %>
-	            	<i>No announcements found!</i>
-	            <% } %>
-	            <ul>
-	            <% for(Announcement msg : allAnnouncements)  { %>
-	            	<li><%= msg.getMessage() %>
-	            	<% if(me.checkIsAdmin()) { %>
-	            	<form action="AnnouncementRemove" method="post">
-	            		<input name="message_id" type="hidden" value="<%= msg.getMessage_id() %>">
-	            		<button type="submit" class="btn btn-danger" >Delete</button>
-	            	</form>
-	            	<% } %>
-	            	</li>
-	            	
-	            <% } %>
-	            </ul>
-	          </div>
-	          
-	        </div>
+			<div id="toppic">
+			</div>
+		    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+		        <!-- Wrapper for slides -->
+		        <div class="carousel-inner">
+		            <div class="item active">
+		                <img src="http://placehold.it/1200x300/16a085/ffffff&text=Welcome to Quizzer">
+		                <div class="carousel-caption">
+		                    <h3>
+		                        </h3>
+		                        <i id="link" class="fa fa-angle-double-down fa-4x"></i> 
+		                </div>
+		            </div>
+		            <!-- End Item -->
+		            <div class="item">
+		                <img src="http://placehold.it/1200x300/e67e22/ffffff&text=Announcements">
+		                <div class="carousel-caption">
+		                    <% ArrayList<Announcement> allAnnouncements = (ArrayList<Announcement>) request.getAttribute("announcements"); %>
+					          <div class="col-md-12 column" >
+					            <% if(allAnnouncements.size() == 0)  { %>
+					            	<i>No announcements found!</i>
+					            <% } %>
+					            <ul>
+					            <% for(Announcement msg : allAnnouncements)  { %>
+					            	<li><%= msg.getMessage() %>
+					            	<% if(me.checkIsAdmin()) { %>
+					            	<form action="AnnouncementRemove" method="post">
+					            		<input name="message_id" type="hidden" value="<%= msg.getMessage_id() %>">
+					            		<button type="submit" class="btn btn-danger" >Delete</button>
+					            	</form>
+					            	<% } %>
+					            	</li>
+					            	
+					            <% } %>
+					            </ul>
+		                </div>
+		            </div>
+		            <!-- End Item -->
+		            
+		        </div>
+		        <!-- End Carousel Inner -->
+		        <ul class="nav nav-pills nav-justified">
+		            <li data-target="#myCarousel" data-slide-to="0" class="active"><a href="#">Welcome<small>to Quizzer</small></a></li>
+		            <li data-target="#myCarousel" data-slide-to="1"><a href="#">Announcements<small>Check Updates!</small></a></li>
+		            
+		        </ul>
+		    </div>
+		    <!-- End Carousel -->
+		
+	      <div class="container" id="bottomDiv">
+	      <a name="bottomDiv"/></a>
 	        <div class="row clearfix">
 	          <div class="col-md-8 column" id="quizDiv">
 	            <h3><small>Quiz Info: </small></h3>
@@ -232,20 +259,21 @@
 	          </div>
 	        </div>
 	      </div>
-	
+	</div>
 	      <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	      <script type='text/javascript' src="js/carousel.js"></script>
 	      <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 	      <script type='text/javascript'>
 	      
 	        $(document).ready(function() {
 	          $(function() {
 	             $('#feedBtn').click(function() {
-	                $('div#activities').fadeIn();
+	                $('div#activities').slideDown();
 	                $('div#messages').fadeOut();
 	                return false;
 	             });
 	             $('#messagesBtn').click(function() {
-	                $('div#messages').fadeIn();
+	                $('div#messages').slideDown();
 	                $('div#activities').fadeOut();
 	                return false;
 	             });

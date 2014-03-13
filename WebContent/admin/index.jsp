@@ -1,4 +1,4 @@
-<%@ page import="quiz.*" %>
+<%@ page import="quiz.*, java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -19,6 +19,7 @@
         <link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/img/apple-touch-icon-72x72.png">
         <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/carous.css">
         
         <style type="text/css">
             header {
@@ -45,12 +46,6 @@
               <li>
                 <a href="#">Get Started</a>
               </li>
-              <li>
-                <a href="#" id="feedBtn">View Friend Activity</a>
-              </li>
-              <li>
-                <a href="#" id="messagesBtn">View Messages</a>
-              </li>
               
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -68,15 +63,31 @@
           </nav>
         </div>
       </header>
-
+	<% User us = (User)request.getSession(false).getAttribute("currentUser"); %>
       <div class="container">
       	<div class="row">
-      		<div class="col-xs-12">
+      		<div class="col-xs-8">
       			<h3>Add an announcement:</h3>
       			<form action="AnnouncementAdd" method="post">
       				<input type="text" placeholder="Add a new announcement" name="announcement_message">
       				<button type="submit" class="btn btn-default">Add</button>
       			</form>
+      		</div>
+      		<div class="col-xs-4">
+      			<h5>Flagged Quizzes:</h5>
+      			<% ArrayList<Quiz> flagged = QuizDao.getAllFlaggedQuizzes(); %>
+      			<% if(flagged.size() == 0)  { %>
+      				Sorry, no flagged quizzes found!
+      			<% } else { %>
+	      			<form action="RemoveQuiz" method="post">
+	      				<select multiple class="form-control" name="quiz-ids">
+	      					<% for(Quiz q: flagged) { %>
+	      						<option value="<%= q.getID() %>" ><a href="/Quizzer/ql/<%= q.getID() %>"><%= q.getName() %></a> has been flagged <%= q.getNumFlags() %> times.</option>
+	      					<% } %>
+	      				</select>
+	      				<button type="submit" class="btn btn-danger">Remove Quizzes</button>
+	      			</form>
+      			<% } %>
       		</div>
       	</div>
       </div>

@@ -102,12 +102,16 @@
 	            </form>
 			<% } %>
           	<a href="/Quizzer/qz/<%= curQuiz.getID() %>"><button type="button" class="btn btn-success btn-lg pull-right">Take Quiz</button></a>
+          	<form action="/Quizzer/ReportQuizServlet" method="post">
+          		<input name="quizID" type="hidden" value="<%= curQuiz.getID() %>">
+          		<button type="submit" class="btn btn-danger">Report Quiz</button>
+          	</form>
           </div>
         </div>
         <div class="row">
         	<div class="col-xs-4">
         		<h3>Your previous performance:</h3>
-        		<% ArrayList<QuizTaken> list = QuizTakenDao.getRecentQuizzesByUserID(curUserID);
+        		<% ArrayList<QuizTaken> list = QuizTakenDao.getRecentQuizzesByUser(curUserID, curQuiz.getID());
         		%> <table class="table table-striped">
         			<tr>
         				<th>Date:</th>
