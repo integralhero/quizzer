@@ -117,12 +117,13 @@ public class QuizDao {
 			ArrayList<Question> list = getAllQuestionsFrom(quiz_id);
 			System.out.println("This is the question list size:---- " + list.size());
 			Quiz tmp = null;
-			
+
 			if(rs.next()) {
 				tmp = initializeQuiz(rs);
+				tmp.setQuestions(list);
+				tmp.setID(quiz_id);
 			}
-			tmp.setQuestions(list);
-			tmp.setID(quiz_id);
+			
 			return tmp;
 		} catch (SQLException e) {
 			

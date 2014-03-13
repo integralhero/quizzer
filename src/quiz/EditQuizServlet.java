@@ -8,20 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class QuizLandingServlet
+ * Servlet implementation class EditQuizServlet
  */
-@WebServlet("/QuizLandingServlet")
-public class QuizLandingServlet extends HttpServlet {
+@WebServlet("/EditQuizServlet")
+public class EditQuizServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuizLandingServlet() {
+    public EditQuizServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
     	String id = req.getPathInfo();
     	id = id.substring(1);
@@ -34,14 +34,14 @@ public class QuizLandingServlet extends HttpServlet {
     	}
     	
     	Quiz tmp = QuizDao.getQuizByID(parseInt);
-
     	req.setAttribute("curQuiz", tmp);
     	try {
-			req.getRequestDispatcher("/renderQuizLanding.jsp").forward(req, res);
+			req.getRequestDispatcher("/editQuiz.jsp").forward(req, res);
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
+
 
 }

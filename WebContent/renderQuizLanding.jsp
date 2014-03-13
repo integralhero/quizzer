@@ -102,6 +102,14 @@
 	            </form>
 			<% } %>
           	<a href="/Quizzer/qz/<%= curQuiz.getID() %>"><button type="button" class="btn btn-success btn-lg pull-right">Take Quiz</button></a>
+          	<% 
+          		System.out.println("User id loged in: " + us.getUserid());
+          		System.out.println("Quiz user id: " + curQuiz.getUserID());
+	          	if(us.getUserid() == curQuiz.getUserID()) { %>
+          			<a href="/Quizzer/eq/<%= curQuiz.getID() %>"><button type="submit" class="btn btn-danger btn-lg">Edit Quiz</button></a>
+          		<%} %>
+          		
+          	
           	<form action="/Quizzer/ReportQuizServlet" method="post">
           		<input name="quizID" type="hidden" value="<%= curQuiz.getID() %>">
           		<button type="submit" class="btn btn-danger">Report Quiz</button>
