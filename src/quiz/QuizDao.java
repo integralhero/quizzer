@@ -115,14 +115,14 @@ public class QuizDao {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);	
 			ArrayList<Question> list = getAllQuestionsFrom(quiz_id);
-			Quiz tmp = new Quiz();
-			tmp.setQuestions(list);
-			tmp.setID(quiz_id);
+			System.out.println("This is the question list size:---- " + list.size());
+			Quiz tmp = null;
+			
 			if(rs.next()) {
 				tmp = initializeQuiz(rs);
-
 			}
-			
+			tmp.setQuestions(list);
+			tmp.setID(quiz_id);
 			return tmp;
 		} catch (SQLException e) {
 			
@@ -391,6 +391,29 @@ public class QuizDao {
 
 			while (rs.previous() && recentQuizzes.size() < 10) {
 				Quiz recentQuiz = initializeQuiz(rs);
+				recentQuizzes.add(recentQuiz);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return recentQuizzes;
+	}
+	
+	public static ArrayList<Quiz> getAllCreatedQuizzes() {
+		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz>();
+
+		try {
+			String command = "SELECT * FROM quizzes";
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+
+			while (rs.next()) {
+				int id = rs.getInt("ID");
+				Quiz recentQuiz = QuizDao.getQuizByID(id);
 				recentQuizzes.add(recentQuiz);
 			}
 			

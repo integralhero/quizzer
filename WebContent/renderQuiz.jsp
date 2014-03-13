@@ -84,7 +84,8 @@
 			<input type="hidden" value="" id="dateTaken" name="dateTaken">
 			<input type="hidden" value="" id="time" name="time">
 			<%
-			ArrayList<Question> questions = curQuiz.questions;
+			ArrayList<Question> questions = curQuiz.getQuestions();
+			System.out.println("On the front end: " + questions.size());
 			%>
 			<input type=hidden value="<%= questions.size() %>" name="num_questions">
 			<%
@@ -158,6 +159,7 @@
 						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
 									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField<%=i%>">
 						<% 		}
+							
 							for (String answer : question.getAnswers()) {
 						%>
 							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">

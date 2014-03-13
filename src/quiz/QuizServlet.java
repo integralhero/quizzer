@@ -1,6 +1,7 @@
 package quiz;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +37,9 @@ public class QuizServlet extends HttpServlet {
     	
     	Quiz tmp = QuizDao.getQuizByID(parseInt);
     	req.setAttribute("curQuiz", tmp);
+    	ArrayList<Question> qs = tmp.getQuestions();
+    	System.out.println("More problems: " + qs.size());
+    	System.out.println("QuizServlet's: " + qs.get(0).getNumAnswers());
     	try {
 			req.getRequestDispatcher("/renderQuiz.jsp").forward(req, res);
 		} catch (ServletException e) {
