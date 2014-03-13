@@ -68,7 +68,7 @@ public class UserDao {
 	static public void deleteUser(int userId) {
 		PreparedStatement prepStmt;
 		try {
-			prepStmt = connection.prepareStatement("DELETE FROM users WHERE userID = ?");
+			prepStmt = connection.prepareStatement("DELETE FROM users WHERE ID= ?");
 			prepStmt.setInt(1, userId);
 			prepStmt.executeUpdate();
 		} catch (SQLException e) {
@@ -145,7 +145,7 @@ public class UserDao {
 		return ret;
 	}
 	
-	static public int validateUser(User user) {
+	public static int validateUser(User user) {
 		
 		int id = -1;
 		try {
