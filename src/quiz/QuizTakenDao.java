@@ -53,6 +53,31 @@ public class QuizTakenDao {
 		}
 	}
 	
+	public static ArrayList<QuizTaken> getAllQuizzesTakenByUser(int userID) {
+		ArrayList<QuizTaken> quizzes = new ArrayList<QuizTaken> ();
+
+		try {
+			
+			String command = "SELECT * FROM quizzes_taken WHERE userID = " + userID;
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			
+			while(rs.next()){
+				String timeTaken = rs.getString("timeTaken");
+				int score = rs.getInt("score");
+				int timeElapsed = rs.getInt("timeElapsed");
+				int quizID = rs.getInt("quizID");
+				QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
+				quizzes.add(temp);
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return quizzes;
+	}
+	
 	public static ArrayList<QuizTaken> getQuizTakenByUser(int userID, int quizID){
 		ArrayList<QuizTaken> quizzes = new ArrayList<QuizTaken> ();
 

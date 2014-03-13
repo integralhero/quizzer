@@ -169,6 +169,12 @@
 						<% } %>
 					<% } %>
 					 </p>
+					 
+					 <form action = "UserHistory.jsp" method = "get">
+					 <%int user_id = me.getUserid();%>
+					 <input type="submit" value = "View All Past Performance"/>
+					 </form>
+					 
 	              </div>
 	              <div class="col-md-6 column" id="quizzesCreated">
 	              	

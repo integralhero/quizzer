@@ -80,6 +80,7 @@
                boolean reqExistsPrim = MessageDao.checkIfRequestExist(senderid, recipientid);
                boolean reqExistsSecon = MessageDao.checkIfRequestExist(recipientid, senderid);
             %>
+            
             <h3>Name: <%= reqUser.getUsername() %></h3> 
             <p>Email: <%= reqUser.getEmail() %></p>
             <% if(!friendsExist && !reqExistsPrim && !reqExistsSecon) { %>
