@@ -188,7 +188,17 @@
 	            </div>
 	          </div>
 	          <button class="btn btn-default" id="feedBtn" style="margin-right: 20px;">View Friend Activity </button>    
-	           
+	            <h4>Created Quizzes:</h4>
+	            <% ArrayList<Quiz> friendsCreatedQuizzes = QuizDao.getFriendsCreatedQuizzes(me.getUserid()); %>
+	            <% if(friendsCreatedQuizzes.size() == 0) { %>
+	            	<i>No friend activity found.</i>
+	            <% } %>
+	            <ul>
+	            <% for(Quiz q: friendsCreatedQuizzes) {%>
+	            <a href="ql/<%= q.getID() %>.jsp"><%= q.getName() %></a>
+	            
+	            <% } %>
+	            </ul>
 	          <button  class="btn btn-default"  id="messagesBtn">View Messages</button>
 	          <div class="col-md-4 column" id="messages" style="display:none">
 	            <h3><small>Your Messages:</small></h3>

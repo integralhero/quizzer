@@ -119,19 +119,8 @@ public class QuizDao {
 			tmp.setQuestions(list);
 			tmp.setID(quiz_id);
 			if(rs.next()) {
-				tmp.setID(rs.getInt("ID"));
-				tmp.setScore(rs.getInt("score"));;
-				tmp.setName(rs.getString("name"));
-				tmp.setUserID(rs.getInt("userID"));
-				tmp.setNumTimesTaken(rs.getInt("numTimesTaken"));
-				tmp.setNumFlags(rs.getInt("flagNum"));
-				tmp.setTimeCreated(rs.getString("timeCreated"));
-				tmp.setDescription(rs.getString("description"));
-				tmp.setCategory(rs.getString("category"));
-				tmp.setRandomQuestions(rs.getBoolean("randomizeQuestions"));
-				tmp.setMultiplePages(rs.getBoolean("multiplePages"));
-				tmp.setImmediateCorrect(rs.getBoolean("immediateCorrection"));
-				tmp.setPracticeModeAvailable(rs.getBoolean("practiceModeAvailable"));
+				initializeQuiz(rs);
+
 			}
 			
 			return tmp;
@@ -373,32 +362,12 @@ public class QuizDao {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
 			
-			ArrayList<Integer> quizIDs = new ArrayList<Integer>();
 			
 			while(rs.next()){
-				int temp = rs.getInt("id");
-				quizIDs.add(temp);
-			}
-			
-			
-			for(int i = 0; i < quizIDs.size(); i++){
 				Quiz temp = new Quiz();
-				
-				command = "SELECT * FROM quizzes WHERE ID = " + quizIDs.get(i);
-				Statement statement2 = connection.createStatement();
-				ResultSet rs2 = statement2.executeQuery(command);
-				
-				rs2.next();
-				
-				temp.setScore(rs2.getInt("score"));
-				temp.setName(rs2.getString("name"));
-				temp.setUserID(rs2.getInt("userID"));
-				temp.setID(quizIDs.get(i));
-			
-				
+				temp = initializeQuiz(rs);
 				quizzes.add(temp);
 			}
-			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -411,56 +380,50 @@ public class QuizDao {
 	// gets the most recently created quizzes without specific user 
 	
 	public static ArrayList<Quiz> getRecentCreatedQuizzes() {
+		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
+
 		try {
-			ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
 			String command = "SELECT * FROM quizzes";
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
 			rs.afterLast();
-			int quizCount = 0;
-			while (rs.previous() && quizCount < 10) {
-				quizCount++;
-				int quiz_id = rs.getInt("ID");
-				Quiz recentQuiz = QuizDao.getQuizByID(quiz_id);
+
+			while (rs.previous() && recentQuizzes.size() < 10) {
+				Quiz recentQuiz = initializeQuiz(rs);
 				recentQuizzes.add(recentQuiz);
 			}
 			
-			return recentQuizzes;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return recentQuizzes;
 	}
 	
 	//gets the most recently created quizzes created by user 
 	
 	public static ArrayList<Quiz> getRecentUserCreatedQuizzes(int user_id) {
+		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
+
 		try {
-			ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
 			String command = "SELECT * FROM quizzes WHERE userID = " 
 					+ user_id;
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
 			rs.afterLast();
-			int quizCount = 0;
 			
-			while (rs.previous() && quizCount < 2) {
-				quizCount++;
-				int quiz_id = rs.getInt("ID");
-				Quiz recentQuiz = QuizDao.getQuizByID(quiz_id);
+			while (rs.previous() && recentQuizzes.size() < 10) {
+				Quiz recentQuiz = initializeQuiz(rs);
 				recentQuizzes.add(recentQuiz);
 			}
-			
-			return recentQuizzes;
-			
+						
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return recentQuizzes;
 	}
 	
 	public static Quiz searchForQuiz(String quizName){
@@ -473,11 +436,7 @@ public class QuizDao {
 			ResultSet rs = statement.executeQuery(command);
 			
 			if(rs.next()) {
-			
-				quiz.setScore(rs.getInt("score"));
-				quiz.setName(rs.getString("name"));
-				quiz.setUserID(rs.getInt("userID"));
-				quiz.setID(rs.getInt("ID"));
+				quiz = initializeQuiz(rs);
 			}
 			
 		} catch (SQLException e) {
@@ -549,20 +508,8 @@ public class QuizDao {
 			ResultSet rs = statement.executeQuery(command);
 			
 			while (rs.next() && popularQuizzes.size() < 10) {
-				Quiz tmp = new Quiz();
-				tmp.setID(rs.getInt("ID"));
-				tmp.setScore(rs.getInt("score"));
-				tmp.setName(rs.getString("name"));
-				tmp.setUserID(rs.getInt("userID"));
-				tmp.setNumTimesTaken(rs.getInt("numTimesTaken"));
-				tmp.setTimeCreated(rs.getString("timeCreated"));
-				tmp.setDescription(rs.getString("description"));
-				tmp.setCategory(rs.getString("category"));
-				tmp.setNumFlags(rs.getInt("flagNum"));
-				tmp.setRandomQuestions(rs.getBoolean("randomizeQuestions"));
-				tmp.setMultiplePages(rs.getBoolean("multiplePages"));
-				tmp.setImmediateCorrect(rs.getBoolean("immediateCorrection"));
-				tmp.setPracticeModeAvailable(rs.getBoolean("practiceModeAvailable"));
+				Quiz tmp = initializeQuiz(rs);
+
 				popularQuizzes.add(tmp);
 			}
 			
@@ -572,10 +519,69 @@ public class QuizDao {
 		return popularQuizzes;
 	}
 	
+	public static ArrayList<Quiz> getFriendsCreatedQuizzes(int userID){
+		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
+
+		try {
+			String command = "SELECT * FROM friendships WHERE userID = " 
+					+ userID;
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			
+			ArrayList<Integer> friendIDs = new ArrayList<Integer>();
+			while(rs.next()){
+				friendIDs.add(rs.getInt("friendID"));
+			}
+			
+			if(friendIDs.size() == 0) return null;
+			String command2 = "SELECT * FROM quizzes WHERE userID = " + friendIDs.get(0);
+			for(int i = 1; i < friendIDs.size(); i++){
+				command2 += " OR userID = " + friendIDs.get(i);
+			}
+			
+			Statement statement2 = connection.createStatement();
+			ResultSet rs2 = statement2.executeQuery(command2);
+			
+			rs2.afterLast();
+			
+			while (rs2.previous() && recentQuizzes.size() < 10) {
+				Quiz temp = initializeQuiz(rs2);
+				recentQuizzes.add(temp);
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return recentQuizzes;
+	}
+	
 	public static String getCurrentTimeStamp() {
 	    SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
 	    Date now = new Date();
 	    String strDate = sdfDate.format(now);
 	    return strDate;
+	}
+	
+	public static Quiz initializeQuiz(ResultSet rs){
+		Quiz tmp = new Quiz();
+
+		try {
+			tmp.setID(rs.getInt("ID"));
+			tmp.setScore(rs.getInt("score"));
+			tmp.setName(rs.getString("name"));
+			tmp.setUserID(rs.getInt("userID"));
+			tmp.setNumTimesTaken(rs.getInt("numTimesTaken"));
+			tmp.setTimeCreated(rs.getString("timeCreated"));
+			tmp.setDescription(rs.getString("description"));
+			tmp.setCategory(rs.getString("category"));
+			tmp.setRandomQuestions(rs.getBoolean("randomizeQuestions"));
+			tmp.setMultiplePages(rs.getBoolean("multiplePages"));
+			tmp.setImmediateCorrect(rs.getBoolean("immediateCorrection"));
+			tmp.setPracticeModeAvailable(rs.getBoolean("practiceModeAvailable"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tmp;
 	}
 }
