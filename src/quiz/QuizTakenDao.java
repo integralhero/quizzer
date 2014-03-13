@@ -339,4 +339,16 @@ public class QuizTakenDao {
 		
 		return numTaken;
 	}
+	
+	public static void updateQuizesTakenID(int oldID, int newID) {
+		
+		try {
+			String command = "UPDATE quizzes_taken SET quizID = newID WHERE quizID = oldID";
+			Statement statement = connection.createStatement();
+			statement.execute(command);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		;
+	}
 }

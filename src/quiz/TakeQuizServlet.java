@@ -42,6 +42,8 @@ public class TakeQuizServlet extends HttpServlet {
 			String[] correctAnswers = request.getParameterValues("hiddenAnswer" + i);
 			HashSet<String> userAnswersSet = new HashSet<String>();
 			Collections.addAll(userAnswersSet, userAnswers);
+			
+
 			HashSet<String> correctAnswersSet = new HashSet<String>();
 			Collections.addAll(correctAnswersSet, correctAnswers);
 
