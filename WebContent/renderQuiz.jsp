@@ -191,12 +191,12 @@
 							case 1:	//QR %>
 								<h3>Question: <%= ((QuestionResponse)question).getQuestion() %></h3>
 						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField">
+									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField<%=i%>">
 						<% 		}
 						
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
 													
 						<%
 							}
@@ -204,11 +204,11 @@
 							case 2: //FIB %>
 								<h3>Question: <%= ((FillBlankQuestion)question).getQuestion() %></h3>
 						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField">
+									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField<%=i%>">
 						<% 		}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
 													
 						<%
 							}
@@ -225,7 +225,7 @@
 									<div class='row'>
 										<div class='col-lg-6'>
 											<div class='input-group'>
-												<span class='input-group-addon'><input type='<%= typeOfInput %>' name="mult_choice_answer"></span><input type='text' value="<%= choice %>" class='form-control' id="answerField" readonly >
+												<span class='input-group-addon'><input type='<%= typeOfInput %>' name="mult_choice_answer"></span><input type='text' value="<%= choice %>" class='form-control'  name="answerField<%=i%>" id="answerField" readonly >
 											</div>
 										</div>
 									</div>
@@ -233,7 +233,7 @@
 								}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
 													
 						<%
 							}
@@ -241,11 +241,11 @@
 							case 4: //PR %>
 								<h3>Question: </h3><img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>"><br><br>
 						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
-									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField">
+									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField"  name="answerField<%=i%>">
 						<% 		}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="hidden" class="hiddenAnswer" value="<%= answer %>">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
 													
 						<%
 							}	
