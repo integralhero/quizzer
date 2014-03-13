@@ -132,7 +132,8 @@ public class QuizDao {
 		return null;
 	}
 	
-	public static void addQuiz(Quiz quiz) {
+	public static int addQuiz(Quiz quiz) {
+		int ret = 0;
 		try {
 			
 			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO quizzes(score, name, userID, numTimesTaken, timeCreated, description, category, randomizeQuestions, multiplePages, immediateCorrection, practiceModeAvailable) "
@@ -152,7 +153,7 @@ public class QuizDao {
 
 			prepStmt.executeUpdate();
 			
-			setQuizID(quiz);
+			ret = setQuizID(quiz);
 			
 			updateUserTable(quiz, UserDao.getUserById(quiz.getUserID()));
 			for(int i = 0; i < quiz.questions.size(); i++){
@@ -165,6 +166,7 @@ public class QuizDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return ret;
 	}
 	
 	private static int getLastInsertID(String type){
@@ -182,20 +184,23 @@ public class QuizDao {
 		return -1;
 	}
 	
-	private static void setQuizID(Quiz quiz){
+	private static int setQuizID(Quiz quiz){
+		int ret = 0;
 		try {
 			String command = "SELECT * FROM quizzes WHERE name = \"" + quiz.getName() + "\"";
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
-
+			
 			if(rs.next()){
-				quiz.setID(rs.getInt("id"));
+				ret = rs.getInt("id");
+				quiz.setID(ret);
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return ret;
 	}
 	
 	private static void updateUserTable(Quiz quiz, User user) {
@@ -605,6 +610,7 @@ public class QuizDao {
 			tmp.setTimeCreated(rs.getString("timeCreated"));
 			tmp.setDescription(rs.getString("description"));
 			tmp.setCategory(rs.getString("category"));
+			tmp.setNumFlags(rs.getInt("flagNum"));
 			tmp.setRandomQuestions(rs.getBoolean("randomizeQuestions"));
 			tmp.setMultiplePages(rs.getBoolean("multiplePages"));
 			tmp.setImmediateCorrect(rs.getBoolean("immediateCorrection"));
@@ -614,4 +620,6 @@ public class QuizDao {
 		}
 		return tmp;
 	}
+	
+	
 }
