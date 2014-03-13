@@ -605,6 +605,7 @@ public class QuizDao {
 			tmp.setTimeCreated(rs.getString("timeCreated"));
 			tmp.setDescription(rs.getString("description"));
 			tmp.setCategory(rs.getString("category"));
+			tmp.setNumFlags(rs.getInt("flagNum"));
 			tmp.setRandomQuestions(rs.getBoolean("randomizeQuestions"));
 			tmp.setMultiplePages(rs.getBoolean("multiplePages"));
 			tmp.setImmediateCorrect(rs.getBoolean("immediateCorrection"));

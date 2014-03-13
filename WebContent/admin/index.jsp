@@ -72,6 +72,21 @@
       				<input type="text" placeholder="Add a new announcement" name="announcement_message">
       				<button type="submit" class="btn btn-default">Add</button>
       			</form>
+      			<HR>
+      			<h3>Remove Users:</h3>
+      			<% List<User> users = UserDao.getAllUser(); %>
+      			<% if(users.size() == 0)  { %>
+      				Sorry, no flagged quizzes found!
+      			<% } else { %>
+	      			<form action="RemoveUser" method="post">
+	      				<select multiple class="form-control" name="user-ids">
+	      					<% for(User u: users) { %>
+	      						<option value="<%= u.getUserid() %>" ><a href="/Quizzer/user/<%= u.getUserid() %>"><%= u.getUsername()  %></a></option>
+	      					<% } %>
+	      				</select>
+	      				<button type="submit" class="btn btn-danger">Remove User</button>
+	      			</form>
+      			<% } %>
       		</div>
       		<div class="col-xs-4">
       			<h5>Flagged Quizzes:</h5>
