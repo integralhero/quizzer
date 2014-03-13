@@ -172,7 +172,7 @@
 					<% } %>
 					 </p>
 					 
-					 <form action = "UserHistory.jsp" method = "get">
+					 <form action = "UserHistory.jsp">
 					 <%int user_id = me.getUserid();%>
 					 <input type="submit" value = "View All Past Performance"/>
 					 </form>
