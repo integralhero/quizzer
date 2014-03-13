@@ -88,6 +88,43 @@
 	      				<button type="submit" class="btn btn-danger">Remove Quizzes</button>
 	      			</form>
       			<% } %>
+      			<HR>
+      			<h5>All Quizzes:</h5>
+      			<% ArrayList<Quiz> all = QuizDao.getAllCreatedQuizzes(); %>
+      			<% if(all.size() == 0)  { %>
+      				Sorry, no quizzes found!
+      			<% } else { %>
+	      			<form action="RemoveQuiz" method="post">
+	      				<select multiple class="form-control" name="quiz-ids">
+	      					<% for(Quiz a: all) { %>
+	      						<option value="<%= a.getID() %>" ><a href="/Quizzer/ql/<%= a.getID() %>"><%= a.getName() %></a></option>
+	      					<% } %>
+	      				</select>
+	      				<button type="submit" class="btn btn-danger">Remove Quizzes</button>
+	      			</form>
+      			<% } %>
+      		</div>
+      	</div>
+      	<div class="row">
+      		<div class="col-xs-4">
+      			<h5>Delete History:</h5>
+      			<% ArrayList<Quiz> allQs = QuizDao.getAllCreatedQuizzes(); %>
+      			<% if(allQs.size() == 0)  { %>
+      				Sorry, no quizzes found!
+      			<% } else { %>
+	      			<form action="RemoveHistory" method="post">
+	      				<select multiple class="form-control" name="quiz-ids">
+	      					<% for(Quiz s: allQs) { %>
+	      						<option value="<%= s.getID() %>" ><a href="/Quizzer/ql/<%= s.getID() %>"><%= s.getName() %></a></option>
+	      					<% } %>
+	      				</select>
+	      				<button type="submit" class="btn btn-danger">Remove History</button>
+	      			</form>
+      			<% } %>
+      		</div>
+      		<div class="col-xs-4">
+      		</div>
+      		<div class="col-xs-4">
       		</div>
       	</div>
       </div>

@@ -90,6 +90,10 @@ public class Quiz implements Comparable<Quiz>{
 		this.questions = questions;
 	}
 	
+	public ArrayList<Question> getQuestions() {
+		return this.questions;
+	}
+	
 	public int getID(){
 		return this.quiz_id;
 	}
@@ -190,6 +194,10 @@ public class Quiz implements Comparable<Quiz>{
 	
 	public String getTimeCreated(){
 		return this.timeCreated;
+	}
+	
+	public int getNumQuestions() {
+		return this.questions.size();
 	}
 
 }

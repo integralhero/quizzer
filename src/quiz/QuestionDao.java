@@ -6,6 +6,7 @@ public class QuestionDao {
 	private static Connection connection = Database.connect();
 
 	public static int getID(Question question){
+
 		int id = 0;
 		try {
 			String command = "SELECT * FROM " + question.type + " WHERE answers = \"" + ParseAnswers.getString(question.answers) + "\"";
@@ -14,6 +15,7 @@ public class QuestionDao {
 			
 			ResultSet rs = statement.executeQuery(command);	
 			if(rs.next()) id = rs.getInt("id");
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,6 +35,7 @@ public class QuestionDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return "";
 	}
 	
@@ -53,6 +56,7 @@ public class QuestionDao {
 	}
 	
 	public static String getAnswers(int questionID, String type) {
+
 		try {
 			String command = "SELECT * FROM "  + type +  " WHERE ID=" + questionID;
 			Statement stmt = connection.createStatement();
@@ -83,10 +87,12 @@ public class QuestionDao {
 	 * Picture Response
 	 */
 	public static String getImageURL(int questionID) {
+
 		try {
 			String command = "SELECT * FROM q_picture_response WHERE ID=" + questionID;
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(command);
+
 			if(rs.next()) return rs.getString("pictureURL");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,12 +101,12 @@ public class QuestionDao {
 		return "";
 	}
 	public static void removeByQuizID(int id) {
-		
 		try {
 			String command = "DELETE FROM q_fill_in_blank, q_multiple_choice, q_picture_response, q_question_response WHERE quizID =" + id;
 			
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(command);	
+
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -31,6 +31,23 @@ body
 }
 
 #toppic {
-	height: 165px;
+	height: 150px;
 	background:url('../img/bg.jpg');
+}
+
+#announce {
+	background: black;
+}
+
+ul {
+	list-style-type: none;
+}
+#announce > div {
+	background: rgba(144,144,144,0.5);
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	overflow-y:scroll; 
+	overflow-x:visible;
 }

@@ -43,8 +43,13 @@ public class QuizTakenDao {
 
 	public static void incrementNumberOfTimesTaken(int quizID){
 		try {
+			String commandq = "SELECT * FROM quizzes WHERE ID =" + quizID;
+			Statement statementq = connection.createStatement();
+			ResultSet rs = statementq.executeQuery(commandq);
+			int times = 0;
+			if(rs.next()) times = rs.getInt("numTimesTaken") + 1;
 			
-			String command = "UPDATE quizzes SET numTimesTaken = numTimesTaken + 1 WHERE quizID =" + quizID;
+			String command = "UPDATE quizzes SET numTimesTaken =" + times + " WHERE ID =" + quizID;
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(command);
 						
@@ -278,7 +283,7 @@ public class QuizTakenDao {
 		
 	}
 	
-	public static ArrayList<QuizTaken> getFriendsCreatedQuizzes(int userID){
+	public static ArrayList<QuizTaken> getFriendsTakenQuizzes(int userID){
 		ArrayList<QuizTaken> recentQuizzes = new ArrayList<QuizTaken> ();
 
 		try {
