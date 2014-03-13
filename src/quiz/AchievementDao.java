@@ -31,6 +31,9 @@ public class AchievementDao {
 	}*/
 	
 	public static void giveAchievement(int userID, int achievementID){
+		if(connection == null) {
+			connection = Database.connect();
+		}
 		try {
 
 			String command = "INSERT INTO achievement_user_index(userID, achievementID) VALUES (" 
@@ -40,6 +43,7 @@ public class AchievementDao {
 			statement.executeUpdate(command);
 			
 			updateNumUsers(achievementID);
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,12 +51,15 @@ public class AchievementDao {
 	}
 	
 	public static void updateNumUsers(int achievementID){
+		if(connection == null) {
+			connection = Database.connect();
+		}
 		try {
 			String command = "UPDATE achievements SET numUsers = numUsers + 1 WHERE ID = " + achievementID; 
 			
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(command);
-			
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,6 +68,9 @@ public class AchievementDao {
 
 	public static ArrayList<Achievement> getAchievements(int userID){
 		ArrayList<Achievement> temp = new ArrayList<Achievement>();
+		if(connection == null) {
+			connection = Database.connect();
+		}
 		
 		try {
 
@@ -78,6 +88,7 @@ public class AchievementDao {
 					temp.add(getAchievementByID(rs2.getInt("ID")));
 				}
 			}
+			connection.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -89,6 +100,9 @@ public class AchievementDao {
 	
 	private static Achievement getAchievementByID(int ID){
 		Achievement temp = new Achievement("","","");
+		if(connection == null) {
+			connection = Database.connect();
+		}
 		try {
 
 			String command = "SELECT * FROM achievement WHERE ID = " + ID;
@@ -101,6 +115,7 @@ public class AchievementDao {
 				String description = rs.getString("description");
 				temp = new Achievement(image, name, description);
 			}
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
