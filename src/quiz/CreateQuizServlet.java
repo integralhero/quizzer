@@ -61,6 +61,7 @@ public class CreateQuizServlet extends HttpServlet {
 		quiz.setPracticeModeAvailable(request.getParameter("practice") != null);
 		quiz.setMultiplePages(request.getParameter("mult_pages") != null);
 		quiz.setRandomQuestions(request.getParameter("randomize") != null);
+		quiz.setNumFlags(0);
 		QuizDao.addQuiz(quiz);
 		int numQtns = Integer.parseInt(request.getParameter("question_count_field"));
 		
