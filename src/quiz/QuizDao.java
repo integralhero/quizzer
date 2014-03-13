@@ -119,7 +119,7 @@ public class QuizDao {
 			tmp.setQuestions(list);
 			tmp.setID(quiz_id);
 			if(rs.next()) {
-				initializeQuiz(rs);
+				tmp = initializeQuiz(rs);
 
 			}
 			
@@ -573,7 +573,9 @@ public class QuizDao {
 		try {
 			tmp.setID(rs.getInt("ID"));
 			tmp.setScore(rs.getInt("score"));
-			tmp.setName(rs.getString("name"));
+			String str = rs.getString("name");
+			//System.out.println("Retrieved name: " + str);
+			tmp.setName(str);
 			tmp.setUserID(rs.getInt("userID"));
 			tmp.setNumTimesTaken(rs.getInt("numTimesTaken"));
 			tmp.setTimeCreated(rs.getString("timeCreated"));
