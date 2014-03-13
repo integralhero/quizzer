@@ -81,6 +81,7 @@
 	        </div>
 	      </header>
 			<div id="toppic">
+				<h1 id="titleName">Welcome, <%= me.getUsername() %>.</h1>
 			</div>
 		    <div id="myCarousel" class="carousel slide" data-ride="carousel">
 		        <!-- Wrapper for slides -->
