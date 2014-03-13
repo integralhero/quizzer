@@ -252,6 +252,49 @@ public class QuizTakenDao {
 		return quizzes;
 		
 	}
+	
+	public static ArrayList<QuizTaken> getFriendsCreatedQuizzes(int userID){
+		ArrayList<QuizTaken> recentQuizzes = new ArrayList<QuizTaken> ();
+
+		try {
+			String command = "SELECT * FROM friendships WHERE userID = " 
+					+ userID;
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			
+			ArrayList<Integer> friendIDs = new ArrayList<Integer>();
+			while(rs.next()){
+				friendIDs.add(rs.getInt("friendID"));
+			}
+			
+			if(friendIDs.size() == 0) return null;
+			String command2 = "SELECT * FROM quizzes_taken WHERE userID = " + friendIDs.get(0);
+			
+			for(int i = 1; i < friendIDs.size(); i++){
+				command2 += " OR userID = " + friendIDs.get(i);
+			}
+			
+			Statement statement2 = connection.createStatement();
+			ResultSet rs2 = statement2.executeQuery(command2);
+			
+			rs2.afterLast();
+			
+			while (rs2.previous() && recentQuizzes.size() < 10) {
+				String timeTaken = rs.getString("timeTaken");
+				int score = rs.getInt("score");
+				int timeElapsed = rs.getInt("timeElapsed");
+				int quizID = rs.getInt("quizID");
+				QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);				
+				recentQuizzes.add(temp);
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return recentQuizzes;
+	}
+	
 	public static int getNumberOfQuizzesTaken(){
 		int numTaken = 0;
 		try {

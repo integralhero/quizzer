@@ -186,17 +186,7 @@
 	            </div>
 	          </div>
 	          <button class="btn btn-default" id="feedBtn" style="margin-right: 20px;">View Friend Activity </button>    
-	            <h4>Created Quizzes:</h4>
-	            <% ArrayList<Quiz> friendsCreatedQuizzes = QuizDao.getFriendsCreatedQuizzes(me.getUserid()); %>
-	            <% if(friendsCreatedQuizzes.size() == 0) { %>
-	            	<i>No friend activity found.</i>
-	            <% } %>
-	            <ul>
-	            <% for(Quiz q: friendsCreatedQuizzes) {%>
-	            <a href="ql/<%= q.getID() %>.jsp"><%= q.getName() %></a>
-	            
-	            <% } %>
-	            </ul>
+	           
 	          <button  class="btn btn-default"  id="messagesBtn">View Messages</button>
 	          <div class="col-md-4 column" id="messages" style="display:none">
 	            <h3><small>Your Messages:</small></h3>
@@ -255,9 +245,28 @@
 	          </div>
 	          <div class="col-md-4 column" id="activities" style="display:none">
 	            <h3><small>Recent Activity</small></h3>
-	            <p>
-	              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum vestibulum augue vel faucibus. Vivamus a est eget velit iaculis feugiat. Nulla non dui auctor, pharetra felis sit amet, congue ante. Ut tempor erat lacus, vel convallis massa imperdiet vestibulum. Donec ullamcorper ipsum non quam blandit faucibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque egestas ullamcorper faucibus. Morbi at lobortis lectus. Nulla sollicitudin purus vitae dui mollis, nec placerat elit pulvinar. In nec libero leo.
-	            </p>
+	             <h4>Created Quizzes:</h4>
+		            <% ArrayList<Quiz> friendsCreatedQuizzes = QuizDao.getFriendsCreatedQuizzes(me.getUserid()); %>
+		            <% if(friendsCreatedQuizzes.size() == 0) { %>
+		            	<i>No friend activity found.</i>
+		            <% } %>
+		            <ul>
+		            <% for(Quiz q: friendsCreatedQuizzes) {%>
+		            <a href="ql/<%= q.getID() %>.jsp"><%= q.getName() %></a>
+		            
+		            <% } %>
+		            </ul>
+		         <h4>Taken Quizzes:</h4>
+		          	<% ArrayList<Quiz> friendsTakenQuizzes = QuizDao.getFriendsCreatedQuizzes(me.getUserid()); %>
+		            <% if(friendsCreatedQuizzes.size() == 0) { %>
+		            	<i>No friend activity found.</i>
+		            <% } %>
+		            <ul>
+		            <% for(Quiz q: friendsCreatedQuizzes) {%>
+		            <a href="ql/<%= q.getID() %>.jsp"><%= q.getName() %></a>
+		            
+		            <% } %>
+		            </ul>
 	          </div>
 	        </div>
 	        <div class="row clearfix">
