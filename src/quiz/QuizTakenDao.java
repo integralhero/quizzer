@@ -349,6 +349,5 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		;
 	}
 }
