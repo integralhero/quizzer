@@ -24,6 +24,90 @@ public class QuizDao {
 		}
 	}
 	
+	public static ArrayList<Quiz> getAllFlaggedQuizzes() {
+		ArrayList<Quiz> tmp = new ArrayList<Quiz>();
+		try {
+			String command = "SELECT * FROM quizzes WHERE flagNum > 0";
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			while(rs.next()) {
+				Quiz nextQ = getQuizByID(rs.getInt("ID"));
+				tmp.add(nextQ);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tmp;
+	}
+	
+	public static void addAnotherFlagTo(int quizid) {
+		try {
+			String commandGet = "SELECT * FROM quizzes WHERE ID=" + quizid;
+			
+			Statement statementG = connection.createStatement();
+			ResultSet rs = statementG.executeQuery(commandGet);
+			int curFlagVal = 0;
+			if(rs.next()) {
+				curFlagVal = rs.getInt("flagNum") + 1;
+			}
+			
+			String command = "UPDATE quizzes SET flagNum=" + curFlagVal + " WHERE ID=" + quizid;
+			
+			Statement statement = connection.createStatement();
+			statement.execute(command);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void deleteQuizByID(int id) {
+		
+		try {
+			String command = "DELETE FROM quizzes WHERE ID =" + id;
+			
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);	
+			deleteQuizQuestionByID(id);
+			QuizTakenDao.deleteQuizTakenByID(id);
+			QuestionDao.removeByQuizID(id);
+			removeChallengeReqByID(id);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeChallengeReqByID(int quizid) {
+		try {
+			String command = "DELETE FROM challenge_requests WHERE quizID=" + quizid;
+			
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);	
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void deleteQuizQuestionByID(int id) {
+		
+		try {
+			String command = "DELETE FROM question_quiz_index WHERE quizID =" + id;
+			
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);	
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static Quiz getQuizByID(int quiz_id) {
 		try {
 			String command = "SELECT * FROM quizzes WHERE ID=" + quiz_id;
@@ -36,6 +120,7 @@ public class QuizDao {
 			tmp.setID(quiz_id);
 			if(rs.next()) {
 				initializeQuiz(rs);
+
 			}
 			
 			return tmp;
@@ -424,6 +509,7 @@ public class QuizDao {
 			
 			while (rs.next() && popularQuizzes.size() < 10) {
 				Quiz tmp = initializeQuiz(rs);
+
 				popularQuizzes.add(tmp);
 			}
 			

@@ -94,6 +94,18 @@ public class QuestionDao {
 		}
 		return "";
 	}
-	
+	public static void removeByQuizID(int id) {
+		
+		try {
+			String command = "DELETE FROM q_fill_in_blank, q_multiple_choice, q_picture_response, q_question_response WHERE quizID =" + id;
+			
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);	
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
