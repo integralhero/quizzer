@@ -9,12 +9,20 @@ $(document).ready(function() {
 	
 	$(document).on('click', '.addAnswerField', function(event) {
 		var id = $(this).parent().parent().attr("id").substr(8);
-		
 		$("<div class='row'>" + 
 				"<input type='text' class='form-control quiz_qtn_field' name='answer" + id + "' placeholder='Answer'>&nbsp;" + 
 		"</div>").insertBefore("#add_answer_btn" + id);
 
 	});
+	
+	$(document).on('click', '#add_tag_input', function(event) {
+		console.log("hello");
+		$("<div class='row'>" + 
+				"<input type='text' class='form-control' name='tag' placeholder='Input Tag'>&nbsp;" + 
+		"</div>").insertAfter('#add_tag_input');
+
+	});
+	
 });
 	
 //});
