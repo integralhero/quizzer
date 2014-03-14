@@ -339,6 +339,24 @@ public class QuizTakenDao {
 		
 		return numTaken;
 	}
+
+	public static boolean checkIfHighScore(int quizID, int scoreToCheck){
+		try {
+			String command = "SELECT * FROM quizzes_taken WHERE quizID = " +  quizID + " ORDER BY score DESC";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			if(rs.next()){
+				int score = rs.getInt("score");
+				if(scoreToCheck > score) return true;
+			} else {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	
 	public static void updateQuizesTakenID(int oldID, int newID) {
 		

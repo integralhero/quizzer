@@ -60,6 +60,8 @@ public class TakeQuizServlet extends HttpServlet {
 		System.out.println("User ID: " + userID + ", quizID: " + quizID + ", timeTaken: " + timeTaken + ", score: " + score + ", timeElapsed: " + timeElapsed);
 		QuizTaken quizTaken = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
 		QuizTakenDao.addQuizTaken(quizTaken);
+		AchievementListener.takeQuiz(currUser);
+		if(QuizTakenDao.checkIfHighScore(quizID, score)) AchievementListener.highScore(currUser);
 		response.sendRedirect("/Quizzer/");
 	}
 
