@@ -19,6 +19,38 @@ $(document).ready(function() {
 	
 //});
 
+function submitCreateQuizForm() {
+	var inputIsValid = true;
+	if ($('#quiz_name_field').val() == "") {
+		console.log("name field is empty");
+		alert("Quiz Name Field Left Empty!")
+		inputIsValid = false;
+	} else if ($('#description').val() == "") {
+		console.log("description field is empty");
+		alert("Description Field Left Empty!")
+		inputIsValid = false;
+	}
+	
+	var numQuestions = $('#question_count_field').val();
+//	console.log("Number of questions: " + $(".quiz_qtn_field").length + ". Expected: " + numQuestions);
+	var questions = $('.quiz_qtn_field');
+
+	for (var questionCount = 0; questionCount < numQuestions; questionCount++) {
+		console.log($("#maxScore" + (questionCount + 1)).val());
+		if ($(questions[questionCount]).val() == "") {
+			alert("Question " + (questionCount + 1) + " left blank!");
+			inputIsValid = false;
+		} else if ($("#maxScore" + (questionCount + 1)).val() == "") {
+			alert("Max Score field left empty!");
+			inputIsValid = false;
+		}
+	}
+	if (inputIsValid) {
+		$('#create_quiz_form').submit();
+	} else {
+//		alert("Fields Left Blank!");
+	}
+}
 
 
 function removeQuestion() {
@@ -72,8 +104,8 @@ $('#qtn_res_qtn').click(function(event) {
 		   "<div class='input-group'>" +
 		   		"<h3>Question-Response <button type='button' class='question_delete_btn btn btn-default btn-sm'><span class='glyphicon glyphicon-remove-circle'></span> Delete </button></h3>" + 
 		   		"<input type='text' class='form-control quiz_qtn_field' name='question" + questionCount + "' placeholder='Question'>&nbsp;" +
-		   		"<label for='maxScore'>Max Score (One point per response):</label><input id='maxScore' name='maxScore' type='text' placeholder='Input Max Score'><br>"+
-		   		"<button onclick='addQuestionResponse()'type='button' id='add_answer_btn" + questionCount + "' class='btn btn-default addAnswerField'>Add Answer</button><br><br>" +
+		   		"<label for='maxScore'>Max Score (One point per response):</label><input id='maxScore" + questionCount + "' name='maxScore" + questionCount + "' type='text' placeholder='Input Max Score'><br>"+
+		   		"<button type='button' id='add_answer_btn" + questionCount + "' class='btn btn-default addAnswerField'>Add Answer</button><br><br>" +
 //		   		"<input type='text' class='form-control quiz_qtn_field' name='answer" + questionCount + "' placeholder='Response'>&nbsp;" + 
 		   "</div>" +
 		   "<input type='hidden' name='question_type_" + questionCount + "' value='1'>" +
@@ -88,7 +120,8 @@ $('#fill_blank_qtn').click(function(event) {
 		   "<div class='input-group'>" + 
 		   		"<h3>Fill in the Blank <button type='button' class='question_delete_btn btn btn-default btn-sm'><span class='glyphicon glyphicon-remove-circle'></span> Delete </button></h3>" + 
 		   		"<input type='text' class='form-control quiz_qtn_field' name='question" + questionCount + "' placeholder='Sentence'>&nbsp;" +
-		   		"<button onclick='addQuestionResponse()' type='button' id='add_answer_btn" + questionCount + "' class='btn btn-default addAnswerField'>Add Answer</button><br><br>" +
+		   		"<label for='maxScore'>Max Score (One point per response):</label><input id='maxScore" + questionCount + "' name='maxScore" + questionCount + "' type='text' placeholder='Input Max Score'><br>"+
+		   		"<button type='button' id='add_answer_btn" + questionCount + "' class='btn btn-default addAnswerField'>Add Answer</button><br><br>" +
 //		   		"<input type='text' class='form-control' name='answer" + questionCount + "' placeholder='Word to be left blank'>&nbsp;" + 
 		   	"</div>" + "<input type='hidden' name='question_type_" + questionCount + "' value='2'>" +
 	"</div>").insertBefore("#question_count_field");
@@ -138,7 +171,8 @@ $('#pic_res_qtn').click(function(event) {
 				"<input type='text' class='form-control quiz_qtn_field' name='question" + questionCount + "' placeholder='Image URL'>" +
 //				"<h4>Or load image file:</h4>" +
 //				"<input type='file' >&nbsp;" +
-		   		"<button onclick='addQuestionResponse()' type='button' id='add_answer_btn" + questionCount + "' class='btn btn-default addAnswerField'>Add Answer</button><br><br>" +
+				"<label for='maxScore'>Max Score (One point per response):</label><input id='maxScore" + questionCount + "' name='maxScore" + questionCount + "' type='text' placeholder='Input Max Score'><br>"+
+		   		"<button type='button' id='add_answer_btn" + questionCount + "' class='btn btn-default addAnswerField'>Add Answer</button><br><br>" +
 //				"<input type='text' class='form-control quiz_qtn_field' name='answer" + questionCount + "' placeholder='Response'>&nbsp;" +
 			"</div>" +
 			"<input type='hidden' name='question_type_" + questionCount + "' value='4'>" +
