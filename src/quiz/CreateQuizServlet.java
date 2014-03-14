@@ -57,6 +57,8 @@ public class CreateQuizServlet extends HttpServlet {
 		quiz.setQuestions(questions);
 		quiz.setUserID(currUser.getUserid());
 		quiz.calculateAndSetScore();
+		String[] tags = request.getParameterValues("tag");
+		System.out.println("--------------------- tag length" + tags.length);
 		quiz.setTags(request.getParameterValues("tag"));
 		quiz.setDescription(request.getParameter("description"));
 		quiz.setCategory(request.getParameter("category").toLowerCase());
