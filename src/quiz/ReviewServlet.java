@@ -34,10 +34,10 @@ public class ReviewServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String reviewBody = (String) request.getAttribute("review");
-		int rating = Integer.parseInt((String) request.getAttribute("ratingVal"));
-		int quizid = Integer.parseInt((String) request.getAttribute("quizid"));
-		int userid = Integer.parseInt((String) request.getAttribute("userid"));
+		String reviewBody = request.getParameter("review"); 
+		int rating = Integer.parseInt(request.getParameter("rate"));
+		int quizid = Integer.parseInt( request.getParameter("quizid"));
+		int userid = Integer.parseInt(request.getParameter("userid"));
 		
 		Rate ob = new Rate(quizid, userid, reviewBody, rating);
 		RatingsDao.addRate(ob);
