@@ -53,11 +53,10 @@ public class BenTestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		QuizTaken quizTaken = new QuizTaken(7, 1, "2011", 5, 3);
-		QuizTakenDao.addQuizTaken(quizTaken);
-		ArrayList<QuizTaken> highQuizzes = QuizTakenDao.getHighScores(1);
-		for (int i = 0; i < highQuizzes.size(); i++) {
-			printQuizTaken(highQuizzes.get(i));
+		ArrayList<QuizTaken> high = QuizTakenDao.getTodaysHighScores(23);
+		System.out.println("high size is " + high.size());
+		for (int i = 0; i < high.size(); i++) {
+			printQuizTaken(high.get(i));
 			System.out.println();
 		}
 
