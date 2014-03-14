@@ -64,10 +64,10 @@ public class UpdateQuizServlet extends HttpServlet {
 		
 		int newQuizID = QuizDao.addQuiz(quiz);
 		int oldQuizID = Integer.parseInt(request.getParameter("quizID"));
-
+		System.out.println("Inside updatequiz: " + oldQuizID + "," + newQuizID);
 		QuizTakenDao.updateQuizesTakenID(oldQuizID, newQuizID);
 		QuestionDao.updateQuestionsID(oldQuizID, newQuizID);
-		QuizDao.deleteQuizByID(oldQuizID);
+		//QuizDao.deleteQuizByID(oldQuizID);
 
 		int numQtns = Integer.parseInt(request.getParameter("question_count_field"));
 		
