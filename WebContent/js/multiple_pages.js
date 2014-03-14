@@ -3,8 +3,8 @@ $(document).ready(function(){
 	$('div.question:gt(0)').hide();
 	$('div.question:lt(1) > ul li.previous').hide();
 	$('div.question:nth-last-child(1) > ul li.next').hide();
-	$('div.question:last-child').append("<a onclick='submitTakeQuizForm()' id='submitbtn'>Submit</a>");
-	
+	$('div.question:last-child').append("<button type='button' onclick='submitTakeQuizForm()' id='submitbtn'>Submit</button>");
+
 	$(document).on('click', '.next', function() {
 		$(this).parent().closest("div.question").hide();
 		$(this).parent().closest("div.question").next().show();
@@ -46,13 +46,14 @@ $(document).ready(function(){
 	});
 	var date = new Date($.now());
 	var year = date.getFullYear();
-	var month = date.getMonth();
+	var month = date.getMonth() + 1;
 	var day = date.getDate();
 	var hour = date.getHours();
 	var minutes = date.getMinutes();
 	var seconds = date.getSeconds();
 	
 	var dateString = year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds;
+	console.log("Date: " + dateString);
 	$('#dateTaken').val(dateString);
 	
 	var startTime = date.getTime();

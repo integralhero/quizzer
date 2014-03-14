@@ -56,6 +56,7 @@ public class TakeQuizServlet extends HttpServlet {
 		System.out.println(request.getParameter("quiz_id"));
 		int quizID = Integer.parseInt(request.getParameter("quiz_id"));
 		String timeTaken = request.getParameter("dateTaken");
+		System.out.println("Time taken: " + timeTaken);
 		System.out.println(request.getParameter("time"));
 		long timeElapsed = Long.parseLong(request.getParameter("time"));
 		timeElapsed = System.currentTimeMillis() - timeElapsed;

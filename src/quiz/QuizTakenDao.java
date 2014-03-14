@@ -275,9 +275,9 @@ public class QuizTakenDao {
 				
 				long currentTime = System.currentTimeMillis();
 				System.out.println("Current time is " + currentTime);
-				
+				System.out.println();
 				if(timeTakenMilliseconds > currentTime - ONE_DAY_MS){
-					System.out.println("HI");
+					
 					QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
 					quizzes.add(temp);
 				}
