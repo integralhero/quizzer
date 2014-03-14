@@ -143,6 +143,23 @@
 				} //end for loop	%>
 			<% int j = (Integer)request.getAttribute("score"); %>
 			<h1>Final Score: <%= j %></h1>
+			<form  action ="ReviewServlet" method = "post">
+			
+				<textarea rows="6" cols="75" name="review">Write a review of this quiz.</textarea>
+				<input type="hidden" name="quizid" value="<%= curQuiz.getID() %>">
+				<input type="hidden" name="userid" value="<%= us.getUserid() %>">
+				<p>Rate This Quiz From 1 to 5</p>
+   					<select name="rate">
+ 						 <option value="1">1</option>
+  					     <option value="2">2</option>
+  						 <option value="3">3</option>
+                         <option value="4">4</option>
+                         <option value="5">5</option>
+                    </select>
+
+  				<button type="submit">Submit</submit>
+  			</form>
+			
           </div>
         </div>
       </div>

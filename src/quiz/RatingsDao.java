@@ -18,7 +18,6 @@ public class RatingsDao {
 			prepStmt.setInt(3, rate.getRating());
 			prepStmt.setString(4, rate.getReview());
 			prepStmt.executeUpdate();
-			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -39,7 +38,6 @@ public class RatingsDao {
 				String review = rs.getString("review");
 				reviews.add(review);
 			}
-			connection.close();
 			return reviews;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,14 +62,13 @@ public class RatingsDao {
 				totalRating += rating;
 			}
 			
-			if (totalRating == 0 && totalUsers == 0) return -2;
-			connection.close();
+			if (totalRating == 0 && totalUsers == 0) return 0;
 			return totalRating/totalUsers;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1;
+		return 0;
 	}
 	
 	

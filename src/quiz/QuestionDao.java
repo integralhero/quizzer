@@ -117,7 +117,7 @@ public class QuestionDao {
 	public static void updateQuestionsID(int oldID, int newID) {
 		System.out.println("Executed update questions id");
 		try {
-			String	command = "UPDATE question_quiz_index SET quizID = newID WHERE quizID = oldID";
+			String	command = "UPDATE question_quiz_index SET quizID="+ newID  +" WHERE quizID =" + oldID;
 			Statement statement = connection.createStatement();
 			statement.execute(command);
 		} catch (SQLException e) {

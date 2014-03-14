@@ -51,6 +51,23 @@ public class UserDao {
 		return false;
 	}
 	
+	public static int getUserNum() {
+		int count = 0;
+		try {
+			String command = "SELECT * FROM users";
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			while(rs.next()) {
+				count++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
 	public static void addUser(User user) {
 		try {
 			PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO users(username, password, email, salt) VALUES (?,?,?,?)");

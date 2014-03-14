@@ -275,9 +275,9 @@ public class QuizTakenDao {
 				
 				long currentTime = System.currentTimeMillis();
 				System.out.println("Current time is " + currentTime);
-				
+				System.out.println();
 				if(timeTakenMilliseconds > currentTime - ONE_DAY_MS){
-					System.out.println("HI");
+					
 					QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
 					quizzes.add(temp);
 				}
@@ -369,7 +369,7 @@ public class QuizTakenDao {
 	public static void updateQuizesTakenID(int oldID, int newID) {
 		
 		try {
-			String command = "UPDATE quizzes_taken SET quizID = newID WHERE quizID = oldID";
+			String command = "UPDATE quizzes_taken SET quizID="+ newID  +" WHERE quizID =" + oldID;
 			Statement statement = connection.createStatement();
 			statement.execute(command);
 		} catch (SQLException e) {
