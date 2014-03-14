@@ -48,12 +48,6 @@ public class Quiz implements Comparable<Quiz>{
 		else return -1;
 	}
 	
-	/*public int compareTo(Quiz quiz) {
-		if (this.totalScore > quiz.getScore()) return 1;
-		if (this.totalScore == quiz.getScore()) return 0;
-		else return -1;
-	}*/
-	
 	public double getRating() {
 		return this.rating;
 	}
