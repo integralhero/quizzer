@@ -102,7 +102,7 @@
 							switch (QuestionTypes.getType(question.getQuestionType())) {
 							case 1:	//QR %>
 								<h3>Question: <%= ((QuestionResponse)question).getQuestion() %></h3>
-						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+						<%		for(int answerNum = 0; answerNum < question.getScore(); answerNum++) { %>
 									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField<%=i%>">
 						<% 		}
 						
@@ -116,7 +116,7 @@
 							break;
 							case 2: //FIB %>
 								<h3>Question: <%= ((FillBlankQuestion)question).getQuestion() %></h3>
-						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+						<%		for(int answerNum = 0; answerNum < question.getScore(); answerNum++) { %>
 									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField<%=i%>">
 						<% 		}
 							for (String answer : question.getAnswers()) {
@@ -157,7 +157,7 @@
 							break;
 							case 4: //PR %>
 								<h3>Question: </h3><img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>"><br><br>
-						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
+						<%		for(int answerNum = 0; answerNum < question.getScore(); answerNum++) { %>
 									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField<%=i%>">
 						<% 		}
 							

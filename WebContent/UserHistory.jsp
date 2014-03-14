@@ -99,7 +99,7 @@
           		<td><%= quiz.getID() %></td> 
           		<td><%= quiz.getName() %></td> 
           		<td><%= ((double)(quizTaken.getScore())/quiz.getScore()) * 100 + "%" %></td>
-          		<td><%= quizTaken.getTimeElapsed() %></td>
+          		<td><%= quizTaken.getTimeElapsed() + "ms" %></td>
           		<td><%= quizTaken.getTimeTakingQuiz() %></td>
           	</tr> 
           	
