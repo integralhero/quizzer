@@ -109,8 +109,8 @@
 						
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
-							<input type="text" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
+							<input type="hidden" value="<%= question.getQuestionType() %>" name="questionType">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
 													
 						<%
 							}
@@ -122,15 +122,15 @@
 						<% 		}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="text" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
 													
 						<%
 							}
 						 	break;
 							case 3: //MC  %>
 								<h3>Question: <%= ((MultipleChoiceQuestion)question).getQuestion() %></h3>
-								<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
-								<input type='text' value='<%=i%>' class="qtnNum">
+								<input type="hidden" value="<%= question.getQuestionType() %>" name="questionType">
+								<input type='hidden' value='<%=i%>' class="qtnNum">
 								
 						<%		String typeOfInput = "radio";
 								if(question.getNumAnswers() > 1) {
@@ -141,7 +141,7 @@
 								<div class='row'>
 									<div class='col-lg-6'>
 										<div class='input-group'>
-											<span class='input-group-addon'><input class='mult_choice_checkbox' type='<%= typeOfInput %>' ></span><input type='text' value="<%= choice %>" class='form-control answerField' readonly >
+											<span class='input-group-addon'><input class='mult_choice_checkbox' type='<%= typeOfInput %>' name="checkbox_radio_btn" ></span><input type='text' value="<%= choice %>" class='form-control answerField' readonly >
 										</div>
 									</div>
 								</div>
@@ -150,7 +150,7 @@
 								}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="text" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
 													
 						<%
 							}
@@ -163,7 +163,7 @@
 							
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="text" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
+							<input type="hidden" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
 													
 						<%
 							}	
@@ -230,7 +230,7 @@
 									<div class='row'>
 										<div class='col-lg-6'>
 											<div class='input-group'>
-												<span class='input-group-addon'><input class='mult_choice_checkbox' type='<%= typeOfInput %>' ></span><input type='text' value="<%= choice %>" class='form-control answerField' readonly >
+												<span class='input-group-addon'><input class='mult_choice_checkbox' type='<%= typeOfInput %>' name="checkbox_radio_btn"></span><input type='text' value="<%= choice %>" class='form-control answerField' readonly >
 											</div>
 										</div>
 									</div>
@@ -262,7 +262,7 @@
 						</div> <!-- Close question div -->
 						<%
 				} //end for loop	%>
-				<button onclick"submitTakeQuizForm()" id="submitbtn">Submit</button>
+				<button type="button" onclick="submitTakeQuizForm()" id="submitbtn">Submit</button>
 				<% 
 			}
 			%>
