@@ -251,7 +251,7 @@ public class QuizTakenDao {
 	}
 	
 	private static final int FIFTEEN_MINUTES_MS = 900000;
-	private static final int ONE_DAY_MS = 864 * (10 ^ 5);
+	private static final int ONE_DAY_MS = 86400000;
 	
 	public static ArrayList<QuizTaken> getTodaysHighScores(int quizID){
 			
