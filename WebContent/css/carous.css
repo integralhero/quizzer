@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Didact+Gothic);
 body
 {
     padding-top: 20px;
@@ -31,7 +32,7 @@ body
 }
 
 #toppic {
-	height: 150px;
+	height: 180px;
 	background:url('../img/bg.jpg');
 }
 
@@ -50,4 +51,12 @@ ul {
 	top: 0;
 	overflow-y:scroll; 
 	overflow-x:visible;
+}
+#titleName {
+	color: white;
+	position: relative;
+	top: 40px;
+	left: 30px;
+	font-family: 'Didact Gothic', sans-serif;
+	font-size: 4em;
 }

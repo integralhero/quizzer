@@ -251,7 +251,7 @@ public class QuizTakenDao {
 	}
 	
 	private static final int FIFTEEN_MINUTES_MS = 900000;
-	private static final int ONE_DAY_MS = 864 * (10 ^ 5);
+	private static final int ONE_DAY_MS = 86400000;
 	
 	public static ArrayList<QuizTaken> getTodaysHighScores(int quizID){
 			
@@ -270,7 +270,7 @@ public class QuizTakenDao {
 				int userID = rs.getInt("userID");
 				
 				long timeTakenMilliseconds = ParseDateString.getMilliseconds(timeTaken);
-				if(timeTakenMilliseconds > System.currentTimeMillis() - FIFTEEN_MINUTES_MS){
+				if(timeTakenMilliseconds > System.currentTimeMillis() - ONE_DAY_MS){
 					QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
 					quizzes.add(temp);
 				}
@@ -311,10 +311,10 @@ public class QuizTakenDao {
 			rs2.afterLast();
 			
 			while (rs2.previous() && recentQuizzes.size() < 10) {
-				String timeTaken = rs.getString("timeTaken");
-				int score = rs.getInt("score");
-				int timeElapsed = rs.getInt("timeElapsed");
-				int quizID = rs.getInt("quizID");
+				String timeTaken = rs2.getString("timeTaken");
+				int score = rs2.getInt("score");
+				int timeElapsed = rs2.getInt("timeElapsed");
+				int quizID = rs2.getInt("quizID");
 				QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);				
 				recentQuizzes.add(temp);
 			}
@@ -338,5 +338,16 @@ public class QuizTakenDao {
 		}
 		
 		return numTaken;
+	}
+	
+	public static void updateQuizesTakenID(int oldID, int newID) {
+		
+		try {
+			String command = "UPDATE quizzes_taken SET quizID = newID WHERE quizID = oldID";
+			Statement statement = connection.createStatement();
+			statement.execute(command);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

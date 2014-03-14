@@ -32,16 +32,17 @@ public class QuizLandingServlet extends HttpServlet {
     	} catch(NumberFormatException e) {
     		
     	}
-    	
-    	Quiz tmp = QuizDao.getQuizByID(parseInt);
-
-    	req.setAttribute("curQuiz", tmp);
-    	try {
-			req.getRequestDispatcher("/renderQuizLanding.jsp").forward(req, res);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	if(parseInt != 0) {
+	    	Quiz tmp = QuizDao.getQuizByID(parseInt);
+	
+	    	req.setAttribute("curQuiz", tmp);
+	    	try {
+				req.getRequestDispatcher("/renderQuizLanding.jsp").forward(req, res);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     }
 
 }

@@ -4,7 +4,7 @@ public class QuizTaken implements Comparable<QuizTaken>{
 
 	private int quizID;
 	private int score;
-	private long timeElapsed;
+	private long timeElapsed = 0;
 	private int userID;
 	private String timeTaken;
 	

@@ -28,7 +28,7 @@
         </style>
 
     </head>
-    
+    <% User us = (User)request.getSession(false).getAttribute("currentUser"); %>
     <body> 
       <header class="navbar navbar-default navbar-static-top" role="banner">
         <div class="container">
@@ -46,15 +46,14 @@
               <li>
                 <a href="#">Get Started</a>
               </li>
-              <li>
-                <a href="#" id="feedBtn">View Friend Activity</a>
-              </li>
-              <li>
-                <a href="#" id="messagesBtn">View Messages</a>
-              </li>
-              <li>
-              	<a href="/Quizzer/quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
-              </li>
+              <% if(us.checkIsAdmin()) { %>
+	          <li>
+	             <a href="admin/index.jsp">Administration</a>
+	          </li>
+	          <% } %>
+	          <li>
+	             <a href="quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
+	           </li>
               
               
             </ul>
@@ -78,7 +77,6 @@
         <div class="row">
           <div class="col-xs-12">
            <% 
-               	User us = (User)session.getAttribute("currentUser");
              	int curUserID = us.getUserid();
              	Quiz curQuiz = (Quiz)request.getAttribute("curQuiz");
              	
@@ -89,8 +87,9 @@
           	 
           	
           	
-			<form name="create_quiz_form" action="/Quizzer/CreateQuizServlet" method="post" > 
+			<form name="create_quiz_form" action="/Quizzer/UpdateQuizServlet" method="post" > 
 				<label for="quiz_name_field">Quiz Name:</label><input type='text' id="quiz_name_field" name='quiz_name_field' class='form-control ' placeholder='Quiz Name' value="<%= curQuiz.getName() %>" style="width:50%;">
+				<input type="hidden" name="quizID" value="<%= curQuiz.getID() %>">
 				&nbsp;
 				<BR>
 				Description: <input type="text" name="description" style="width:50%;" value="<%=curQuiz.getDescription() %>"><BR>
@@ -109,7 +108,7 @@
 				%>
 						<div id='question<%= questionCount %>'>
 							<div class='input-group'><h3>Question-Response <button type='button' class='question_delete_btn btn btn-default btn-sm'>
-								<span class='glyphicon glyphicon-remove-circle'></span> Delete </button></h3>" + 
+								<span class='glyphicon glyphicon-remove-circle'></span> Delete </button></h3> 
 								<input type='text' class='form-control quiz_qtn_field' name='question<%= questionCount %>' placeholder='Question' value='<%= ((QuestionResponse)question).getQuestion() %>'>&nbsp;
 				<%
 								for (String answer : ((QuestionResponse)question).getAnswers()) {
@@ -149,17 +148,30 @@
 								<input type='text' class='form-control quiz_qtn_field' name='question<%= questionCount %>' placeholder='Question' value='<%= ((MultipleChoiceQuestion)question).getQuestion() %>'> 
 				<%
 								int multipleChoiceAnswerCount = 0;
-								for (String answer : ((MultipleChoiceQuestion)question).getAnswers()) {
-									
+								ArrayList<String> correctAnswersArray = question.getAnswers();
+								HashSet<String> correctAnswersSet = new HashSet<String>(correctAnswersArray);
+
+								for (String choice : ((MultipleChoiceQuestion)question).getChoices()) {									
 				%>
 									<div class='row'>
 										<div class='col-lg-6'>
 											<div class='input-group'>
+								<%
+											if(correctAnswersSet.contains(choice)) {
+								%>
+												<span class='input-group-addon'><input name='mult_choice_checkbox_<%= multipleChoiceAnswerCount %>' type='checkbox' checked></span>
+								<%
+											} else {
+								%>
 												<span class='input-group-addon'><input name='mult_choice_checkbox_<%= multipleChoiceAnswerCount %>' type='checkbox'></span>
-													<input name='mult_choice_answer_<%= multipleChoiceAnswerCount %>' type='text' class='form-control' >
-												</div>
+								<%
+											}
+								%>
+								
+												<input name='mult_choice_answer_<%= multipleChoiceAnswerCount %>' type='text' class='form-control' value='<%= choice %>' >
 											</div>
 										</div>
+									</div>
 				<%
 									multipleChoiceAnswerCount++;
 								}
@@ -194,6 +206,7 @@
 				} // close for loop
 				
 				%>
+				<input type='hidden' id='question_count_field' name='question_count_field' value = 0>
 	          	<div id="add_qtn_btn">
 		          	<div class="row">
 					  <div class="col-lg-6">
