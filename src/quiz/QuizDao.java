@@ -433,6 +433,26 @@ public class QuizDao {
 		return quizzes;
 	}
 	
+	public static ArrayList<Quiz> getQuizzesByCategory(String category) {
+		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
+
+		try {
+			System.out.println("This is the category we look for: " + category);
+			String command = "SELECT * FROM quizzes WHERE category='"+category+"'";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+
+			while (rs.next()) {
+				Quiz recentQuiz = QuizDao.getQuizByID(rs.getInt("ID"));
+				recentQuizzes.add(recentQuiz);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return recentQuizzes;
+	}
+	
 	// gets the most recently created quizzes without specific user 
 	
 	public static ArrayList<Quiz> getRecentCreatedQuizzes() {

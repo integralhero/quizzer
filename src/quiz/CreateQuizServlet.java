@@ -58,6 +58,7 @@ public class CreateQuizServlet extends HttpServlet {
 		quiz.setUserID(currUser.getUserid());
 		quiz.calculateAndSetScore();
 		quiz.setDescription(request.getParameter("description"));
+		quiz.setCategory(request.getParameter("category").toLowerCase());
 		quiz.setImmediateCorrect(request.getParameter("feedback") != null);
 		quiz.setPracticeModeAvailable(request.getParameter("practice") != null);
 		quiz.setMultiplePages(request.getParameter("mult_pages") != null);
