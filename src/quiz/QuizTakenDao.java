@@ -264,13 +264,20 @@ public class QuizTakenDao {
 			ResultSet rs = statement.executeQuery(command);
 			
 			while(rs.next() && quizzes.size() < 10){
+				
 				String timeTaken = rs.getString("timeTaken");
 				int score = rs.getInt("score");
 				int timeElapsed = rs.getInt("timeElapsed");
 				int userID = rs.getInt("userID");
 				
 				long timeTakenMilliseconds = ParseDateString.getMilliseconds(timeTaken);
-				if(timeTakenMilliseconds > System.currentTimeMillis() - ONE_DAY_MS){
+				System.out.println("Time Taken is " + timeTakenMilliseconds);
+				
+				long currentTime = System.currentTimeMillis();
+				System.out.println("Current time is " + currentTime);
+				
+				if(timeTakenMilliseconds > currentTime - ONE_DAY_MS){
+					System.out.println("HI");
 					QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
 					quizzes.add(temp);
 				}
@@ -279,6 +286,7 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("quizzes size is " + quizzes.size());
 		return quizzes;
 		
 	}
@@ -338,6 +346,24 @@ public class QuizTakenDao {
 		}
 		
 		return numTaken;
+	}
+
+	public static boolean checkIfHighScore(int quizID, int scoreToCheck){
+		try {
+			String command = "SELECT * FROM quizzes_taken WHERE quizID = " +  quizID + " ORDER BY score DESC";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			if(rs.next()){
+				int score = rs.getInt("score");
+				if(scoreToCheck > score) return true;
+			} else {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 	
 	public static void updateQuizesTakenID(int oldID, int newID) {

@@ -106,5 +106,21 @@ public class AchievementDao {
 		return temp;
 	}
 	
+	public static boolean checkIfUserHasAchievement(int userID, int achievementID){
+		try {
+
+			String command = "SELECT * FROM achievement_user_index WHERE userID = " + userID + " AND achievementID = " + achievementID;
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			if(rs.next()) return true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	
 }

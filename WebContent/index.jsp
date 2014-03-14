@@ -309,7 +309,7 @@
 						<% } %>
 						<ul>
 						<% for(Achievement a: userAchievements) { %>
-						<%= a.getName() %><BR>
+						<img src =" <%= a.getImage() %>"> <%= a.getName() %> - <%= a.getDescription() %><BR>
 						<% } %>
 					<% } else { %>
 						<i> No Achievements found - NULL!</i>
