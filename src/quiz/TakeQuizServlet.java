@@ -58,6 +58,7 @@ public class TakeQuizServlet extends HttpServlet {
 		String timeTaken = request.getParameter("dateTaken");
 		System.out.println(request.getParameter("time"));
 		long timeElapsed = Long.parseLong(request.getParameter("time"));
+		timeElapsed = System.currentTimeMillis() - timeElapsed;
 		System.out.println("User ID: " + userID + ", quizID: " + quizID + ", timeTaken: " + timeTaken + ", score: " + score + ", timeElapsed: " + timeElapsed);
 		QuizTaken quizTaken = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
 		QuizTakenDao.addQuizTaken(quizTaken);

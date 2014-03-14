@@ -89,7 +89,7 @@ public class AchievementDao {
 		Achievement temp = new Achievement("","","");
 		try {
 
-			String command = "SELECT * FROM achievement WHERE ID = " + ID;
+			String command = "SELECT * FROM achievements WHERE ID = " + ID;
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
