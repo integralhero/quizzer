@@ -78,7 +78,7 @@
                %>
 			<h1>Quiz Title: <%= curQuiz.getName() %></h1><BR>
 			Created by: <a href="/Quizzer/user/<%= curQuiz.getUserID() %>"><%= UserDao.getUserById(curQuiz.getUserID()).getUsername() %></a><BR>
-			<% if(curQuiz.getCategory() != null) { %> <h3> <small><%= curQuiz.getCategory() %></small></h3><BR><%} %>
+			<% if(curQuiz.getCategory() != null) { %> <h3> <small>Category: <a href="/Quizzer/category/<%= curQuiz.getCategory() %>"><%= curQuiz.getCategory() %></a></small></h3><BR><%} %>
 			<p><%= curQuiz.getDescription() %></p>
 			
           </div>
@@ -195,6 +195,7 @@
         </div>
         <div class="row">
         	<div class="col-xs-6">
+        		<h1>Ratings: </h1>
         		<b>Rating:</b> <%= RatingsDao.getRating(curQuiz.getID()) %><BR>
         		<% ArrayList<String> rts = RatingsDao.getReviewsOfQuiz(curQuiz.getID()); %>
         		<% for(String rate: rts)  { %>

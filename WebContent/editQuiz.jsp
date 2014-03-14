@@ -93,6 +93,7 @@
 				&nbsp;
 				<BR>
 				Description: <input type="text" name="description" style="width:50%;" value="<%=curQuiz.getDescription() %>"><BR>
+				Category: <input type="text" name="category">
 				<HR>
 				<% 
 				final int QUESTION_RESPONSE = 1;

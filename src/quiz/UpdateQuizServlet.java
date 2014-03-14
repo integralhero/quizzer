@@ -55,6 +55,7 @@ public class UpdateQuizServlet extends HttpServlet {
 		quiz.setQuestions(questions);
 		quiz.setUserID(currUser.getUserid());
 		quiz.calculateAndSetScore();
+		quiz.setDescription(request.getParameter("category").toLowerCase());
 		quiz.setDescription(request.getParameter("description"));
 		quiz.setImmediateCorrect(request.getParameter("feedback") != null);
 		quiz.setPracticeModeAvailable(request.getParameter("practice") != null);
