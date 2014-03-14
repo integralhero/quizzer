@@ -81,6 +81,7 @@
                %>
 			<%= curQuiz.getName() %>
 			<form id="take_quiz_form" name="take_quiz_form" action="/Quizzer/TakeQuizServlet" method="post" > 
+			
 			<input type="hidden" value="<%= curQuiz.getID() %>" name="quiz_id">
 			<input type="hidden" value="" id="dateTaken" name="dateTaken">
 			<input type="hidden" value="" id="time" name="time">
@@ -141,7 +142,7 @@
 								<div class='row'>
 									<div class='col-lg-6'>
 										<div class='input-group'>
-											<span class='input-group-addon'><input class="mult_choice_checkbox" type='<%= typeOfInput %>' ></span><input type='text' value="<%= choice %>" class='form-control answerField' readonly >
+											<span class='input-group-addon'><input class='mult_choice_checkbox' type='<%= typeOfInput %>' ></span><input type='text' value="<%= choice %>" class='form-control answerField' readonly >
 										</div>
 									</div>
 								</div>
@@ -216,6 +217,8 @@
 						 	break;
 							case 3: //MC  %>
 								<h3>Question: <%= ((MultipleChoiceQuestion)question).getQuestion() %></h3>
+								<input type="hidden" value="<%= question.getQuestionType() %>" name="questionType">
+								<input type='hidden' value='<%=i%>' class="qtnNum">
 								
 						<%		String typeOfInput = "radio";
 								if(question.getNumAnswers() > 1) {
@@ -226,7 +229,7 @@
 									<div class='row'>
 										<div class='col-lg-6'>
 											<div class='input-group'>
-												<span class='input-group-addon'><input type='<%= typeOfInput %>' name="mult_choice_answer"></span><input type='text' value="<%= choice %>" class='form-control'  name="answerField<%=i%>" id="answerField" readonly >
+												<span class='input-group-addon'><input class='mult_choice_checkbox' type='<%= typeOfInput %>' ></span><input type='text' value="<%= choice %>" class='form-control answerField' readonly >
 											</div>
 										</div>
 									</div>

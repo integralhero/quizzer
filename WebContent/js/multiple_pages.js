@@ -35,7 +35,9 @@ $(document).ready(function(){
 	
 //	multiple choice checkbox code
 	$(document).on('click', '.mult_choice_checkbox', function() {
+		console.log($(this).parent().parent().parent().parent().parent().find("input.qtnNum").val());
 		var qtnNum = $(this).parent().parent().parent().parent().parent().find("input.qtnNum").val();
+		console.log("QuestionNum: " + qtnNum);
 		if ($(this).is(":checked")) {
 			$(this).parent().siblings("input.answerField").attr("name", "answerField" + qtnNum);
 		} else {
