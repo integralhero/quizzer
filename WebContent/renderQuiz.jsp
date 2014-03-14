@@ -122,7 +122,6 @@
 						<% 		}
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
 							<input type="text" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
 													
 						<%
@@ -164,12 +163,12 @@
 							
 							for (String answer : question.getAnswers()) {
 						%>
-							<input type="text" value="<%= question.getQuestionType() %>" name="questionType">
 							<input type="text" class="hiddenAnswer" value="<%= answer %>" name="hiddenAnswer<%=i%>">
 													
 						<%
 							}	
-						  break;	
+						  break;
+						  
 							}
 						%>
 						<ul class="pager">
@@ -190,6 +189,7 @@
 						<div class='questionn'>
 						<%
 							switch (QuestionTypes.getType(question.getQuestionType())) {
+							
 							case 1:	//QR %>
 								<h3>Question: <%= ((QuestionResponse)question).getQuestion() %></h3>
 						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
@@ -203,6 +203,7 @@
 						<%
 							}
 							break;
+							
 							case 2: //FIB %>
 								<h3>Question: <%= ((FillBlankQuestion)question).getQuestion() %></h3>
 						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
@@ -242,6 +243,7 @@
 						<%
 							}
 							break;
+							
 							case 4: //PR %>
 								<h3>Question: </h3><img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>"><br><br>
 						<%		for(int answerNum = 0; answerNum < question.getNumAnswers(); answerNum++) { %>
