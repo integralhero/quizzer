@@ -1,4 +1,5 @@
-<%@ page import="java.util.*, quiz.*" %>
+<%@ page import="quiz.*, java.util.*, javax.*" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,7 +8,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
         <meta charset="utf-8">
-        <title>Search for Quiz</title>
+        <title>Quiz Results</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -22,7 +23,7 @@
         
         <style type="text/css">
             header {
-            	margin-bottom:30px;
+              margin-bottom:30px;
             }
         </style>
 
@@ -53,14 +54,14 @@
 	          <li>
 	             <a href="quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
 	           </li>
-	           
+              
             </ul>
             <ul class="nav navbar-nav navbar-right">
-            	<form class="navbar-form navbar-left" action="/Quizzer/SearchUserServlet" method="get" role="search">
+              <form class="navbar-form navbar-left" action="/Quizzer/SearchUserServlet" method="get" role="search">
                 <div class="form-group">
                   <input type="text" class="form-control" placeholder="Add a friend" name="usernamequery">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+               		<button type="submit" class="btn btn-default">Submit</button>
               </form>
               <li>
                 <a href="#" id="logout">Logout</a>
@@ -74,27 +75,84 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12">
-          	<h4>Here are the results of your search...</h4>
-            <% 
-              ArrayList<Quiz> allQuiz = (ArrayList<Quiz>)request.getAttribute("quizzesMatching");
-              for(Quiz q: allQuiz) { %>
-              	<div class="quizSearch" style="background: rgba(144,144,144,0.1); padding: 20px; border-radius: 10px;">
-              		<h1><a href="/Quizzer/ql/<%= q.getID() %>"><%= q.getName() %></a></h1>
-              		<p><b>Description</b>: <%= q.getDescription() %></p>
-             	</div><BR>
-            <% } %>
-            <% if(allQuiz.size() == 0) { %>
-              Sorry! No results found...
-            <% } %>
-
-
-
+             <% 
+             	int curUserID = us.getUserid();
+             	Quiz curQuiz = (Quiz)request.getAttribute("curQuiz");
+             	ArrayList<String[]> userAns = (ArrayList<String[]>)request.getAttribute("userAnswers");
+               %>
+			<h1>Quiz Title:<%= curQuiz.getName() %></h1>
+			<%
+			ArrayList<Question> questions = curQuiz.getQuestions();
+			
+			%>
+			<input type=hidden value="<%= questions.size() %>" name="num_questions">
+			<%
+				for(int i = 0; i < questions.size(); i++)  {
+					Question question = questions.get(i);
+					ArrayList<String> answers = question.answers; 
+					String[] userAnsCurQ = userAns.get(i);
+					String[] rightAnswers = answers.toArray(new String[answers.size()]);
+						%>
+						<div class='question'>
+						<%
+							switch (QuestionTypes.getType(question.getQuestionType())) {
+							case 1:	//QR %>
+								<h3>Question: <%= ((QuestionResponse)question).getQuestion() %></h3>
+								Your answer: <%= Arrays.toString(userAnsCurQ) %>
+								Correct answer: <%= Arrays.toString(rightAnswers) %>
+						<% 
+							break;
+							case 2: //FIB %>
+								<h3>Question: <%= ((FillBlankQuestion)question).getQuestion() %></h3>
+								Your answer: <%= Arrays.toString(userAnsCurQ) %>
+								Correct answer: <%= Arrays.toString(rightAnswers) %>
+								<% 
+						 	break;
+							case 3: //MC  %>
+								<h3>Question: <%= ((MultipleChoiceQuestion)question).getQuestion() %></h3>
+						<%		String typeOfInput = "radio";
+								if(question.getNumAnswers() > 1) {
+									typeOfInput = "checkbox";
+								}
+								for (String choice : ((MultipleChoiceQuestion)question).getChoices()) {
+						%>
+								<div class='row'>
+									<div class='col-lg-6'>
+										<div class='input-group'>
+											<span class='input-group-addon'><input class="mult_choice_checkbox" type='<%= typeOfInput %>' ></span><input type='text' value="<%= choice %>" class='form-control answerField' readonly >
+										</div>
+									</div>
+								</div>
+											
+						<%
+								}
+								%> Your answer: <%= Arrays.toString(userAnsCurQ) %>
+								Correct answer: <%= Arrays.toString(rightAnswers) %> <%
+							break;
+							case 4: //PR %>
+								<h3>Question: </h3><img alt="" src="<%=((PictureResponseQuestion)question).getURL() %>"><br><br>					
+								Your answer: <%= Arrays.toString(userAnsCurQ) %>
+								Correct answer: <%= Arrays.toString(rightAnswers) %>
+								<% 
+						  break;	
+							}
+						%>
+						
+						</div>  <!-- Close question div -->
+						<%
+				} //end for loop	%>
+			<% int j = (Integer)request.getAttribute("score"); %>
+			<h1>Final Score: <%= j %></h1>
           </div>
         </div>
       </div>
 
+
+
+	  
       <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-      <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+      <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>  
+      <script type='text/javascript' src="/Quizzer/js/multiple_pages.js"></script>  
       <script type='text/javascript'>
       
         $(document).ready(function() {
