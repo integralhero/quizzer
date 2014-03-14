@@ -145,6 +145,9 @@
       			<% } %>
       		</div>
       		<div class="col-xs-4">
+      		<h1>Site Statistics</h1>
+      		Number of quizzes created: <%= QuizDao.getQuizNum() %>
+      		Number of users: <%= UserDao.getUserNum() %>
       		</div>
       		<div class="col-xs-4">
       		</div>

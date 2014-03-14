@@ -43,6 +43,23 @@ public class QuizDao {
 		return tmp;
 	}
 	
+	public static int getQuizNum() {
+		int count = 0;
+		try {
+			String command = "SELECT * FROM quizzes";
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			while(rs.next()) {
+				count++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
 	public static ArrayList<Quiz> getAllFlaggedQuizzes() {
 		ArrayList<Quiz> tmp = new ArrayList<Quiz>();
 		try {

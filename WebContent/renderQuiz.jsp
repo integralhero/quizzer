@@ -276,7 +276,13 @@
 	  
       <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>  
+      <% if(curQuiz.getMultiplePages()) { %>
       <script type='text/javascript' src="/Quizzer/js/multiple_pages.js"></script>  
+      <% } %>
+      <script type='text/javascript' src="/Quizzer/js/source.js"></script>  
+      <% if(curQuiz.getImmediateCorrection()) { %>
+      <script type='text/javascript' src="/Quizzer/js/instant.js"></script>  
+      <% } %>
       <script type='text/javascript'>
       
         $(document).ready(function() {

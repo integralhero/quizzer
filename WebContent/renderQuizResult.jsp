@@ -146,15 +146,16 @@
 			<form name="ReviewForm" action = "ReviewServlet" method = "post">
 			
 				<textarea rows="6" cols="75" name="review">Write a review of this quiz.</textarea>
-			
+				<input type="hidden" name="quizid" value="<%= curQuiz.getID() %>">
+				<input type="hidden" name="userid" value="<%= us.getUserid() %>">
 				<div class="btn-group">
 				<p>Rate This Quiz From 1 to 5</p>
-   					<select>
- 						 <option value="Option1">1</option>
-  					     <option value="Option2">2</option>
-  						 <option value="Option3">3</option>
-                         <option value="Option4">4</option>
-                         <option value="Option5">5</option>
+   					<select name="ratingVal">
+ 						 <option value="1">1</option>
+  					     <option value="2">2</option>
+  						 <option value="3">3</option>
+                         <option value="4">4</option>
+                         <option value="5">5</option>
                     </select>
   				</div> 
   			</form>

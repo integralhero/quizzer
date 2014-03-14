@@ -212,6 +212,16 @@
         		Average Time Taken: <%= QuizTakenDao.getAverageTimeElapsed(curQuiz.getID()) %>
         	</div>
         </div>
+        <div class="row">
+        	<div class="col-xs-12">
+        		Rating: <%= RatingsDao.getRating(curQuiz.getID()) %>
+        		<% ArrayList<String> rts = RatingsDao.getReviewsOfQuiz(curQuiz.getID()); %>
+        		<% for(String rate: rts)  { %>
+        			Review: <p><%= rate %> </p>
+        			<HR>
+        		<% } %>
+        	</div>
+        </div>
       </div>
 
 
