@@ -89,7 +89,7 @@ public class AchievementDao {
 		Achievement temp = new Achievement("","","");
 		try {
 
-			String command = "SELECT * FROM achievement WHERE ID = " + ID;
+			String command = "SELECT * FROM achievements WHERE ID = " + ID;
 			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
@@ -104,6 +104,22 @@ public class AchievementDao {
 			e.printStackTrace();
 		}
 		return temp;
+	}
+	
+	public static boolean checkIfUserHasAchievement(int userID, int achievementID){
+		try {
+
+			String command = "SELECT * FROM achievement_user_index WHERE userID = " + userID + " AND achievementID = " + achievementID;
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			if(rs.next()) return true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	

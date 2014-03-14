@@ -302,7 +302,19 @@
 	          <div class="col-md-12" id="achievements">
 	            <p>
 	              <h3>Achievements:</h3>
-	              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum vestibulum augue vel faucibus. Vivamus a est eget velit iaculis feugiat. Nulla non dui auctor, pharetra felis sit amet, congue ante. Ut tempor erat lacus, vel convallis massa imperdiet vestibulum. Donec ullamcorper ipsum non quam blandit faucibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque egestas ullamcorper faucibus. Morbi at lobortis lectus. Nulla sollicitudin purus vitae dui mollis, nec placerat elit pulvinar. In nec libero leo.
+					<% ArrayList<Achievement> userAchievements = AchievementDao.getAchievements(me.getUserid()); %>
+					<% if(userAchievements != null){ %>
+						<% if (userAchievements.size() == 0){ %>
+							<i>You have earned no achievements yet!</i>
+						<% } %>
+						<ul>
+						<% for(Achievement a: userAchievements) { %>
+						<img src =" <%= a.getImage() %>"> <%= a.getName() %> - <%= a.getDescription() %><BR>
+						<% } %>
+					<% } else { %>
+						<i> No Achievements found - NULL!</i>
+					<% } %>
+					</ul>
 	            </p>
 	          </div>
 	        </div>
