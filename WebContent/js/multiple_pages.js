@@ -46,13 +46,14 @@ $(document).ready(function(){
 	});
 	var date = new Date($.now());
 	var year = date.getFullYear();
-	var month = date.getMonth();
+	var month = date.getMonth() + 1;
 	var day = date.getDate();
 	var hour = date.getHours();
 	var minutes = date.getMinutes();
 	var seconds = date.getSeconds();
 	
 	var dateString = year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds;
+	console.log("Date: " + dateString);
 	$('#dateTaken').val(dateString);
 	
 	var startTime = date.getTime();
