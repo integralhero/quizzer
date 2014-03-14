@@ -37,12 +37,13 @@ public class TakeQuizServlet extends HttpServlet {
 		System.out.println("in take quiz servlet");
 		int numQuestions = Integer.parseInt(request.getParameter("num_questions"));
 		int score = 0;
+		ArrayList<String[]> userAns = new ArrayList<String[]>();
 		for(int i = 0; i < numQuestions; i++) {
 			String[] userAnswers = request.getParameterValues("answerField" + i);
 			String[] correctAnswers = request.getParameterValues("hiddenAnswer" + i);
 			HashSet<String> userAnswersSet = new HashSet<String>();
 			Collections.addAll(userAnswersSet, userAnswers);
-			
+			userAns.add(userAnswers);
 
 			HashSet<String> correctAnswersSet = new HashSet<String>();
 			Collections.addAll(correctAnswersSet, correctAnswers);
@@ -62,7 +63,11 @@ public class TakeQuizServlet extends HttpServlet {
 		QuizTakenDao.addQuizTaken(quizTaken);
 		AchievementListener.takeQuiz(currUser);
 		if(QuizTakenDao.checkIfHighScore(quizID, score)) AchievementListener.highScore(currUser);
-		response.sendRedirect("/Quizzer/");
+		Quiz curQuiz = QuizDao.getQuizByID(quizID);
+		request.setAttribute("userAnswers", userAns);
+		request.setAttribute("curQuiz", curQuiz);
+		request.setAttribute("score", score);
+		request.getRequestDispatcher("renderQuizResult.jsp").forward(request, response);
 	}
 
 	
