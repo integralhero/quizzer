@@ -28,7 +28,7 @@
         </style>
 
     </head>
-    
+    <% User us = (User)request.getSession(false).getAttribute("currentUser"); %>
     <body> 
       <header class="navbar navbar-default navbar-static-top" role="banner">
         <div class="container">
@@ -46,15 +46,14 @@
               <li>
                 <a href="#">Get Started</a>
               </li>
-              <li>
-                <a href="#" id="feedBtn">View Friend Activity</a>
-              </li>
-              <li>
-                <a href="#" id="messagesBtn">View Messages</a>
-              </li>
-              <li>
-              	<a href="/Quizzer/quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
-              </li>
+              <% if(us.checkIsAdmin()) { %>
+	          <li>
+	             <a href="admin/index.jsp">Administration</a>
+	          </li>
+	          <% } %>
+	          <li>
+	             <a href="quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
+	           </li>
               
               
             </ul>
@@ -78,7 +77,6 @@
         <div class="row">
           <div class="col-xs-12">
            <% 
-               	User us = (User)session.getAttribute("currentUser");
              	int curUserID = us.getUserid();
              	Quiz curQuiz = (Quiz)request.getAttribute("curQuiz");
              	

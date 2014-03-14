@@ -82,6 +82,14 @@
 	      </header>
 			<div id="toppic">
 				<h1 id="titleName">Welcome, <%= me.getUsername() %>.</h1>
+				<BR>
+				<BR>
+				<center>
+					<form action="SearchQuizServlet" class="form-inline"  method="post">
+							<input type="text" name="searchQuery" style="width:50%;" class="form-control input-lg" placeholder="Search for quizzes!" >
+							<button type="submit" value="Submit"class="btn btn-primary" >Submit</button>
+					</form>
+				</center>
 			</div>
 		    <div id="myCarousel" class="carousel slide" data-ride="carousel">
 		        <!-- Wrapper for slides -->

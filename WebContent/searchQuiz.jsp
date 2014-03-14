@@ -7,7 +7,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
         <meta charset="utf-8">
-        <title>Search for User</title>
+        <title>Search for Quiz</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -53,7 +53,7 @@
 	          <li>
 	             <a href="quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
 	           </li>
-              
+	           
             </ul>
             <ul class="nav navbar-nav navbar-right">
             	<form class="navbar-form navbar-left" action="/Quizzer/SearchUserServlet" method="get" role="search">
@@ -76,11 +76,14 @@
           <div class="col-xs-12">
           	<h4>Here are the results of your search...</h4>
             <% 
-              ArrayList<User> allUser = (ArrayList<User>)request.getAttribute("foundUsers");
-              for(User user: allUser) { %>
-              <h1><a href="/Quizzer/user/<%= user.getUserid() %>"><%= user.getUsername() %></a></h1>
+              ArrayList<Quiz> allQuiz = (ArrayList<Quiz>)request.getAttribute("quizzesMatching");
+              for(Quiz q: allQuiz) { %>
+              	<div class="quizSearch" style="background: rgba(144,144,144,0.1); padding: 20px; border-radius: 10px;">
+              		<h1><a href="/Quizzer/qz/<%= q.getID() %>"><%= q.getName() %></a></h1>
+              		<p><b>Description</b>: <%= q.getDescription() %></p>
+             	</div><BR>
             <% } %>
-            <% if(allUser.size() == 0) { %>
+            <% if(allQuiz.size() == 0) { %>
               Sorry! No results found...
             <% } %>
 
