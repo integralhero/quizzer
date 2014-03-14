@@ -2,6 +2,7 @@ package quiz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -86,23 +87,21 @@ public class CreateQuizServlet extends HttpServlet {
 				System.out.println("hello");
 				int questionType = Integer.parseInt(request.getParameter("question_type_" + qtnNum));
 				String question = "";
-				String answer = "";
+				ArrayList<String> answers = new ArrayList<String>();
 				Question quizQtn;
 				switch (questionType) {
 					case QUESTION_RESPONSE:
 						question = request.getParameter("question" + qtnNum);
 						System.out.println("Question-Res: " + question);
-						answer = request.getParameter("answer" + qtnNum);
-						System.out.println("Answer: " + answer);
-						quizQtn = new QuestionResponse(question, ParseAnswers.getArrayList(answer));
+						Collections.addAll(answers, request.getParameterValues("answer" + qtnNum)); 
+						quizQtn = new QuestionResponse(Integer.parseInt(request.getParameter("maxScore")), question, answers);
 						questions.add(quizQtn);
 						break;
 					case FILL_BLANK:
 						question = request.getParameter("question" + qtnNum);
 						System.out.println("Fill Blank Question: " + question);
-						answer = request.getParameter("answer" + qtnNum);
-						System.out.println("Answer: " + answer);
-						quizQtn = new FillBlankQuestion(question, ParseAnswers.getArrayList(answer));
+						Collections.addAll(answers, request.getParameterValues("answer" + qtnNum)); 
+						quizQtn = new FillBlankQuestion(Integer.parseInt(request.getParameter("maxScore")), question, answers);
 						questions.add(quizQtn);
 						break;
 					case MULT_CHOICE:
@@ -110,27 +109,28 @@ public class CreateQuizServlet extends HttpServlet {
 						System.out.println("Mult Choice Question: " + question);
 						int numMultChoiceAnswers = Integer.parseInt(request.getParameter("mult_choice_answer_count_" + qtnNum));
 						ArrayList<String> choices = new ArrayList<String>();
-						ArrayList<String> answers = new ArrayList<String>();
+						ArrayList<String> multChoiceAnswers = new ArrayList<String>();
 						for (int choiceNum = 1; choiceNum <= numMultChoiceAnswers; choiceNum++) {
 							String choice = request.getParameter("mult_choice_answer_" + choiceNum);
 							if (request.getParameter("mult_choice_checkbox_" + choiceNum) != null) {
-								answers.add(choice);
+								multChoiceAnswers.add(choice);
 							}
 							choices.add(choice);
 						}
-						int score = answers.size();
+						int score = multChoiceAnswers.size();
 						quizQtn = new MultipleChoiceQuestion(score, question, choices);					
-						for (String correctAnswer : answers) {
+						for (String correctAnswer : multChoiceAnswers) {
 							quizQtn.addAnswer(correctAnswer);
 						}
+						
+
 						questions.add(quizQtn);
 						break;
 					case PIC_RES:
 						question = request.getParameter("question" + qtnNum);
 						System.out.println("Fill Blank Question: " + question);
-						answer = request.getParameter("answer" + qtnNum);
-						System.out.println("Answer: " + answer);
-						quizQtn = new PictureResponseQuestion(question, ParseAnswers.getArrayList(answer));
+						Collections.addAll(answers, request.getParameterValues("answer" + qtnNum)); 
+						quizQtn = new PictureResponseQuestion(Integer.parseInt(request.getParameter("maxScore")), question, answers);
 						questions.add(quizQtn);
 						break;
 					default: break;
