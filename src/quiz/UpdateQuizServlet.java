@@ -47,7 +47,7 @@ public class UpdateQuizServlet extends HttpServlet {
 		String quizName = request.getParameter("quiz_name_field");
 		System.out.println("QuizName: " + quizName);
 		ArrayList<Question> questions = getQuestionsFromForm(request);
-		
+		System.out.println("-------------------------questions gotten...." + questions.size());
 		Quiz quiz = new Quiz();
 		HttpSession session = request.getSession();
 		User currUser = (User)session.getAttribute("currentUser");
@@ -64,11 +64,12 @@ public class UpdateQuizServlet extends HttpServlet {
 		
 		int newQuizID = QuizDao.addQuiz(quiz);
 		int oldQuizID = Integer.parseInt(request.getParameter("quizID"));
+		QuizDao.removeLinkByID(oldQuizID);
 		System.out.println("Inside updatequiz: " + oldQuizID + "," + newQuizID);
 		QuizTakenDao.updateQuizesTakenID(oldQuizID, newQuizID);
 		QuestionDao.updateQuestionsID(oldQuizID, newQuizID);
-		//QuizDao.deleteQuizByID(oldQuizID);
-
+		QuizDao.deleteQuizByID(oldQuizID);
+		
 		int numQtns = Integer.parseInt(request.getParameter("question_count_field"));
 		
 		currUser.addQuizMade(quiz);

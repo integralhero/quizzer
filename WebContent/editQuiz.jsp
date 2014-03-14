@@ -79,7 +79,7 @@
            <% 
              	int curUserID = us.getUserid();
              	Quiz curQuiz = (Quiz)request.getAttribute("curQuiz");
-             	
+             	int curNumQuestions = curQuiz.questions.size();
              	
            %>
           
@@ -99,7 +99,7 @@
 				final int FILL_BLANK = 2;
 				final int MULT_CHOICE = 3;
 				final int PIC_RES = 4;
-				int questionCount = 0;
+				int questionCount = 1;
 
 				for (Question question : curQuiz.questions) {
 					int questionType = QuestionTypes.getType(question.getQuestionType());
@@ -206,7 +206,7 @@
 				} // close for loop
 				
 				%>
-				<input type='hidden' id='question_count_field' name='question_count_field' value = 0>
+				<input type='hidden' id='question_count_field' name='question_count_field' value = <%= curNumQuestions %>>
 	          	<div id="add_qtn_btn">
 		          	<div class="row">
 					  <div class="col-lg-6">

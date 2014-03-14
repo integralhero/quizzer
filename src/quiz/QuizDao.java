@@ -113,6 +113,20 @@ public class QuizDao {
 		}
 	}
 	
+	
+	public static void removeLinkByID(int quizid) {
+		try {
+			String command = "DELETE FROM question_quiz_index WHERE quizID=" + quizid;
+			
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);	
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void deleteQuizQuestionByID(int id) {
 		
 		try {
