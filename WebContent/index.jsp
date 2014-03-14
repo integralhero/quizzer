@@ -161,8 +161,11 @@
 	                <p>
 						<% ArrayList<Quiz> recentQuizzes = QuizDao.getRecentCreatedQuizzes(); %>
 						<% for(int i = 0; i < recentQuizzes.size(); i++){ %>
-						<a href="ql/<%= recentQuizzes.get(i).getID() %>"><%= recentQuizzes.get(i).getName() %></a>
-						- <%= recentQuizzes.get(i).getDescription() %><BR>
+						<%Quiz recentQuiz = recentQuizzes.get(i);
+						  User user = UserDao.getUserById(recentQuiz.getUserID());
+						%>
+						<%=user.getUsername() + " created " %><a href="ql/<%= recentQuiz.getID() %>"><%= recentQuiz.getName() %></a>
+						- <%= recentQuiz.getDescription() %><BR>
 						<% } %>
 	                </p>
 	              </div>
