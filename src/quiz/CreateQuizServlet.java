@@ -95,7 +95,7 @@ public class CreateQuizServlet extends HttpServlet {
 						question = request.getParameter("question" + qtnNum);
 						System.out.println("Question-Res: " + question);
 						Collections.addAll(answers, request.getParameterValues("answer" + qtnNum)); 
-						quizQtn = new QuestionResponse(Integer.parseInt(request.getParameter("maxScore")), question, answers);
+						quizQtn = new QuestionResponse(Integer.parseInt(request.getParameter("maxScore" + qtnNum)), question, answers);
 						questions.add(quizQtn);
 						break;
 					case FILL_BLANK:

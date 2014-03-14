@@ -1,4 +1,4 @@
-package quiz;
+	package quiz;
 
 import java.io.IOException;
 import java.util.*;
@@ -79,13 +79,21 @@ public class TakeQuizServlet extends HttpServlet {
 		int score = 0;
 		
 		for (String userAnswer : userAnswers) {
-			if (correctAnswers.contains(userAnswer)) {
+			if (containsAnswerIgnoresCase(correctAnswers, userAnswer)) {
 				score++;
 				correctAnswers.remove(userAnswer);
 			}
-		}
-		
+		}		
 		return score;
+	}
+	
+	protected boolean containsAnswerIgnoresCase(HashSet<String> correctAnswers, String userAnswer) {
+		for (String correctAnswer : correctAnswers) {
+			if (correctAnswer.equalsIgnoreCase(userAnswer)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

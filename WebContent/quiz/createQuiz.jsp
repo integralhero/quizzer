@@ -81,7 +81,7 @@
           	 
           	
           	
-			<form name="create_quiz_form" action="/Quizzer/CreateQuizServlet" method="post" > 
+			<form id="create_quiz_form" name="create_quiz_form" action="/Quizzer/CreateQuizServlet" method="post" > 
 				<label for="quiz_name_field">Quiz Name:</label><input type='text' id="quiz_name_field" name='quiz_name_field' class='form-control ' placeholder='Quiz Name' style="width:50%;">
 				&nbsp;
 				<BR>
@@ -117,7 +117,8 @@
 				Immediate Feedback: <input type="checkbox" name="feedback"><BR>
 				Allow Practice Mode: <input type="checkbox" name="practice"><BR>
 				<HR>
-				<input type="submit" class="btn btn-default">
+				<button type="button" onclick="submitCreateQuizForm()" class="btn btn-default">Submit</button>
+				<!-- <input type="submit" class="btn btn-default"> -->
 			  
 			  </form>
 			  
