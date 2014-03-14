@@ -24,6 +24,25 @@ public class QuizDao {
 		}
 	}
 	
+	public static ArrayList<Quiz> getMatchingQuizzes(String query) {
+		ArrayList<Quiz> tmp = new ArrayList<Quiz>();
+		try {
+			String command = "SELECT * FROM quizzes WHERE name LIKE " + "'%" + query + "%'";
+			
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			while(rs.next()) {
+				int quizid = rs.getInt("ID");
+				Quiz newQ = QuizDao.getQuizByID(quizid);
+				tmp.add(newQ);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tmp;
+	}
+	
 	public static ArrayList<Quiz> getAllFlaggedQuizzes() {
 		ArrayList<Quiz> tmp = new ArrayList<Quiz>();
 		try {
