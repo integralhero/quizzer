@@ -190,10 +190,17 @@
 							<div id='question<%= questionCount %>'>
 								<div class='input-group'>
 									<h3>Picture-Response</h3>
-									<input type='text' class='form-control quiz_qtn_field' name='question<%= questionCount %>' placeholder='Image URL'>
+									<input type='text' class='form-control quiz_qtn_field' name='question<%= questionCount %>' placeholder='Image URL' value='<%= ((PictureResponseQuestion)question).getURL() %>'>
 									<h4>Or load image file:</h4>
 									<input type='file' >&nbsp;
-									<input type='text' class='form-control quiz_qtn_field' name='answer<%= questionCount %>' placeholder='Response'>&nbsp;
+				<%
+								for (String answer : ((PictureResponseQuestion)question).getAnswers()) {
+				%>
+									<input type='text' class='form-control' name='answer<%= questionCount %>' placeholder='Response' value='<%= answer %>'>&nbsp;
+				<%
+								}
+				%> 
+									
 								</div>
 								<input type='hidden' name='question_type_<%= questionCount %>' value='4'>
 							</div>
