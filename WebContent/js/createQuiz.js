@@ -1,9 +1,10 @@
 
-var questionCount = $('#question_count_field').val();
 var mult_choice_answer_count = 1;
 
-
+var questionCount = 0;
 $(document).ready(function() {
+	questionCount = $('#question_count_field').val();
+
 	$(document).on('click', '.question_delete_btn', function(event) {
 		$(this).parent().parent().parent().closest("div").remove();
 	});
@@ -109,7 +110,7 @@ function addQuestionResponse() { // non multiple choice
 
 
 $('#qtn_res_qtn').click(function(event) {
-   $("<div id='question" + questionCount + "'>" + 
+   $("<div id='question" + questionCount  + "'>" + 
 		   "<div class='input-group'>" +
 		   		"<h3>Question-Response <button type='button' class='question_delete_btn btn btn-default btn-sm'><span class='glyphicon glyphicon-remove-circle'></span> Delete </button></h3>" + 
 		   		"<input type='text' class='form-control quiz_qtn_field' name='question" + questionCount + "' placeholder='Question'>&nbsp;" +

@@ -203,9 +203,10 @@
 					} // close switch statement
 					questionCount++;
 				} // close for loop
+				curNumQuestions++;
 				
 				%>
-				<input type='hidden' id='question_count_field' name='question_count_field' value = <%= questionCount %>>
+				<input type='hidden' id='question_count_field' name='question_count_field' value = <%= curNumQuestions %>>
 	          	<div id="add_qtn_btn">
 		          	<div class="row">
 					  <div class="col-lg-6">
