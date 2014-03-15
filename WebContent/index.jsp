@@ -51,9 +51,7 @@
 	          </div>
 	          <nav class="collapse navbar-collapse" role="navigation">
 	            <ul class="nav navbar-nav">
-	              <li>
-	                <a href="#">Get Started</a>
-	              </li>
+	             
 	              <% if(me.checkIsAdmin()) { %>
 	              <li>
 	                <a href="admin/index.jsp">Administration</a>
@@ -73,7 +71,9 @@
 	                <button type="submit" class="btn btn-default">Submit</button>
 	              </form>
 	              <li>
-	                <a href="#" id="logout">Logout</a>
+	              <form action="LogoutServlet" method="get">
+	                <button type="submit" class='btn-default'>Logout</button>
+	             </form>
 	              </li>
 	              
 	            </ul>

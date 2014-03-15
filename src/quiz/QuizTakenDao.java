@@ -271,11 +271,9 @@ public class QuizTakenDao {
 				int userID = rs.getInt("userID");
 				
 				long timeTakenMilliseconds = ParseDateString.getMilliseconds(timeTaken);
-				System.out.println("Time Taken is " + timeTakenMilliseconds);
 				
 				long currentTime = System.currentTimeMillis();
-				System.out.println("Current time is " + currentTime);
-				System.out.println();
+				
 				if(timeTakenMilliseconds > currentTime - ONE_DAY_MS){
 					
 					QuizTaken temp = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
@@ -286,7 +284,7 @@ public class QuizTakenDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("quizzes size is " + quizzes.size());
+		
 		return quizzes;
 		
 	}

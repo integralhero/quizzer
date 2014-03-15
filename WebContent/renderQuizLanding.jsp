@@ -116,7 +116,7 @@
         		<% for(int i = 0 ; i < list.size(); i++) { %>
         		<tr>
         		<td> <%= list.get(i).getTimeTakingQuiz() %></td>
-        		<td><%= list.get(i).getScore() %></td>
+        		<td><%= (((double)list.get(i).getScore())/curQuiz.getScore()) * 100 + "%" %></td>
         		<td><%= list.get(i).getTimeElapsed() %></td>
         		</tr>
         		<% } %>
@@ -138,7 +138,7 @@
         		<% for(int i = 0 ; i < lists.size(); i++) { %>
         		<tr>
         		<td> <%=UserDao.getUserById(lists.get(i).getUserID()).getUsername() %></td>
-        		<td><%= lists.get(i).getScore() %></td>
+        		<td><%= (((double)lists.get(i).getScore())/curQuiz.getScore()) * 100 + "%" %></td>
         		</tr>
         		<% } %>
         		</table>
@@ -159,7 +159,7 @@
         		<% for(int i = 0 ; i < listr.size(); i++) { %>
         		<tr>
         		<td> <%=UserDao.getUserById(listr.get(i).getUserID()).getUsername() %></td>
-        		<td><%= listr.get(i).getScore() %></td>
+        		<td><%= (((double)listr.get(i).getScore())/curQuiz.getScore()) * 100 + "%" %></td>
         		</tr>
         		<% } %>
         		</table>
@@ -182,7 +182,7 @@
         		<% for(int i = 0 ; i < listss.size(); i++) { %>
         		<tr>
         		<td> <%=UserDao.getUserById(listss.get(i).getUserID()).getUsername() %></td>
-        		<td><%= listss.get(i).getScore() %></td>
+        		<td><%= (((double)listss.get(i).getScore())/curQuiz.getScore()) * 100 + "%" %></td>
         		</tr>
         		<% } %>
         		</table>
