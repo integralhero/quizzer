@@ -117,7 +117,7 @@
         		<tr>
         		<td> <%= list.get(i).getTimeTakingQuiz() %></td>
         		<td><%= (((double)list.get(i).getScore())/curQuiz.getScore()) * 100 + "%" %></td>
-        		<td><%= list.get(i).getTimeElapsed() %></td>
+        		<td><%= list.get(i).getTimeElapsed() + "ms"%></td>
         		</tr>
         		<% } %>
         		</table>
@@ -189,8 +189,8 @@
         	</div>
         	<div class="col-xs-8">
         		<h3>Summary Statistics: </h3>
-        		Average Score: <%= QuizTakenDao.getAverageScore(curQuiz.getID()) %><BR>
-        		Average Time Taken: <%= QuizTakenDao.getAverageTimeElapsed(curQuiz.getID()) %>
+        		Average Score: <%= (((double) QuizTakenDao.getAverageScore(curQuiz.getID()))/curQuiz.getScore()) * 100 + "%" %><BR>
+        		Average Time Taken: <%= QuizTakenDao.getAverageTimeElapsed(curQuiz.getID()) + " ms"%>
         	</div>
         </div>
         <div class="row">
