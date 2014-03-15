@@ -143,7 +143,7 @@
 			<h1>Final Score: <%= j %></h1>
 			<form  action ="ReviewServlet" method = "post">
 			
-				<textarea rows="6" cols="75" name="review">Write a review of this quiz.</textarea>
+				<textarea rows="6" cols="75" name="review" placeholder='Write a review of this quiz.'></textarea>
 				<input type="hidden" name="quizid" value="<%= curQuiz.getID() %>">
 				<input type="hidden" name="userid" value="<%= us.getUserid() %>">
 				<p>Rate This Quiz From 1 to 5</p>
