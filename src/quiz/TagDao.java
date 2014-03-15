@@ -35,6 +35,20 @@ public class TagDao {
 		return quizzes;
 	}
 	
+	public static void updateTagsWith(int oldID, int newID) {
+		try {
+			
+			String command = "UPDATE tags SET quizID=" + newID + " WHERE quizID=" + oldID;
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static String[] getTagsFromQuizID(int quizID) {
 		ArrayList<String> tags = new ArrayList<String>();
 		try {
