@@ -57,7 +57,9 @@
                 <button type="submit" class="btn btn-default">Submit</button>
               </form>
               <li>
-                <a href="#" id="logout">Logout</a>
+	              <form action="LogoutServlet" method="get">
+	                <button type="submit" class='btn-default'>Logout</button>
+	             </form>
               </li>
               
             </ul>
@@ -77,7 +79,7 @@
 				&nbsp;
 				<BR>
 				Description: <input type="text" name="description" style="width:50%;"><BR>
-				Category: <input type="text" name="category"><BR>
+				Category: <input type="text" id="category" name="category"><BR>
 				<button type='button' id='add_tag_input' class='btn btn-default'>Add Tag</button>
 				<HR>
 				<input type='hidden' id='question_count_field' name='question_count_field' value ='1'>

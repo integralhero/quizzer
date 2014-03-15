@@ -63,7 +63,9 @@
                 <button type="submit" class="btn btn-default">Submit</button>
               </form>
               <li>
-                <a href="#" id="logout">Logout</a>
+	              <form action="LogoutServlet" method="get">
+	                <button type="submit" class='btn-default'>Logout</button>
+	             </form>
               </li>
               
             </ul>
@@ -203,7 +205,6 @@
 					} // close switch statement
 					questionCount++;
 				} // close for loop
-				
 				%>
 				<input type='hidden' id='question_count_field' name='question_count_field' value = <%= questionCount %>>
 	          	<div id="add_qtn_btn">
