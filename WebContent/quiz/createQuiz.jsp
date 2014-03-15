@@ -44,12 +44,6 @@
           <nav class="collapse navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
               <li>
-                <a href="#" id="feedBtn">View Friend Activity</a>
-              </li>
-              <li>
-                <a href="#" id="messagesBtn">View Messages</a>
-              </li>
-              <li>
               	<a href="/Quizzer/quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
               </li>
               
@@ -86,7 +80,7 @@
 				Category: <input type="text" name="category"><BR>
 				<button type='button' id='add_tag_input' class='btn btn-default'>Add Tag</button>
 				<HR>
-				<input type='hidden' id='question_count_field' name='question_count_field' value = 0>
+				<input type='hidden' id='question_count_field' name='question_count_field' value ='1'>
 				
 	          	<div id="add_qtn_btn">
 		          	<div class="row">

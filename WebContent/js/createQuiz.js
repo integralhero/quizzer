@@ -1,4 +1,5 @@
-var questionCount = 1;
+
+var questionCount = $('#question_count_field').val();
 var mult_choice_answer_count = 1;
 
 
@@ -37,7 +38,7 @@ function submitCreateQuizForm() {
 		console.log("description field is empty");
 		alert("Description Field Left Empty!")
 		inputIsValid = false;
-	}
+	} 
 	
 	var numQuestions = $('#question_count_field').val();
 //	console.log("Number of questions: " + $(".quiz_qtn_field").length + ". Expected: " + numQuestions);

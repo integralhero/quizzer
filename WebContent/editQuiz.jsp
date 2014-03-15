@@ -50,7 +50,7 @@
 	          </li>
 	          <% } %>
 	          <li>
-	             <a href="quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
+	             <a href="/Quizzer/quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
 	           </li>
               
               
@@ -205,7 +205,7 @@
 				} // close for loop
 				
 				%>
-				<input type='hidden' id='question_count_field' name='question_count_field' value = <%= curNumQuestions %>>
+				<input type='hidden' id='question_count_field' name='question_count_field' value = <%= questionCount %>>
 	          	<div id="add_qtn_btn">
 		          	<div class="row">
 					  <div class="col-lg-6">
