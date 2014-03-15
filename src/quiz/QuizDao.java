@@ -102,7 +102,7 @@ public class QuizDao {
 	public static void deleteQuizByID(int id) {
 		
 		try {
-			String command = "DELETE FROM quizzes WHERE ID =" + id;
+			String command = "DELETE FROM quizzes WHERE ID=" + id;
 			
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(command);	
@@ -206,8 +206,7 @@ public class QuizDao {
 			
 			ret = setQuizID(quiz);
 			String[] tags = quiz.getTags();
-			if (tags != null) {
-				System.out.println("Print tags length: " + tags.length);
+			if(tags != null) {
 				for(String tag: tags) {
 					
 					String commanda = "INSERT INTO tags (quizID, tag) VALUES (" + ret + ",'" + tag + "')";
@@ -215,7 +214,6 @@ public class QuizDao {
 					Statement statement = connection.createStatement();
 					statement.execute(commanda);
 				}
-
 			}
 			
 			updateUserTable(quiz, UserDao.getUserById(quiz.getUserID()));
@@ -255,7 +253,7 @@ public class QuizDao {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
 			
-			if(rs.next()){
+			while(rs.next()){
 				ret = rs.getInt("id");
 				quiz.setID(ret);
 			}

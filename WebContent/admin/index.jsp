@@ -43,9 +43,6 @@
           </div>
           <nav class="collapse navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
-              <li>
-                <a href="#">Get Started</a>
-              </li>
               
             </ul>
             <ul class="nav navbar-nav navbar-right">
