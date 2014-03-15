@@ -56,7 +56,6 @@ public class CreateQuizServlet extends HttpServlet {
 		quiz.setName(quizName);
 		quiz.setQuestions(questions);
 		quiz.setUserID(currUser.getUserid());
-		quiz.calculateAndSetScore();
 		String[] tags = request.getParameterValues("tag");
 		System.out.println("--------------------- tag length" + tags.length);
 		quiz.setTags(request.getParameterValues("tag"));
@@ -98,6 +97,7 @@ public class CreateQuizServlet extends HttpServlet {
 						question = request.getParameter("question" + qtnNum);
 						System.out.println("Question-Res: " + question);
 						Collections.addAll(answers, request.getParameterValues("answer" + qtnNum)); 
+						System.out.println("Score/num answer fields: " + request.getParameter("maxScore" + qtnNum));
 						quizQtn = new QuestionResponse(Integer.parseInt(request.getParameter("maxScore" + qtnNum)), question, answers);
 						questions.add(quizQtn);
 						break;
@@ -105,7 +105,7 @@ public class CreateQuizServlet extends HttpServlet {
 						question = request.getParameter("question" + qtnNum);
 						System.out.println("Fill Blank Question: " + question);
 						Collections.addAll(answers, request.getParameterValues("answer" + qtnNum)); 
-						quizQtn = new FillBlankQuestion(Integer.parseInt(request.getParameter("maxScore")), question, answers);
+						quizQtn = new FillBlankQuestion(Integer.parseInt(request.getParameter("maxScore" + qtnNum)), question, answers);
 						questions.add(quizQtn);
 						break;
 					case MULT_CHOICE:
@@ -134,7 +134,7 @@ public class CreateQuizServlet extends HttpServlet {
 						question = request.getParameter("question" + qtnNum);
 						System.out.println("Fill Blank Question: " + question);
 						Collections.addAll(answers, request.getParameterValues("answer" + qtnNum)); 
-						quizQtn = new PictureResponseQuestion(Integer.parseInt(request.getParameter("maxScore")), question, answers);
+						quizQtn = new PictureResponseQuestion(Integer.parseInt(request.getParameter("maxScore" + qtnNum)), question, answers);
 						questions.add(quizQtn);
 						break;
 					default: break;

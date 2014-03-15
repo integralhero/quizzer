@@ -42,6 +42,19 @@ public class QuestionDao {
 	/*
 	 * Question Response
 	 */
+	
+	public static int getScore(int questionID, String type) {
+		try {
+			String command = "SELECT * FROM "  + type +  " WHERE ID=" + questionID;
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(command);
+			if(rs.next()) return rs.getInt("score");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	public static String getQuestion(int questionID, String type) {
 		try {
 			String command = "SELECT * FROM "  + type +  " WHERE ID=" + questionID;

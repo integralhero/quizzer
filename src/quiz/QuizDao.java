@@ -312,16 +312,22 @@ public class QuizDao {
 				if(QuestionTypes.getType(type) == 1) {//QR
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String question = QuestionDao.getQuestion(questionID, type);
+					int score = QuestionDao.getScore(questionID, type);
 					QuestionResponse tmp = new QuestionResponse(question, ParseAnswers.getArrayList(answer));
 					tmp.setType(type);
 					tmp.setID(questionID);
+					tmp.score = score;
 					allQuestions.add(tmp);
 					
 				}
 				else if(QuestionTypes.getType(type) == 2) {//FB
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String question = QuestionDao.getQuestion(questionID, type);
+					int score = QuestionDao.getScore(questionID, type);
+
 					FillBlankQuestion tmp = new FillBlankQuestion(question, ParseAnswers.getArrayList(answer));
+					
+					tmp.score = score;
 					tmp.setType(type);
 					tmp.setID(questionID);
 					allQuestions.add(tmp);
@@ -339,7 +345,11 @@ public class QuizDao {
 				else {//PR
 					String answer = QuestionDao.getAnswers(questionID, type);
 					String url = QuestionDao.getImageURL(questionID);
+					int score = QuestionDao.getScore(questionID, type);
+
 					PictureResponseQuestion tmp = new PictureResponseQuestion(url, ParseAnswers.getArrayList(answer));
+					
+					tmp.score = score;
 					tmp.setType(type);
 					tmp.setID(questionID);
 					allQuestions.add(tmp);
@@ -355,38 +365,39 @@ public class QuizDao {
 	private static void updateQuestionTables(Quiz quiz, Question question) {
 		try {
 			switch (QuestionTypes.getType(question.type)) {
-			case 1:
+			case 1: //QR
 				PreparedStatement prepStmt = connection.prepareStatement(
-						"INSERT INTO " + question.type + " (question, answers, quizID) VALUES (?,?,?)");
+						"INSERT INTO " + question.type + " (question, answers, quizID, score) VALUES (?,?,?,?)");
 				prepStmt.setString(1, ((QuestionResponse)question).question);
 				prepStmt.setString(2, question.parseAnswers());
 				//prepStmt.setString(2, ParseAnswers.getString(question.answers));
 				prepStmt.setInt(3, quiz.getID());
+				prepStmt.setInt(4, question.score);
 
 				prepStmt.executeUpdate();
 				break;
 				
-			case 2:
+			case 2: //FB
 				PreparedStatement prepStmt4 = connection.prepareStatement(
-						"INSERT INTO " + question.type + " (question, answers, quizID) VALUES (?,?,?)");
+						"INSERT INTO " + question.type + " (question, answers, quizID, score) VALUES (?,?,?,?)");
 				prepStmt4.setString(1, ((FillBlankQuestion)question).question);
 				prepStmt4.setString(2, question.parseAnswers());
 				prepStmt4.setInt(3, quiz.getID());
-
+				prepStmt4.setInt(4, question.score);
 				prepStmt4.executeUpdate();
 				break;
 				
-			case 4:
+			case 4: //PR
 				PreparedStatement prepStmt2 = connection.prepareStatement(
-						"INSERT INTO " + question.type + " (pictureURL, answers, quizID) VALUES (?,?,?)");
+						"INSERT INTO " + question.type + " (pictureURL, answers, quizID, score) VALUES (?,?,?,?)");
 				prepStmt2.setString(1, ((PictureResponseQuestion)question).imageURL);
 				prepStmt2.setString(2, question.parseAnswers());
 				prepStmt2.setInt(3, quiz.getID());
-
+				prepStmt2.setInt(4, question.score);
 				prepStmt2.executeUpdate();
 				break;
 				
-			case 3:
+			case 3: //MC
 				PreparedStatement prepStmt3 = connection.prepareStatement(
 						"INSERT INTO " + question.type + " (question, choices, answers, quizID) VALUES (?,?,?,?)");
 				prepStmt3.setString(1, ((MultipleChoiceQuestion)question).question);
