@@ -35,7 +35,6 @@ public class FriendRequestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int myID = Integer.parseInt(request.getParameter("myID"));
 		int friendID = Integer.parseInt(request.getParameter("friendID"));
-		System.out.println("myID: " + myID + "---yourID: " + friendID);
 		MessageDao.sendFriendRequest(myID, friendID);
 		
 		response.sendRedirect("/Quizzer/user/"+friendID);

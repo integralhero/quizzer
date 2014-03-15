@@ -18,7 +18,7 @@ $(document).ready(function() {
 	});
 	
 	$(document).on('click', '#add_tag_input', function(event) {
-		console.log("hello");
+		
 		$("<div class='row'>" + 
 				"<input type='text' class='form-control' name='tag' placeholder='Input Tag'>&nbsp;" + 
 		"</div>").insertAfter('#add_tag_input');
@@ -32,21 +32,24 @@ $(document).ready(function() {
 function submitCreateQuizForm() {
 	var inputIsValid = true;
 	if ($('#quiz_name_field').val() == "") {
-		console.log("name field is empty");
+		
 		alert("Quiz Name Field Left Empty!")
 		inputIsValid = false;
 	} else if ($('#description').val() == "") {
-		console.log("description field is empty");
+		
 		alert("Description Field Left Empty!")
 		inputIsValid = false;
-	} 
+	} else if ($("#category").val() == "") {
+		alert("Category field left empty!");
+		inputIsValid = false;
+	}
 	
 	var numQuestions = $('#question_count_field').val();
-//	console.log("Number of questions: " + $(".quiz_qtn_field").length + ". Expected: " + numQuestions);
+
 	var questions = $('.quiz_qtn_field');
 
 	for (var questionCount = 0; questionCount < numQuestions; questionCount++) {
-		console.log($("#maxScore" + (questionCount + 1)).val());
+		
 		if ($(questions[questionCount]).val() == "") {
 			alert("Question " + (questionCount + 1) + " left blank!");
 			inputIsValid = false;
@@ -58,15 +61,15 @@ function submitCreateQuizForm() {
 	if (inputIsValid) {
 		$('#create_quiz_form').submit();
 	} else {
-//		alert("Fields Left Blank!");
+
 	}
 }
 
 
 function removeQuestion() {
-	console.log("in button clicked");
-	console.log($(this));
-//	$(this).parent().closest("div").remove();
+	
+	
+
 	$(this).remove();
 
 }

@@ -162,11 +162,11 @@ public class QuizDao {
 	public static Quiz getQuizByID(int quiz_id) {
 		try {
 			String command = "SELECT * FROM quizzes WHERE ID=" + quiz_id;
-			System.out.println("THIS" + quiz_id);
+			
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);	
 			ArrayList<Question> list = getAllQuestionsFrom(quiz_id);
-			System.out.println("This is the question list size:---- " + list.size());
+			
 			Quiz tmp = null;
 
 			if(rs.next()) {
@@ -210,7 +210,7 @@ public class QuizDao {
 				for(String tag: tags) {
 					
 					String commanda = "INSERT INTO tags (quizID, tag) VALUES (" + ret + ",'" + tag + "')";
-					System.out.println("Command: " + commanda);
+				
 					Statement statement = connection.createStatement();
 					statement.execute(commanda);
 				}
@@ -275,7 +275,7 @@ public class QuizDao {
 			if(rs.next()){
 				int numQuizzes = rs.getInt("numQuizzesCreated");
 				numQuizzes++;
-				System.out.print(numQuizzes);
+			
 				String command2 = "UPDATE users SET numQuizzesCreated = " + numQuizzes + " WHERE ID = " + user.getUserid();
 				Statement statement2 = connection.createStatement();
 				statement2.executeUpdate(command2);
@@ -460,7 +460,7 @@ public class QuizDao {
 		ArrayList<Quiz> recentQuizzes = new ArrayList<Quiz> ();
 
 		try {
-			System.out.println("This is the category we look for: " + category);
+			
 			String command = "SELECT * FROM quizzes WHERE category='"+category+"'";
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
@@ -647,7 +647,7 @@ public class QuizDao {
 		try {
 			String command = "SELECT * FROM friendships WHERE userID = " 
 					+ userID;
-			System.out.print(command + "\n");
+			
 			
 
 			Statement statement = connection.createStatement();
@@ -664,7 +664,6 @@ public class QuizDao {
 				command2 += " OR userID = " + friendIDs.get(i);
 			}
 			
-			System.out.print(command2 + "\n");
 			
 			Statement statement2 = connection.createStatement();
 			ResultSet rs2 = statement2.executeQuery(command2);
@@ -696,7 +695,7 @@ public class QuizDao {
 			tmp.setID(rs.getInt("ID"));
 			tmp.setScore(rs.getInt("score"));
 			String str = rs.getString("name");
-			//System.out.println("Retrieved name: " + str);
+			
 			tmp.setName(str);
 			tmp.setUserID(rs.getInt("userID"));
 			tmp.setNumTimesTaken(rs.getInt("numTimesTaken"));

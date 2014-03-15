@@ -61,7 +61,9 @@
                 <button type="submit" class="btn btn-default">Submit</button>
               </form>
               <li>
-                <a href="#" id="logout">Logout</a>
+	              <form action="LogoutServlet" method="get">
+	                <button type="submit" class='btn-default'>Logout</button>
+	             </form>
               </li>
               
             </ul>
@@ -99,8 +101,7 @@
           <div class="col-xs-6">
           	<a href="/Quizzer/qz/<%= curQuiz.getID() %>"><button type="button" class="btn btn-success btn-lg pull-right">Take Quiz</button></a>
           	<% 
-          		System.out.println("User id loged in: " + us.getUserid());
-          		System.out.println("Quiz user id: " + curQuiz.getUserID());
+          		
 	          	if(us.getUserid() == curQuiz.getUserID()) { %>
           			<a href="/Quizzer/eq/<%= curQuiz.getID() %>"><button type="submit" class="btn btn-danger btn-lg pull-right">Edit Quiz</button></a>
           		<%} %>
@@ -131,7 +132,7 @@
         		<tr>
         		<td> <%= list.get(i).getTimeTakingQuiz() %></td>
         		<td><%= (((double)list.get(i).getScore())/curQuiz.getScore()) * 100 + "%" %></td>
-        		<td><%= list.get(i).getTimeElapsed() %></td>
+        		<td><%= list.get(i).getTimeElapsed() + "ms"%></td>
         		</tr>
         		<% } %>
         		</table>
@@ -203,8 +204,8 @@
         	</div>
         	<div class="col-xs-8">
         		<h3>Summary Statistics: </h3>
-        		Average Score: <%= QuizTakenDao.getAverageScore(curQuiz.getID()) %><BR>
-        		Average Time Taken: <%= QuizTakenDao.getAverageTimeElapsed(curQuiz.getID()) %>
+        		Average Score: <%= (((double) QuizTakenDao.getAverageScore(curQuiz.getID()))/curQuiz.getScore()) * 100 + "%" %><BR>
+        		Average Time Taken: <%= QuizTakenDao.getAverageTimeElapsed(curQuiz.getID()) + " ms"%>
         	</div>
         </div>
         <div class="row">

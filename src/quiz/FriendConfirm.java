@@ -39,11 +39,11 @@ public class FriendConfirm extends HttpServlet {
 		String choice = request.getParameter("choice"); //"yes" or "no"
 		if(choice.equals("yes")) { //confirm friend request
 			MessageDao.confirmFriendRequest(senderid, recipientid, messageID);
-			System.out.println("YES to : " + messageID);
+			
 		}
 		else { //cancel request
 			MessageDao.denyFriendRequest(senderid, recipientid, messageID);
-			System.out.println("NO to: " + messageID);
+			
 		}
 		response.sendRedirect("/Quizzer/");
 	}

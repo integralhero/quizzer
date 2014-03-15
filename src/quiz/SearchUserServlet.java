@@ -29,7 +29,6 @@ public class SearchUserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchString = request.getParameter("usernamequery");
-		//System.out.println("DEBUG: " + searchString);
 		User user = new User();
 		user.setUsername(searchString);
 		ArrayList<User> foundUsers = UserDao.getAllUsersMatching(searchString);

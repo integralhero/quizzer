@@ -10,11 +10,11 @@ public class MessageDao {
 
 		boolean exists = false;
 		try {
-			System.out.println("Message.Dao: now checking.... senderID = "+senderid + " and recipientID= " + recipientid);
+			
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM friendships WHERE userID = " + "\"" + senderid + "\" AND friendID=\"" + recipientid + "\"");
 			exists = rs.next();
-			System.out.println("Result: "+ exists);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

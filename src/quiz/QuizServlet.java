@@ -34,13 +34,12 @@ public class QuizServlet extends HttpServlet {
     	} catch(NumberFormatException e) {
     		
     	}
-    	System.out.println("This is parseInt: " + parseInt);
+    	
     	if(parseInt != 0) {
 	    	Quiz tmp = QuizDao.getQuizByID(parseInt);
 	    	req.setAttribute("curQuiz", tmp);
 	    	ArrayList<Question> qs = tmp.getQuestions();
-	    	System.out.println("More problems: " + qs.size());
-	    	System.out.println("QuizServlet's: " + qs.get(0).getNumAnswers());
+
 	    	try {
 				req.getRequestDispatcher("/renderQuiz.jsp").forward(req, res);
 			} catch (ServletException e) {

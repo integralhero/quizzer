@@ -61,7 +61,10 @@
                		<button type="submit" class="btn btn-default">Submit</button>
               </form>
               <li>
-                <a href="#" id="logout">Logout</a>
+               	 <form action="LogoutServlet" method="get">
+	                <button type="submit" class='btn-default'>Logout</button>
+	             </form>
+
               </li>
               
             </ul>
@@ -84,7 +87,7 @@
 			<input type="hidden" value="" id="time" name="time">
 			<%
 			ArrayList<Question> questions = curQuiz.getQuestions();
-			System.out.println("On the front end: " + questions.size());
+		
 			%>
 			<input type=hidden value="<%= questions.size() %>" name="num_questions">
 			<%
@@ -189,7 +192,7 @@
 							
 							case 1:	//QR %>
 								<h3>Question: <%= ((QuestionResponse)question).getQuestion() %></h3>
-						<%		System.out.println("Num answer fields: " + question.getScore());
+						<%		
 								for(int answerNum = 0; answerNum < question.getScore(); answerNum++) { %>
 									<label for="answerField">Answer:&nbsp;</label><input type="text" class="answerField" name="answerField<%=i%>">
 						<% 		}

@@ -34,7 +34,6 @@ public class TakeQuizServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("in take quiz servlet");
 		int numQuestions = Integer.parseInt(request.getParameter("num_questions"));
 		int score = 0;
 		ArrayList<String[]> userAns = new ArrayList<String[]>();
@@ -42,7 +41,6 @@ public class TakeQuizServlet extends HttpServlet {
 			String[] userAnswers = request.getParameterValues("answerField" + i);
 			String[] correctAnswers = request.getParameterValues("hiddenAnswer" + i);
 			HashSet<String> userAnswersSet = new HashSet<String>();
-			System.out.println(userAnswers == null);
 			Collections.addAll(userAnswersSet, userAnswers);
 			userAns.add(userAnswers);
 
@@ -50,15 +48,13 @@ public class TakeQuizServlet extends HttpServlet {
 			Collections.addAll(correctAnswersSet, correctAnswers);
 
 			score += checkAnswers(userAnswersSet, correctAnswersSet);
-			System.out.println("Score: " + score);
 		}
 		User currUser = (User)request.getSession(false).getAttribute("currentUser");
 		int userID = currUser.getUserid();
-		System.out.println(request.getParameter("quiz_id"));
 		int quizID = Integer.parseInt(request.getParameter("quiz_id"));
 		String timeTaken = request.getParameter("dateTaken");
 		long timeElapsed = Long.parseLong(request.getParameter("time"));
-		System.out.println("User ID: " + userID + ", quizID: " + quizID + ", timeTaken: " + timeTaken + ", score: " + score + ", timeElapsed: " + timeElapsed);
+		
 		QuizTaken quizTaken = new QuizTaken(userID, quizID, timeTaken, score, timeElapsed);
 		QuizTakenDao.addQuizTaken(quizTaken);
 		AchievementListener.takeQuiz(currUser);
@@ -72,7 +68,6 @@ public class TakeQuizServlet extends HttpServlet {
 
 	
 	protected int checkAnswers(HashSet<String> userAnswers, HashSet<String> correctAnswers) {
-		System.out.println("in check Answers function");
 		int score = 0;
 		
 		for (String userAnswer : userAnswers) {

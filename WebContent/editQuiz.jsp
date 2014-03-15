@@ -63,7 +63,9 @@
                 <button type="submit" class="btn btn-default">Submit</button>
               </form>
               <li>
-                <a href="#" id="logout">Logout</a>
+	              <form action="LogoutServlet" method="get">
+	                <button type="submit" class='btn-default'>Logout</button>
+	             </form>
               </li>
               
             </ul>
@@ -204,7 +206,6 @@
 					questionCount++;
 				} // close for loop
 				curNumQuestions++;
-				
 				%>
 				<input type='hidden' id='question_count_field' name='question_count_field' value = <%= curNumQuestions %>>
 	          	<div id="add_qtn_btn">

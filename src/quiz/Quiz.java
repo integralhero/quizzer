@@ -15,7 +15,7 @@ public class Quiz implements Comparable<Quiz>{
 	public ArrayList<Question> questions;
 	public String[] tags;
 	
-	//extension reviews and ratings
+
 	private ArrayList<String> reviews = new ArrayList<String>();
 	private double rating;
 	

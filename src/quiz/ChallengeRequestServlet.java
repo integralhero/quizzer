@@ -39,7 +39,7 @@ public class ChallengeRequestServlet extends HttpServlet {
 		int friendID = Integer.parseInt(request.getParameter("friendID"));
 		int quizID = Integer.parseInt(request.getParameter("quizID"));
 		
-		//System.out.println("myID: " + myID + "---yourID: " + friendID);
+		
 		MessageDao.sendChallengeRequest(myID, friendID, quizID);
 		
 		response.sendRedirect("/Quizzer/qz/"+quizID);

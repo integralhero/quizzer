@@ -32,7 +32,6 @@ public class UserServlet extends HttpServlet {
     		
     	}
     	
-    	System.out.println("This is the parsed in : " + parseInt);
     	User tmp = UserDao.getUserById(parseInt);
     	req.setAttribute("curUser", tmp);
     	try {
