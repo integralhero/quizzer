@@ -206,13 +206,16 @@ public class QuizDao {
 			
 			ret = setQuizID(quiz);
 			String[] tags = quiz.getTags();
-			System.out.println("Print tags length: " + tags.length);
-			for(String tag: tags) {
-				
-				String commanda = "INSERT INTO tags (quizID, tag) VALUES (" + ret + ",'" + tag + "')";
-				System.out.println("Command: " + commanda);
-				Statement statement = connection.createStatement();
-				statement.execute(commanda);
+			if (tags != null) {
+				System.out.println("Print tags length: " + tags.length);
+				for(String tag: tags) {
+					
+					String commanda = "INSERT INTO tags (quizID, tag) VALUES (" + ret + ",'" + tag + "')";
+					System.out.println("Command: " + commanda);
+					Statement statement = connection.createStatement();
+					statement.execute(commanda);
+				}
+
 			}
 			
 			updateUserTable(quiz, UserDao.getUserById(quiz.getUserID()));

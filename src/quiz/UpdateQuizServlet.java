@@ -69,12 +69,13 @@ public class UpdateQuizServlet extends HttpServlet {
 		System.out.println("Inside updatequiz: " + oldQuizID + "," + newQuizID);
 		QuizTakenDao.updateQuizesTakenID(oldQuizID, newQuizID);
 		QuestionDao.updateQuestionsID(oldQuizID, newQuizID);
+		TagDao.updateTagsWith(oldQuizID, newQuizID);
 		QuizDao.deleteQuizByID(oldQuizID);
 		
 		int numQtns = Integer.parseInt(request.getParameter("question_count_field"));
 		
 		currUser.addQuizMade(quiz);
-
+		
 		AchievementListener.createQuiz(currUser);
 
 		System.out.println("num questions: " + numQtns);
