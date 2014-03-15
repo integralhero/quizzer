@@ -44,12 +44,6 @@
           <nav class="collapse navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
               <li>
-                <a href="#" id="feedBtn">View Friend Activity</a>
-              </li>
-              <li>
-                <a href="#" id="messagesBtn">View Messages</a>
-              </li>
-              <li>
               	<a href="/Quizzer/quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
               </li>
               
