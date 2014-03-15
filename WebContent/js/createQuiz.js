@@ -39,7 +39,7 @@ function submitCreateQuizForm() {
 		alert("Description Field Left Empty!")
 		inputIsValid = false;
 	} else if ($("#category").val() == "") {
-		alert("Category fild left empty!");
+		alert("Category field left empty!");
 		inputIsValid = false;
 	}
 	
