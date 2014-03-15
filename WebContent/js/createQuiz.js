@@ -1,4 +1,5 @@
-var questionCount = 1;
+
+var questionCount = $('#question_count_field').val();
 var mult_choice_answer_count = 1;
 
 

@@ -86,7 +86,7 @@
 				Category: <input type="text" name="category"><BR>
 				<button type='button' id='add_tag_input' class='btn btn-default'>Add Tag</button>
 				<HR>
-				<input type='hidden' id='question_count_field' name='question_count_field' value = 0>
+				<input type='hidden' id='question_count_field' name='question_count_field' value ='0'>
 				
 	          	<div id="add_qtn_btn">
 		          	<div class="row">
