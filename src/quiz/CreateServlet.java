@@ -44,11 +44,10 @@ public class CreateServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		boolean userNameExists = UserDao.checkUserNameExists(username);
-//		System.out.println("userNameExists");
-//		System.out.println(userNameExists);
+
 
 		if (userNameExists) { // when the user name is already in the database
-//			System.out.println("userNameExists");
+
 			context.setAttribute("isUsernameTaken", userNameExists);
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("userexists.jsp");

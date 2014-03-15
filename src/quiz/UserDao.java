@@ -34,12 +34,12 @@ public class UserDao {
 			ResultSet rs = stmt.executeQuery("SELECT 1 FROM users WHERE username = " + "\"" + username + "\"");
 			boolean more = rs.next();
 
-			System.out.println(more);
+			
 			if (!more) {
-				System.out.println("User does not exist.");
+				
 				return false;
 			} else {
-				System.out.println("User does exist.");
+				
 				return true;
 			}
 		

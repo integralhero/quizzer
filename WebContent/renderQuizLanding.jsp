@@ -85,8 +85,7 @@
           <div class="col-xs-6">
           	<a href="/Quizzer/qz/<%= curQuiz.getID() %>"><button type="button" class="btn btn-success btn-lg pull-right">Take Quiz</button></a>
           	<% 
-          		System.out.println("User id loged in: " + us.getUserid());
-          		System.out.println("Quiz user id: " + curQuiz.getUserID());
+          		
 	          	if(us.getUserid() == curQuiz.getUserID()) { %>
           			<a href="/Quizzer/eq/<%= curQuiz.getID() %>"><button type="submit" class="btn btn-danger btn-lg pull-right">Edit Quiz</button></a>
           		<%} %>

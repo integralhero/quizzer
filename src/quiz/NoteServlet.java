@@ -38,7 +38,7 @@ public class NoteServlet extends HttpServlet {
 		int friendID = Integer.parseInt(request.getParameter("friendID"));
 		String message = request.getParameter("message");
 		
-		//System.out.println("myID: " + myID + "---yourID: " + friendID);
+		
 		MessageDao.sendNote(myID, friendID, message);
 		
 		response.sendRedirect("/Quizzer/");	

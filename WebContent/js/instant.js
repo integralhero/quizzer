@@ -19,20 +19,7 @@ $(document).ready(function(){
 		}
 		
 	});
-	
-	
-//	$(document).on('submit', '#take_quiz_form', function(e) {
-//		
-//		e.preventDefault();
-//		console.log("hello");
-//		var endTime = (new Date($.now())).getTime();
-//		var timeElapsed = endTime - parseInt($('#time').val());
-//		$('#time').val(timeElapsed);
-//		
-//		$('#take_quiz_form').submit();
-//	});
-	
-//	alert(date);
+
 
 });
 
