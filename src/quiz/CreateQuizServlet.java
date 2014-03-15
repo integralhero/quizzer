@@ -55,6 +55,7 @@ public class CreateQuizServlet extends HttpServlet {
 		User currUser = (User)session.getAttribute("currentUser");
 		quiz.setName(quizName);
 		quiz.setQuestions(questions);
+		quiz.calculateAndSetScore();
 		quiz.setUserID(currUser.getUserid());
 		String[] tags = request.getParameterValues("tag");
 		

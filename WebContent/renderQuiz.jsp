@@ -49,7 +49,7 @@
 	          </li>
 	          <% } %>
 	          <li>
-	             <a href="quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
+	             <a href="/Quizzer/quiz/createQuiz.jsp" id="createquizBtn">Create Quiz</a>
 	           </li>
               
             </ul>
