@@ -158,6 +158,7 @@ public class QuizDao {
 		}
 	}
 	
+	
 	public static Quiz getQuizByID(int quiz_id) {
 		try {
 			String command = "SELECT * FROM quizzes WHERE ID=" + quiz_id;
@@ -204,6 +205,15 @@ public class QuizDao {
 			prepStmt.executeUpdate();
 			
 			ret = setQuizID(quiz);
+			String[] tags = quiz.getTags();
+			System.out.println("Print tags length: " + tags.length);
+			for(String tag: tags) {
+				
+				String commanda = "INSERT INTO tags (quizID, tag) VALUES (" + ret + ",'" + tag + "')";
+				System.out.println("Command: " + commanda);
+				Statement statement = connection.createStatement();
+				statement.execute(commanda);
+			}
 			
 			updateUserTable(quiz, UserDao.getUserById(quiz.getUserID()));
 			for(int i = 0; i < quiz.questions.size(); i++){
@@ -218,6 +228,7 @@ public class QuizDao {
 		}
 		return ret;
 	}
+	
 	
 	private static int getLastInsertID(String type){
 		try {
@@ -692,6 +703,7 @@ public class QuizDao {
 			tmp.setDescription(rs.getString("description"));
 			tmp.setCategory(rs.getString("category"));
 			tmp.setNumFlags(rs.getInt("flagNum"));
+			tmp.setTags(TagDao.getTagsFromQuizID(rs.getInt("ID")));
 			tmp.setRandomQuestions(rs.getBoolean("randomizeQuestions"));
 			tmp.setMultiplePages(rs.getBoolean("multiplePages"));
 			tmp.setImmediateCorrect(rs.getBoolean("immediateCorrection"));

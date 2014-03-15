@@ -24,6 +24,7 @@ $(document).ready(function(){
 	$('#dateTaken').val(dateString);
 	
 	var startTime = date.getTime();
+	console.log("Time: " + startTime);
 	$('#time').val(startTime);
 	
 //	$(document).on('submit', '#take_quiz_form', function(e) {
@@ -47,7 +48,7 @@ function submitTakeQuizForm() {
 	var endTime = (new Date($.now())).getTime();
 	var timeElapsed = endTime - parseInt($('#time').val());
 	$('#time').val(timeElapsed);
-	
+	console.log("Time elapsed: " + timeElapsed);
 	$('#take_quiz_form').submit();
 
 }

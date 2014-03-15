@@ -12,7 +12,7 @@ public class TagDao {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		try {
 			
-			String command = "SELECT * FROM tags WHERE tag = " + tag;
+			String command = "SELECT * FROM tags WHERE tag = '" + tag + "'";
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(command);
 			ArrayList<Integer> quizIDs = new ArrayList<Integer>();
@@ -33,5 +33,25 @@ public class TagDao {
 		}
 		
 		return quizzes;
+	}
+	
+	public static String[] getTagsFromQuizID(int quizID) {
+		ArrayList<String> tags = new ArrayList<String>();
+		try {
+			
+			String command = "SELECT * FROM tags WHERE quizID=" + quizID;
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(command);
+			
+			while(rs.next()){
+				tags.add(rs.getString("tag"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tags.toArray(new String[tags.size()]);
 	}
 }
