@@ -78,8 +78,22 @@
                %>
 			<h1>Quiz Title: <%= curQuiz.getName() %></h1><BR>
 			Created by: <a href="/Quizzer/user/<%= curQuiz.getUserID() %>"><%= UserDao.getUserById(curQuiz.getUserID()).getUsername() %></a><BR>
-			<% if(curQuiz.getCategory() != null) { %> <h3> <small>Category: <a href="/Quizzer/category/<%= curQuiz.getCategory() %>"><%= curQuiz.getCategory() %></a></small></h3><BR><%} %>
-			<p><%= curQuiz.getDescription() %></p>
+			<% if(curQuiz.getCategory() == null || curQuiz.getCategory().length() < 0) { %> 
+				<h3> <small>Category: <a href="/Quizzer/category/<%= curQuiz.getCategory() %>"><%= curQuiz.getCategory() %></a></small></h3><BR>
+			<% } else { %>
+				<h4><small>No category found!</small></h4>
+			<% } %>
+			<% String[] allTags = curQuiz.getTags(); %>
+			<b>Tags:</b><% if(allTags.length != 0) { %>
+				<% for(int b = 0; b < allTags.length; b++) { %>
+					<%= allTags[b] %> | 
+				<% } %>
+			<% } %><BR>
+			<% if(allTags.length == 0)  { %>
+				<h4><small>No tags found!</small></h4>
+			<% } %>
+			<BR>
+			<b>Description</b><p><%= curQuiz.getDescription() %></p>
 			
           </div>
           <div class="col-xs-6">
