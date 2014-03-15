@@ -38,7 +38,10 @@ function submitCreateQuizForm() {
 		console.log("description field is empty");
 		alert("Description Field Left Empty!")
 		inputIsValid = false;
-	} 
+	} else if ($("#category").val() == "") {
+		alert("Category fild left empty!");
+		inputIsValid = false;
+	}
 	
 	var numQuestions = $('#question_count_field').val();
 //	console.log("Number of questions: " + $(".quiz_qtn_field").length + ". Expected: " + numQuestions);

@@ -203,7 +203,6 @@
 					} // close switch statement
 					questionCount++;
 				} // close for loop
-				
 				%>
 				<input type='hidden' id='question_count_field' name='question_count_field' value = <%= questionCount %>>
 	          	<div id="add_qtn_btn">
